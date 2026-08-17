@@ -1,0 +1,821 @@
+# Baron Continuity Index
+
+- 2026-08-15T15:27:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-15T15:27:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T15:28:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T15:31:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-15T15:31:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T15:34:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Đã đọc toàn bộ idea/GO_GET_A_JOB_FERRIS.md, xem idea/UIDEMO.png và kiểm tra cấu trúc repo. Xác nhận repo hiện chỉ có spec/UI concept; frontend, backend, database, tool không có source/config. Bước tiếp theo: trả lời tổng hợp, nêu rõ planned vs implemented và các unknowns.
+- 2026-08-15T15:36:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T17:52:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-15T17:52:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T17:53:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T18:16:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T18:17:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T18:21:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T18:23:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T18:26:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T18:26:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - User đã bổ sung hai ràng buộc frontend: cấm tuyệt đối mock data; tách rõ admin và client theo folder/route. Đã cập nhật hướng thiết kế: client/admin độc lập, frontend chỉ gọi API thật, chưa code hay scaffold cho đến khi design được duyệt.
+- 2026-08-15T18:28:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T18:30:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T18:33:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:36:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:38:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:43:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:44:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:45:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:47:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:49:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T18:52:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T18:52:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T18:54:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-15T19:00:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:02:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:05:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:05:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:06:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:06:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:07:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:11:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:12:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:13:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:15:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:15:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Client frontend is implemented and review hardening is verified locally. Next: record final trusted proof, gate evidence, trace score, then hand off screenshots and backend integration gap.
+- 2026-08-15T19:19:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:20:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:21:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T19:21:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:27:37+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Client frontend tranche complete and handed off. Final proof/trace/gates pass; screenshots saved; dev server stopped cleanly. Next work requires backend API/auth/source policy before real upload/polling E2E.
+- 2026-08-15T19:29:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-15T19:30:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T19:33:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:33:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T19:36:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:37:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T19:38:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T19:38:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T20:08:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:08:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T20:13:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:16:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T20:22:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:22:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Database-foundation intent confirmed. Next: write approved schema design and implementation plan, then create reversible PostgreSQL migrations and verify them without seed/mock data.
+- 2026-08-15T20:24:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:25:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:26:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:28:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:28:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:29:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:30:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:30:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:30:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:36:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:36:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:37:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:37:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:40:37+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:41:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:43:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:44:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:44:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:44:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:47:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:47:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T20:50:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-15T20:51:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Database foundation complete: approved PostgreSQL design, README, up/down migration, JSONB shape validator, ACTIVE source/job view, score/currency/distance constraints, static contract proof receipt-ccff4902b587, review gates recorded. Live psql/Docker unavailable; next action is run migration on staging PostgreSQL before backend integration.
+- 2026-08-15T20:52:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Database foundation plan completion gate passed. Final artifacts: database README, 000001 up/down migrations, schema contract test, no seed/mock data. Trusted proof receipts recorded; static trace passed. Live PostgreSQL apply/rollback remains next staging action.
+- 2026-08-15T20:53:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T21:50:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T21:50:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T21:53:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T21:55:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Local PostgreSQL target not discovered: no PostgreSQL service, listening port, executable, registry installation, pgAdmin executable, or WSL instance found in the current workspace environment. No migration was applied. Next action requires the user to start/provide the local PostgreSQL server connection target or install the server.
+- 2026-08-15T21:55:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-15T22:17:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-15T22:17:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T04:18:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:21:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T04:22:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Backend task authorized by user; design and implementation plan are being finalized; next action write backend spec and plan before code.
+- 2026-08-16T04:26:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:27:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:27:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:29:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:30:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:32:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:33:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:35:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:37:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:38:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:38:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:40:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:42:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:42:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:42:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:44:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:45:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:46:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:47:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:48:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:48:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:48:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:48:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:49:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:49:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:50:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:52:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:53:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:54:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:55:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:56:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:57:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:58:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T04:58:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:58:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T04:58:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T05:04:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T05:05:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T05:06:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T05:06:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T05:09:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T05:09:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T05:11:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T05:13:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T05:15:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Backend API foundation implemented and final verification passed: Go tests, vet, gofmt, module verification/tidy, schema contract, frontend unit/check. Commit-outcome recovery exists in PostgreSQL repository. Remaining risks: authentication/scan ownership, DeepSeek/crawler/matcher integration, live PostgreSQL proof, and race detector toolchain.
+- 2026-08-16T05:16:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Plan backend-api-foundation completed with trusted receipt receipt-be97dd48d994 and passing standard trace. Final implementation is in backend/ with PostgreSQL migration/docs integration. Next tranche requires auth/scan ownership, DeepSeek structured parser, deterministic matcher, crawler source adapter, and live PostgreSQL integration proof.
+- 2026-08-16T05:18:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T06:20:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T06:22:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - New task received as 'làm tool'. Repo inspection found root tool/ empty and crawler/ absent; idea specifies Rust + Spider crawler, while product requirements specify crawler/ at root. No implementation started pending confirmation of tool identity and scope.
+- 2026-08-16T06:22:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T06:42:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T06:43:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - User confirmed crawler scope: source-controlled, no-mock, delta/reconcile; requested root directory rename from tool/ to crawler/. Verify exact source and destination before moving.
+- 2026-08-16T06:44:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Directory rename completed: root tool/ moved to crawler/. Verified crawler exists, tool does not exist, crawler remains empty, and repository references match the README architecture. No crawler logic or source configuration added yet.
+- 2026-08-16T06:44:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T07:28:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T07:30:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Frontend carousel design is being proposed, not implemented yet. Evidence: current client page has a static hero-copy panel; frontend has no promotional image assets or admin promotion endpoint. Recommended design is a max-three, admin-ready image carousel with current verified hero copy as no-data fallback; awaiting user approval before edits.
+- 2026-08-16T07:31:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T07:32:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T07:35:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:36:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Promotion carousel/backend design spec written and self-reviewed at docs/superpowers/specs/2026-08-16-promotion-carousel-backend-design.md. No application code changed yet. Awaiting user review of PostgreSQL bytea storage, max-three slot contract, client/admin endpoints, and transitional token-gated admin write boundary.
+- 2026-08-16T07:36:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T07:36:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T07:39:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:40:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:40:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:41:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:42:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:44:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:45:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T07:46:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:47:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:48:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:49:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:50:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:51:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:52:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:53:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:53:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:55:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:56:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:58:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T07:58:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:01:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:02:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:03:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:04:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T08:04:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T08:04:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T08:04:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Promotion schema, Go validation/repository/service, client/admin HTTP routes, and backend-only frontend carousel are implemented. Focused and full layer tests are green; desktop/mobile fallback screenshots saved. Next: final fresh verification, review findings, proof receipts, trace, and explicit live-PostgreSQL/data-state limitations.
+- 2026-08-16T08:12:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:13:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T08:15:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:15:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:24:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final verification complete: schema validator, backend Go tests/vet/gofmt/module checks, frontend unit/check/build, static no-mock/security audits, and browser desktop/mobile fallback screenshots passed. Proof receipts recorded for backend tests, schema, vet; frontend test receipt was executed but could not be recorded after generated Svelte artifacts changed the source fingerprint. Independent review agents were attempted and shut down after hanging. PostgreSQL accepts connections but app credential/migration apply and real uploaded promotion image state remain unverified. Next action: human supplies DB credentials or uploads real promotion assets for live carousel smoke.
+- 2026-08-16T08:27:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T08:28:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T08:30:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T08:31:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Root cause confirmed: the screenshot is empty-data hero fallback, and the carousel implementation only animates a newly keyed image by a subtle 18px offset. Next action: add a failing track-transform regression test, then replace image-only animation with a real horizontal slide track.
+- 2026-08-16T08:32:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:32:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:36:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T08:38:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Carousel transition fix verified in source and frontend checks: added horizontal promotion track with 650ms transform transition, bounded track-transform regression test, and local PUBLIC_API_BASE_URL pointing to the real Go API. Browser still correctly renders hero fallback because backend/database has no real promotion records; no mock assets were added. Next action: apply database migration and upload at least two real promotion images before populated-carousel visual smoke.
+- 2026-08-16T08:38:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T09:04:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T09:05:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T09:10:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:12:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:13:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:13:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:15:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:18:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:18:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:20:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:22:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T09:28:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final backend/database task complete: added safe LoadLocal/LoadFromDotEnv with explicit environment precedence and tests, added practical maintenance comments across backend production code, created gogetsomefoodferris PostgreSQL database, applied migrations 000001 and 000002, verified live schema and API health/public-empty/admin-disabled smoke, recorded test/vet/schema/security proof receipts and gates. Race detector unavailable because GCC is missing; admin auth/UI and real promotion content remain intentionally unconfigured. Next action: hand off summary and local file references.
+- 2026-08-16T09:29:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T09:31:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T09:32:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T10:44:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T10:46:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T10:49:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T10:51:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T11:14:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T11:15:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Admin bootstrap choice confirmed: use one-time CLI create-user with hidden password input. Next action: present detailed design for approval before writing the spec or implementation.
+- 2026-08-16T11:16:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T11:22:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T11:24:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Approved design is now implementation scope. First durable action: write the reviewed spec and record confirmed intent before code changes.
+- 2026-08-16T11:24:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:24:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T11:26:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T11:28:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:30:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:32:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:33:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:33:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:34:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:35:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:36:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:37:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:37:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:38:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:38:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:39:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:39:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:40:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:41:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:41:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:42:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:43:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:43:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:44:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:45:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:46:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:47:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:51:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:53:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:54:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:55:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:55:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:56:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:56:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:57:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:58:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T11:59:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:00:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:02:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:03:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:06:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T12:08:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Tiếp tục hoàn tất task admin-auth-cloudinary-job-cache: chạy verification, browser smoke và chụp screenshot; chưa claim hoàn tất cho tới khi có bằng chứng.
+- 2026-08-16T12:12:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:20:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation complete. Database migrations and development fixture applied to local PostgreSQL; temporary smoke admin removed. Backend/frontend/schema/live auth-job smoke passed. Screenshots saved under frontend/screenshots. Final handoff includes valid Cloudinary URL requirement, CGo race-test limitation, and no real provider upload performed because backend/.env Cloudinary URL is invalid placeholder data.
+- 2026-08-16T12:21:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T12:27:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T12:29:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Bug report triage: screenshot shows create-user returns invalid admin password after both prompts. Root-cause evidence: password mismatch would produce passwords do not match; current error comes from HashAdminPassword -> ValidateAdminPassword, so likely password is shorter than 12 or contains line break. Next: add failing CLI/service regression test for actionable policy error, then implement minimal messaging fix.
+- 2026-08-16T12:29:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:31:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T12:33:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Admin create-user bug fixed and verified. CLI now validates password before confirmation and reports 12-200 characters/no line breaks. Focused regression test plus full go test/vet passed; piped and interactive provisioning passed; temporary database users removed. Next user action: rerun CLI with a password of at least 12 characters.
+- 2026-08-16T12:33:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T12:41:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T12:41:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T12:43:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T12:44:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T12:47:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T12:47:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T12:48:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T12:48:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T12:56:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T12:59:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T13:04:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:05:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:05:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:07:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:08:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:08:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:10:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T13:10:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T13:10:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T13:11:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:12:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T13:13:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Auth host mismatch and bootstrap race fixed; promotion admin is image-only with generated alt text and immediate preview; mobile sidebar has close/backdrop. Focused and full tests, check, build, go vet pass. Next: collect review outcomes and record final proof.
+- 2026-08-16T13:18:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T13:18:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T13:20:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation complete for requested bugfix scope: local API host alignment fixes cookie 401 on localhost/127.0.0.1, auth operation version prevents stale /auth/me signout, promotion admin now image-only with local/persisted preview and generated alt text, public carousel no duplicate copy overlay, mobile sidebar close/backdrop/Escape added. Tests/check/build/vet/schema/live HTTP health all passed. Independent review workers were unavailable; manual focused security/API review completed. Next: trace/autopilot final review.
+- 2026-08-16T13:20:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final state: requested admin auth/session, image-only promotion UX, public carousel cleanup, and mobile sidebar close behavior implemented. Verification passed: frontend tests 32/32, svelte-check 0 warnings, build, backend go test ./..., go vet ./..., database schema validator, localhost API/frontend 200, Baron trace standard/standard passed. User action remaining: refresh Vite page; restart backend only if applying backend alt fallback without hot reload.
+- 2026-08-16T13:21:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T13:53:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T13:55:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T14:01:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:02:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:03:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:04:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:04:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:04:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Frontend visual refinement is implemented and local frontend check/test/build are passing; awaiting independent review, then re-run final proof and inspect remaining risks.
+- 2026-08-16T14:11:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Focused frontend refinement completed. Final verification passed: svelte-check 0 errors/0 warnings, 9 files/32 unit tests, production build exit 0, five local routes HTTP 200, targeted legacy UI copy/selectors absent. No backend/database/API/auth/Cloudinary changes. Browser automation unavailable, so desktop/mobile pixel and click evidence remains unverified; next safe action is user visual review in the running dev server.
+- 2026-08-16T14:13:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T14:13:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Active high-risk plan is now interrupted after the focused frontend refinement slice. Frontend code remains intact and verified; backend/auth/database/Cloudinary scope is explicitly deferred. The previous trace quality gap is preserved as an incomplete whole-plan evidence state, not claimed complete.
+- 2026-08-16T14:14:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T14:21:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:22:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:23:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Focused frontend fix completed: removed the duplicate admin topbar page title from AdminShell while preserving the page-level headings, mobile hamburger, and account drawer. Verification passed: svelte-check 0 errors/0 warnings, 9 files/32 unit tests, production build exit 0, admin overview/promotions/jobs routes HTTP 200. The broader backend plan remains interrupted.
+- 2026-08-16T14:23:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T14:24:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Stop gate handled by re-recording the interrupted state. Active plan is interrupted, not complete. Focused frontend heading cleanup remains verified; unresolved detailed trace evidence belongs to the deferred high-risk backend/auth/database/Cloudinary plan.
+- 2026-08-16T14:24:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T14:33:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:37:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T14:37:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - The next admin UI tranche is still in design review and awaiting explicit approval. No new code or backend/data changes were made in this turn. The active high-risk plan remains interrupted; its detailed trace gap is preserved rather than claimed complete.
+- 2026-08-16T14:37:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T14:38:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:41:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T14:43:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Approved frontend admin management tranche confirmed; next action is create design/implementation notes, then refactor AdminShell/CSS and add UI-only source, CV, user, and location routes without backend or mock data.
+- 2026-08-16T14:45:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:46:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:47:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:48:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:50:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:52:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:53:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T14:54:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:54:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:57:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T14:57:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T15:00:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Frontend admin management tranche implemented and verified: header removed, account moved to collapsible sidebar, four UI-only admin routes added, no backend/mock changes. Svelte check, unit tests, build, and static no-mock audit have trusted receipts. Browser screenshot/reviewer subprocess output unavailable; old high-risk admin-auth-cloudinary-job-cache plan remains interrupted and must not be marked complete.
+- 2026-08-16T15:02:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Completed admin-ui-management-surfaces plan. Shell/header/sidebar and four UI-only routes are implemented; source allowlist, structured CV read/delete boundary, future client users, and canonical location_id logic are documented. Check, unit tests, build, no-mock audit, security audit, quality gates, proof, trace, and plan completion passed. Browser screenshot and delegated reviewer output are explicitly unverified; old admin-auth-cloudinary-job-cache plan remains interrupted.
+- 2026-08-16T15:03:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T15:22:37+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T15:25:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:25:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:27:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:28:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:29:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:30:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:31:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:32:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Admin UI simplification implemented: Job Link minimal input/list, CV User/Role filters only, explanatory page copy/cards removed, frontend admin comments removed, desktop/mobile toggle behavior corrected. Next action: run verification and focused static responsive/no-mock gates.
+- 2026-08-16T15:34:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Admin UI simplification plan completed. Job Link, CV, Users, Locations, login/overview cleanup and sidebar desktop/mobile toggle corrections are in place. Check/tests/build, no-obsolete-copy/comment audit, security audit, gates, proof and standard trace passed. Browser screenshot remains unverified; backend/database unchanged.
+- 2026-08-16T15:35:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T15:36:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final verified state for admin-ui-simplification: Job Link minimal input/list with future edit/delete action column, CV User/Role filters only, copy/comment cleanup, centered desktop arrow and mobile hamburger/open-arrow behavior. Final check/tests/build, no-obsolete-copy/comment audit, security gate, proof and standard trace passed. Browser screenshot unverified; backend/database unchanged.
+- 2026-08-16T15:37:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T17:23:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T17:25:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T17:28:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T18:23:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T18:31:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T19:41:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T19:42:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T19:45:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T19:45:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-16T19:47:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T19:53:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T19:55:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Design approved by user; implementing Job Link Go contract and Rust crawler boundary; next write spec and failing tests before production code.
+- 2026-08-16T19:57:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T19:59:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:00:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:02:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:03:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:04:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:11:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:12:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:13:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:14:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:16:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:18:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:21:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:23:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:24:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:25:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:27:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:28:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:28:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:28:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:31:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T20:39:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:40:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:40:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:46:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:46:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:47:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:48:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:49:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:49:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:51:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:54:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:55:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:57:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:57:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:58:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T20:59:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T20:59:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:00:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:02:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:02:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:02:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:09:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T21:12:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final review found documentation mismatch for REVIEW nullable approval and missing direct failure-path evidence; inspect current crawler tests and API contract, then patch and verify.
+- 2026-08-16T21:15:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:15:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:15:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Patched Job Link API contract for REVIEW nullable approval evidence, added HTTP serialization test, extracted deterministic Spider failure classification with unit coverage, and strengthened PostgreSQL rollback assertions; format and run focused tests next.
+- 2026-08-16T21:19:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:20:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Fresh final test-engineer gate completed: Go/frontend/Rust/schema gates passed; ignored crawler PostgreSQL contract passed; Go nullable PostgreSQL integration passed; live health/401 smoke passed. Remaining: plan verification is not_run, fresh code-review/security closure is absent, open review findings remain, race suite not run because CGO_ENABLED=0/toolchain missing. Next action: parent reconciles review/security findings and completion trace.
+- 2026-08-16T21:22:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:23:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:24:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:24:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:25:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:31:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:33:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:41:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:42:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:43:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:43:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:54:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T21:59:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T21:59:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:01:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:02:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:05:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T22:12:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:12:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:13:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:14:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:16:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:18:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:18:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:18:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:23:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:23:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Latest fixes implemented: pre-request scoped Spider fetch engine, robots root request disabled until path-aware transport, IPv6 reserved range deny rules, authoritative observation batches, CAS recovery, and default-port canonicalization. Direct Go/Rust/PostgreSQL gates pass; fresh independent review agents are running. Next: record fresh proof receipts, gates, and finalize plan/trace.
+- 2026-08-16T22:23:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:25:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:31:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:32:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:33:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:33:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:35:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:35:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:38:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T22:42:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:43:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:44:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:45:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:46:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Rust unit tests now pass after raw encoded-path guard and path-aware robots fixture; next add/verify Go-Rust port/public-host parity, then run Go/Rust checks and live PostgreSQL/crawler smoke
+- 2026-08-16T22:46:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:54:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:54:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:54:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T22:56:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T22:58:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:01:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:01:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:01:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:04:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:06:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:06:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:06:37+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:07:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:07:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:09:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Fresh code review found four actionable blockers: unresolved recovery currently logs and returns success; source approval/base URL snapshot needs a transaction lock; Go/Rust host/query/fragment canonicalization needs explicit parity; chunked robots/page bodies need streaming limits. Next patch these items, then rerun full gates.
+- 2026-08-16T23:09:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:09:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:10:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:11:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:12:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:12:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:14:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:14:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:21:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:23:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-16T23:29:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:29:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:31:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Security and code review found three concrete blockers: terminal-dot DNS pin bypass, Go/Rust leading-zero port mismatch, and Rust path scan reading query/fragment. Next: patch canonical host/port/path handling and regression tests, then rerun all gates.
+- 2026-08-16T23:32:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:34:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-16T23:35:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:35:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:35:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:47:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:47:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-16T23:53:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation and final verification complete. Current proof receipts: Rust tests receipt-ca42540e3e2b, Go tests receipt-01c053a00d12, strict Clippy receipt-4ee53b4351da, live crawler DB receipt-24e1dada9273, live Go DB receipt-42fd2cb4bc64, schema receipt-bdd77f42a8df, smoke receipt-83d6d92c8b9d, frontend check receipt-8be52634eb17, final-state receipt-94450a2285bb. Security, code-review, and test-engineer gates recorded; DNS/TOCTOU finding closed. Next action is only source review/adapter implementation when an approved Job Link is chosen.
+- 2026-08-17T00:00:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation is complete and evidence-backed. Trace 20260816235345492 remains standard/standard passed; final proof 20260816235238667 and quality gates are recorded; DNS finding closed. Baron plan complete command was interrupted after repeated unresponsive attempts and recovery-53812484982d5ebf was recorded as blocked for Baron-state responsiveness only. Repository code and verification are not blocked; next product work waits for approved source permission and adapter selection.
+- 2026-08-17T00:00:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T06:36:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T06:39:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:14:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T07:16:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:16:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:17:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:17:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:19:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:21:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T07:24:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:25:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:27:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:34:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:37:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:38:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:40:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T07:51:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T07:59:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - New task started: fix Job Link CRUD semantics and API connectivity, add canonical location management, implement a real reviewed-source crawler tranche without mock rows, and refine the client promotion frame. Next: write the bounded design and implementation plan before edits.
+- 2026-08-17T08:03:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T08:07:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:07:37+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Đã ghi design/spec và implementation plan cho Job Link hard delete/status, canonical locations, self-configuring JSON-LD crawler, và promotion 16:9. Bước kế tiếp: đọc contracts/test helpers rồi viết test fail-first.
+- 2026-08-17T08:09:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:10:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:11:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:12:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:15:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:15:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:17:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:17:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:18:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:19:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:20:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:21:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:22:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:24:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:25:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:26:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:27:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:27:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:29:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:30:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:30:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:31:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:32:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:33:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:37:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:38:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:39:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:39:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:42:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T08:46:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Crawler auto-loaded crawler/.env and connected to PostgreSQL; real crawl reached FPT robots fetch but Rust HTTPS request failed. Next action: capture root request error and fix client without bypassing robots or widening source scope.
+- 2026-08-17T08:46:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:47:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:48:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:50:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:51:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:51:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:52:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:54:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:55:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:55:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:56:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:57:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:57:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T08:58:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T09:12:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation and verification complete: Job Link hard delete/status API, canonical locations, crawler auto-loads crawler/.env with pinned scoped robots-safe transport, frontend promotion 16:9 borderless. Final tests and API/schema smoke passed. Real FPT smoke is ANOMALY with 2 in-scope pages and 0 jobs because no JobPosting JSON-LD; hidden paging endpoints remain out of scope. Next safe action: source review/permission and explicit adapter contract before widening.
+- 2026-08-17T09:15:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final verification recorded: receipt/capability evidence, code-reviewer/security-auditor/test-engineer gates, and standard trace score passed. Implementation is ready. Remaining product decision is source review/permission and an explicit adapter contract for FPT or another approved source; current smoke safely reports ANOMALY with 0 extracted jobs.
+- 2026-08-17T09:16:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T09:25:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T09:27:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T09:32:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Reproduced client promotion overflow at 1280px: hero grid track is 673.7px but carousel renders 1010.6px and overlaps upload card; next action add regression contract, constrain grid children/carousel to 100% width with start alignment, then browser and frontend verification.
+- 2026-08-17T09:32:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T09:34:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T09:35:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T09:40:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Carousel overflow fix verified in live client at desktop 1280x720 and mobile 390x844: 16:9 ratio, no overlap, no horizontal scroll, no console errors. Frontend unit 34/34, check clean, build passed. Next action: record final trace and report changed files/evidence; Baron control-plane diagnostics still show known duplicate ownership.
+- 2026-08-17T09:41:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final client verification artifacts saved: frontend/screenshots/client-carousel-fixed-desktop.png and client-carousel-fixed-mobile.png. Source fix unchanged; live desktop/mobile layout checks passed, unit 34/34, check clean, build passed, and browser console had no errors. Next action: final autopilot review and trace score.
+- 2026-08-17T09:42:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T09:53:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T09:56:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T10:07:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T10:09:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T10:09:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Approved option A is entering implementation. RED test confirmed current client page lacks hero-primary/hero-results/grid promotion state; next edit will move only idle results placeholder under promotion on desktop and use responsive grid areas to keep mobile order promotion -> upload -> result.
+- 2026-08-17T10:09:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T10:10:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T10:13:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T10:15:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implemented desktop Option A: keep promotion carousel 16:9, place idle result panel directly under carousel in the primary column, preserve mobile thumbnail-upload-result order. Full unit/check/build passed; next collect browser screenshots and proof/trace.
+- 2026-08-17T10:26:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T10:30:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T10:34:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Option A implementation and verification complete. Desktop 1280x720 shows 16:9 promotion carousel with idle results directly beneath and bottom-aligned to upload card; mobile 390x844 preserves carousel -> upload -> result, no horizontal overflow. Saved desktop/mobile screenshots. Trusted receipts and trace standard/standard passed; Baron gate recorder/agent review remains blocked by pre-existing state lock.
+- 2026-08-17T10:35:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T10:50:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T10:52:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T11:06:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T11:08:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Brand asset confirmed at img/logo/Logo.png: Sugoi-oniichan crab logo. Current task: replace F placeholders across client/admin entry points and standardize visible website naming as Go get a job ferris; next write failing regression test before production edits.
+- 2026-08-17T11:09:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:12:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:12:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:14:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:24:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Brand logo replacement complete: copied img/logo/Logo.png to frontend/static/brand/sugoi-oniichan-logo.png; replaced F marks in client header, admin shell, admin login, and favicon; standardized visible website naming; browser client desktop/mobile and admin login screenshots show real logo and no placeholder. Fresh direct test/check/build and trusted receipts pass; next trace/autopilot/final checkpoint.
+- 2026-08-17T11:24:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T11:24:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T11:26:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Branding task complete: Sugoi-oniichan logo is served from frontend static assets and replaces all visible F marks; Go get a job ferris is the website copy; favicon, client, admin shell, admin login, promotion aria label and page metadata updated. Direct verification and trusted receipts pass; trace 20260817112426865 scored standard/standard passed. Agent gate workers timed out due Baron worker/state lock and recovery recorded.
+- 2026-08-17T11:27:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T11:38:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T11:40:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T11:42:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T11:49:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Runtime contracts are green and PostgreSQL integration succeeds; next inspect and complete the remaining real crawler/Job Link gap before edits.
+- 2026-08-17T11:55:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Root cause confirmed: active FPTJobs listing is client-rendered and outside generic JSON-LD scope; no source-specific adapter without approval. Before code edits, add integration coverage for Job Link boundary edits closing stale source-owned jobs.
+- 2026-08-17T11:55:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:56:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:57:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T11:58:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T12:03:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implemented and directly verified transactional Job Link boundary updates: stale ACTIVE/VERIFYING jobs close to CLOSED/2; backend, PostgreSQL integration, Rust, frontend, schema, runtime smoke all pass. Trusted backend proof runner remains blocked by worker/state lock; crawler source run is ANOMALY because the approved path has no JobPosting JSON-LD and its feed endpoint is outside scope.
+- 2026-08-17T12:04:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Handoff: Job Link boundary-edit transaction fixed and PostgreSQL integration proven; direct Go/Rust/frontend/schema/runtime checks pass. Baron plan interrupted intentionally because the current FPTJobs listing is client-rendered and its feed endpoint lies outside the registered path; no source-specific adapter is implemented without user-approved source/permission contract. Trusted backend proof runner recovery remains recorded.
+- 2026-08-17T12:05:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T12:13:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T12:15:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T12:19:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Started focused admin Job Link status-button fix. Next: inspect current browser request URL, CORS/session/CSRF path, and existing frontend/backend tests before edits.
+- 2026-08-17T12:19:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T12:20:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T12:21:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T12:26:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T12:28:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Fix implemented and direct verification completed. PATCH is now allowed by backend CORS and fresh 18080 preflight confirms it. Existing backend on 127.0.0.1:8080 predates the patch and must be restarted before clicking Dừng. Trusted backend proof runner remains blocked without receipt; plan interrupted with recovery recorded.
+- 2026-08-17T12:29:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T12:29:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T12:56:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T12:59:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Runtime issue reproduced and resolved: stale 127.0.0.1:8080 api process was still serving pre-patch CORS. Restarted exact go run/api process and verified current port 8080 preflight includes PATCH; focused status/update/CORS tests pass. New backend process remains running for user retest.
+- 2026-08-17T12:59:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T13:01:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T13:03:21+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T13:05:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T13:07:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T13:11:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T13:13:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T13:19:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T13:21:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T13:25:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T13:32:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T13:34:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T14:01:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T14:06:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:06:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Approved plan saved; current state is existing nullable job_cache.location_id with no scan location_id/public location route/admin filter; next action is schema RED tests then migration.
+- 2026-08-17T14:07:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:07:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:08:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:08:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:10:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:12:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:12:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:14:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T14:18:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:19:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Schema migration 000006 applied to local PostgreSQL; crawler location normalizer and persistence resolver compile and ignored PostgreSQL contract passes. Next: expose canonical locations and location-aware scan/job APIs, then wire real matching flow.
+- 2026-08-17T14:21:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Crawler persistence smoke is green. Preparing API contract changes: canonical client locations, location_id scan input, and admin Job Cache filters; next action is RED Go handler tests.
+- 2026-08-17T14:22:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:23:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:25:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:25:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:26:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:26:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:27:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:28:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:28:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:29:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:30:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:30:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Canonical location API shape is implemented in Go: public active location list, admin canonical key persistence, location_id scan creation, and Job Cache filters; focused Go tests pass. Next: frontend client selector/admin filters and then real processor.
+- 2026-08-17T14:31:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:31:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:32:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:33:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:34:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:35:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:36:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:39:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:39:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:40:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:41:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:42:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:43:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:43:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:44:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:44:53+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:46:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:47:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:47:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:49:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:50:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:52:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T14:54:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Rust location coordinates patch is present; inspection found the UPSERT VALUES sequence needs correction before compilation and integration verification. Next: fix SQL parameter ordering, run cargo/Go/frontend tests, then update API/UI and docs.
+- 2026-08-17T14:54:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:57:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T14:59:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Core location resolution, canonical client scan matching, and database contract tests are green. The remaining product gap is crawler lifecycle: current cargo run is one-shot, so VPS needs a supervised loop with a configurable interval and --once verification mode. Next: add failing interval config tests, implement loop, document operations.
+- 2026-08-17T14:59:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:00:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:01:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Crawler daemon loop and bounded interval config now compile and pass 25 Rust unit tests plus cargo check. Next: refresh backend/crawler/database operational docs, then run full verification and inspect live DB state without launching an external crawl unless explicitly requested.
+- 2026-08-17T15:03:13+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:03:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:05:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:06:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:07:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:08:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:16:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T15:18:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation and direct verification complete. Fresh direct gates: schema validation passed; Go test/vet passed; Rust fmt/test/check and PostgreSQL contract passed; frontend check/Vitest/build passed; API health and client locations smoke passed. Live cargo run -- --once executed the approved ACTIVE Job Link and recorded ANOMALY extraction_not_authoritative with zero jobs, preserving no mock data. Baron proof runner remained blocked by state lock and recovery f1056b842f5e44df is recorded; trace 20260817151551269 scored standard/standard passed. Next safe action: retry Baron proof runner only after lock clears, and add a source contract/approved feed for providers that do not expose JSON-LD JobPosting.
+- 2026-08-17T15:20:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T15:25:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T15:26:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T15:43:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T15:45:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T15:52:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T15:53:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T15:54:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T15:55:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T15:55:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T16:11:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T16:11:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T16:17:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T16:19:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Crawl Now feature design gate: current Job Link UI has no immediate crawl action; existing Rust crawler runs periodic cycles and PostgreSQL source_crawl_runs already records outcomes. No repository edits made. Waiting for one product decision: behavior when crawler daemon is offline before writing the API/database/UI design.
+- 2026-08-17T16:19:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T16:23:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T16:24:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Product decision confirmed: use database-backed Crawl Now queue (offline requests remain pending) and add a six-hour periodic crawl for every ACTIVE Job Link. Design is being presented before implementation; no repository edits yet.
+- 2026-08-17T16:24:54+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T16:26:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T16:27:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Global Admin Settings scope clarified: crawler interval must be database-backed and editable from a future-extensible Settings page; .env remains for secrets and connection only; runtime should reload the interval without crawler restart. Pending one UI contract decision: whole-hour input versus hours/minutes or fractional hours.
+- 2026-08-17T16:27:57+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T16:29:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T16:34:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:35:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:35:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:38:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T16:41:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:43:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:44:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:45:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:46:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:47:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:48:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:48:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:49:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:51:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:52:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:54:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:57:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:58:11+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T16:58:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:00:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:02:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:02:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:03:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:04:27+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:05:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:05:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:06:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:07:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:08:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:08:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:09:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:10:16+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:10:47+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:11:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:12:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:12:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:13:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:14:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:18:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T17:20:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Rust queue/runtime and admin settings UI are implemented; next verify SQL listing, clean handler imports, update runbook, and run full verification.
+- 2026-08-17T17:21:46+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:22:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:27:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation and local verification complete: migration 000008 applied, Go/Rust/frontend/schema gates pass, PostgreSQL integration and runtime interval reload pass. Next: Baron autopilot review and trace scoring; report any proof-runner limitation honestly.
+- 2026-08-17T17:27:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T17:29:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final state verified: source-controlled implementation complete, test-only DB rows removed, one real ACTIVE Job Link remains, no cached/mock jobs, no pending requests, no persisted temporary setting row so default is 6 hours. Full verification receipts are recorded in session evidence.
+- 2026-08-17T17:30:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T17:57:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T17:59:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Investigating Crawl Now UX report: first verify current frontend/API/DB state to distinguish an instant completed anomaly from a stuck pending request; no edits yet.
+- 2026-08-17T18:02:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:03:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:04:04+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:05:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:06:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:07:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:08:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T18:09:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Crawl Now UX fix complete: root cause reproduced in PostgreSQL, failing tests observed, local loading/polling/result state implemented, zero metrics preserved, frontend and Go gates pass. Browser screenshot/device interaction not available in this run; static responsive CSS and build verification pass.
+- 2026-08-17T18:10:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T18:11:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T18:13:01+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T18:16:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Diagnosis complete: FPT source fetch succeeded (HTTP 200, one page observed); JSON-LD contains CollectionPage but no JobPosting, so generic adapter correctly classified extraction_not_authoritative and persisted zero jobs. Await user decision before changing extraction contract; no code changed in this diagnosis.
+- 2026-08-17T18:17:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T18:25:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T18:28:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Crawler discovery: FPT listing page exposes a same-origin public POST endpoint /JobsV2/GetJobsPaging returning real structured job rows (23 total, 12 first page), while detail URLs are emitted at root paths outside the registered /viec-lam/it/ prefix. No code changed. Need user confirmation whether a Job Link authorizes discovered same-origin detail URLs outside the submitted path, bounded to the response chain.
+- 2026-08-17T18:29:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T18:52:20+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T18:53:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T18:55:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - New UI/backend scope inspected without edits: Job Link currently page_size=20; Job Location endpoint returns unpaged list and page includes job assignment; Job Cache accepts only location/unresolved filters, renders job and source ACTIVE badges, and has no search or inline location assignment; Settings exposes interval only with no persisted crawler runtime/next-run state; sidebar has flat navigation. Design proposal: page size 10, job search/location dropdown and inline assignment, paginated Job Location, persisted crawler runtime status/countdown, grouped Manage Job and Manage User navigation. Await user approval for timer semantics/design before edits.
+- 2026-08-17T18:56:25+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T18:57:05+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T18:57:38+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - User approved the Admin UI/backend design. Preparing the written spec and implementation plan before code edits; scope includes 10-row pagination, Job Cache search/inline location, grouped sidebar, and persisted crawler runtime countdown.
+- 2026-08-17T19:00:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:02:51+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T19:05:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:07:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:09:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:10:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:10:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:11:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:12:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:13:07+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:14:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:15:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:15:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:17:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:18:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:18:58+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:19:43+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:20:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:20:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:22:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:23:26+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:26:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:26:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:28:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:31:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T19:46:56+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-17T19:48:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T19:50:18+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Resumed after power interruption; direct implementation and tests are complete, checking remote baseline and ignore scope before initializing/pushing Git history.
+- 2026-08-17T19:51:14+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T19:52:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T19:57:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T19:58:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.

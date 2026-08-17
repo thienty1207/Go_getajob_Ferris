@@ -1,0 +1,18 @@
+:root {
+	--bg: #07090c;
+	--surface: rgba(15, 19, 25, 0.88);
+	--surface-strong: #121820;
+	--line: rgba(171, 185, 204, 0.18);
+	--line-strong: rgba(255, 41, 67, 0.44);
+	--text: #f2f5f8;
+	--text-soft: #b6c0cc;
+	--text-muted: #7f8b98;
+	--accent: #ff304d;
+	--accent-bright: #ff5368;
+	--accent-soft: rgba(255, 48, 77, 0.12);
+	--success: #81d6b0;
+	--shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+	--radius-lg: 24px;
+	--radius-md: 16px;
+	--content-width: 1220px;
+}

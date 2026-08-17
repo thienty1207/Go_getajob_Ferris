@@ -1,0 +1,127 @@
+# Baron Proof Index
+
+- `20260815185859800` - trusted execution receipt receipt-eea8ee149d66 passed for frontend-unit-tests via bun
+- `20260815191608397` - trusted execution receipt receipt-854747d870d7 passed for frontend-unit-tests-final via bun
+- `20260815191651959` - Final direct svelte-check completed with 0 errors and 0 warnings
+- `20260815191704924` - Final SvelteKit production build completed successfully
+- `20260815191716092` - Final frozen frontend dependency install completed with no changes
+- `20260815191730828` - trusted execution receipt receipt-92a10c79dd45 passed for frontend-unit-tests-gate-final via bun
+- `20260815192355710` - trusted execution receipt receipt-406bf75815f0 passed for frontend-unit-tests-release via bun
+- `20260815192411901` - Release Svelte static check: 0 errors, 0 warnings
+- `20260815192425961` - Release SvelteKit production build passed
+- `20260815192436060` - Release frozen dependency install passed with no changes
+- `20260815192545524` - Browser smoke and visual proof: /client shell, disabled invalid submit, 25 km default, no horizontal overflow at 390px, final desktop/mobile screenshots saved
+- `20260815192639112` - trusted execution receipt receipt-90f1feb90ba5 passed for frontend-final-trusted-test via bun
+- `20260815203313063` - trusted execution receipt receipt-866a67f69f7e passed for schema-contract-test via powershell
+- `20260815205034445` - trusted execution receipt receipt-ccff4902b587 passed for database-schema-contract via powershell
+- `20260815205147649` - trusted execution receipt receipt-d44c255aab0c passed for database-schema-contract-review via powershell
+- `20260815205228363` - trusted execution receipt receipt-23fc0304b8ba passed for database-schema-test-review via powershell
+- `20260815205228396` - trusted execution receipt receipt-fdd405975f9a passed for database-schema-security-review via powershell
+- `20260816050135494` - trusted execution receipt receipt-c48b2cf55b68 passed for powershell via powershell
+- `20260816050153026` - trusted execution receipt receipt-99814deed3ed passed for powershell via powershell
+- `20260816050203154` - trusted execution receipt receipt-29033b046d4c passed for powershell via powershell
+- `20260816050648273` - trusted execution receipt receipt-742dfe64ae1e passed for powershell via powershell
+- `20260816050658783` - trusted execution receipt receipt-3cafb111bb15 passed for powershell via powershell
+- `20260816051024551` - trusted execution receipt receipt-6dcb77627637 passed for powershell via powershell
+- `20260816051025296` - trusted execution receipt receipt-4eaf48fb4c10 passed for powershell via powershell
+- `20260816051026030` - trusted execution receipt receipt-8443291b8bda passed for powershell via powershell
+- `20260816051600156` - trusted execution receipt receipt-be97dd48d994 passed for powershell via powershell
+- `20260816064404072` - trusted execution receipt receipt-7f6a9d7510d7 passed for powershell via powershell
+- `20260816082035517` - trusted execution receipt receipt-302c78c2c57e passed for powershell via powershell
+- `20260816082212881` - trusted execution receipt receipt-a51e659c3483 passed for powershell via powershell
+- `20260816082305917` - trusted execution receipt receipt-79a7c8390530 passed for powershell via powershell
+- `20260816082317453` - trusted execution receipt receipt-4b580cf15ac1 passed for powershell via powershell
+- `20260816082409754` - trusted execution receipt receipt-91d6d9b124dc passed for powershell via powershell
+- `20260816083747068` - trusted execution receipt receipt-4f2cb06e2d58 passed for powershell via powershell
+- `20260816092405412` - trusted execution receipt receipt-2fa2a1f3bfe0 passed for test-engineer via powershell
+- `20260816092419213` - trusted execution receipt receipt-fcdd02e49bc8 passed for test-engineer via powershell
+- `20260816092431057` - trusted execution receipt receipt-cd0344941da2 passed for code-reviewer via powershell
+- `20260816092613132` - trusted execution receipt receipt-3167a6fb0f3a passed for test-engineer via powershell
+- `20260816092802564` - trusted execution receipt receipt-f1d12f2c4846 passed for security-auditor via powershell
+- `20260816121714241` - trusted execution receipt receipt-4c4254e699ff passed for tests via powershell
+- `20260816121840129` - Frontend svelte-check, Vitest 29 tests, and production build passed
+- `20260816123233885` - trusted execution receipt receipt-4ef17a6f1075 passed for test-engineer via powershell
+- `20260816131411308` - trusted execution receipt receipt-9b24fa908b51 passed for test-engineer via powershell
+- `20260816131531723` - Frontend full unit test suite passed: 9 files, 32 tests
+- `20260816131545100` - trusted execution receipt receipt-139ea9db61ee passed for test-engineer via powershell
+- `20260816140730271` - Frontend unit tests passed for the UI refinement; trusted receipt attachment was unavailable after the runner fingerprint changed.
+- `20260816142337813` - Focused admin heading cleanup verified: removed duplicate topbar page title while preserving page content headings and mobile menu/account behavior.
+- `20260816145405029` - trusted execution receipt receipt-be62009368a6 passed for test-engineer via powershell
+- `20260816145405748` - trusted execution receipt receipt-e46cc0013ac9 passed for test-engineer via powershell
+- `20260816145406429` - trusted execution receipt receipt-745a55e74eec passed for test-engineer via powershell
+- `20260816145557951` - trusted execution receipt receipt-5775a5055fac passed for code-reviewer via powershell
+- `20260816150207998` - trusted execution receipt receipt-9fb3a2ad8242 passed for security-auditor via powershell
+- `20260816153304454` - trusted execution receipt receipt-a33a74a98e39 passed for test-engineer via powershell
+- `20260816153305076` - trusted execution receipt receipt-4d5895a350db passed for test-engineer via powershell
+- `20260816153305702` - trusted execution receipt receipt-f5af8f0d0f8b passed for test-engineer via powershell
+- `20260816153330069` - trusted execution receipt receipt-38083e07f3cf passed for code-reviewer via powershell
+- `20260816153345215` - trusted execution receipt receipt-38783c8f05c8 passed for security-auditor via powershell
+- `20260816153554113` - trusted execution receipt receipt-d10918f6ea8c passed for test-engineer via powershell
+- `20260816153554743` - trusted execution receipt receipt-a781b8ee7a50 passed for test-engineer via powershell
+- `20260816153555368` - trusted execution receipt receipt-4ebe5c22e321 passed for test-engineer via powershell
+- `20260816203543797` - trusted execution receipt receipt-dd5318b53b59 passed for test-engineer via powershell
+- `20260816203611371` - trusted execution receipt receipt-54cb5af59a0c passed for test-engineer via powershell
+- `20260816203636621` - trusted execution receipt receipt-acec0658a7cd passed for test-engineer via powershell
+- `20260816203702330` - trusted execution receipt receipt-b1341fef0fb3 passed for test-engineer via powershell
+- `20260816210538279` - trusted execution receipt receipt-ab9742126e05 passed for test-engineer via powershell
+- `20260816210548086` - trusted execution receipt receipt-15ba8795ea0b passed for test-engineer via powershell
+- `20260816210556223` - trusted execution receipt receipt-53e968745fd7 passed for test-engineer via powershell
+- `20260816210753323` - trusted execution receipt receipt-a9ea2ff2d0fb passed for test-engineer via powershell
+- `20260816211310558` - trusted execution receipt receipt-66dea5d3046a passed for test-engineer via powershell
+- `20260816211334800` - trusted execution receipt receipt-00dbdc39c109 passed for test-engineer via powershell
+- `20260816211409753` - trusted execution receipt receipt-e20c110bbfff passed for test-engineer via powershell
+- `20260816211453786` - trusted execution receipt receipt-d8494c272743 passed for test-engineer via powershell
+- `20260816211710874` - trusted execution receipt receipt-abd6f74fbb91 passed for test-engineer via powershell
+- `20260816212829638` - trusted execution receipt receipt-78615174c5e0 passed for test-engineer via powershell
+- `20260816212854341` - trusted execution receipt receipt-f52875bae2c2 passed for test-engineer via powershell
+- `20260816213528566` - trusted execution receipt receipt-b70325ba9010 passed for test-engineer via powershell
+- `20260816214932216` - trusted execution receipt receipt-a8437d592176 passed for test-engineer via powershell
+- `20260816214953367` - trusted execution receipt receipt-08988a42e1f5 passed for test-engineer via powershell
+- `20260816215014790` - trusted execution receipt receipt-cc27e458a8aa passed for test-engineer via powershell
+- `20260816215047527` - trusted execution receipt receipt-61a656e09cff passed for test-engineer via powershell
+- `20260816215056776` - trusted execution receipt receipt-61a656e09cff passed for test-engineer via powershell
+- `20260816215119359` - trusted execution receipt receipt-5f10cc956408 passed for test-engineer via powershell
+- `20260816215140531` - trusted execution receipt receipt-67f2f405b5fd passed for test-engineer via powershell
+- `20260816215334927` - trusted execution receipt receipt-bcbf7a7ecc79 passed for test-engineer via powershell
+- `20260816215401485` - trusted execution receipt receipt-565e249d1f69 passed for test-engineer via powershell
+- `20260816222355965` - trusted execution receipt receipt-bc6dbd42e9b0 passed for tests via powershell
+- `20260816222423474` - trusted execution receipt receipt-a8aceb5b6ba0 passed for format via powershell
+- `20260816222452439` - trusted execution receipt receipt-f62ef10bd5a4 passed for build via powershell
+- `20260816222548123` - trusted execution receipt receipt-f30d4814b40b passed for tests via powershell
+- `20260816222613978` - trusted execution receipt receipt-848906dad42f passed for static-analysis via powershell
+- `20260816222659783` - trusted execution receipt receipt-e74e8c1db29e passed for database-contract via powershell
+- `20260816222733551` - trusted execution receipt receipt-92dd28c1d032 passed for database-contract via powershell
+- `20260816224836791` - trusted execution receipt receipt-255ab4ad3d34 passed for database-contract via powershell
+- `20260816224922794` - trusted execution receipt receipt-18fc24a03b59 passed for database-contract via powershell
+- `20260816225154781` - trusted execution receipt receipt-42c61035d1e7 passed for smoke via powershell
+- `20260816225348873` - trusted execution receipt receipt-42ab316614c3 passed for smoke via powershell
+- `20260816230239431` - trusted execution receipt receipt-3749142b4d5d passed for database-contract via powershell
+- `20260816230309332` - trusted execution receipt receipt-69e1ebb31526 passed for database-contract via powershell
+- `20260816230344128` - trusted execution receipt receipt-30a53421bb36 passed for smoke via powershell
+- `20260816230446782` - trusted execution receipt receipt-5b7be3fb21aa passed for static-analysis via powershell
+- `20260816231455635` - trusted execution receipt receipt-218d520a2f54 passed for database-contract via powershell
+- `20260816231518536` - trusted execution receipt receipt-218d520a2f54 passed for database-contract via powershell
+- `20260816231612505` - trusted execution receipt receipt-6389e7d4dd81 passed for database-contract via powershell
+- `20260816231616586` - trusted execution receipt receipt-6389e7d4dd81 passed for database-contract via powershell
+- `20260816231651996` - trusted execution receipt receipt-f336ae691590 passed for smoke via powershell
+- `20260816233647479` - trusted execution receipt receipt-ca42540e3e2b passed for tests via powershell
+- `20260816233811675` - trusted execution receipt receipt-01c053a00d12 passed for tests via powershell
+- `20260816233930940` - trusted execution receipt receipt-24e1dada9273 passed for database-contract via powershell
+- `20260816234015797` - trusted execution receipt receipt-42fd2cb4bc64 passed for database-contract via powershell
+- `20260816234104477` - trusted execution receipt receipt-83d6d92c8b9d passed for smoke via powershell
+- `20260816234139921` - trusted execution receipt receipt-bdd77f42a8df passed for database-contract via powershell
+- `20260816235051182` - trusted execution receipt receipt-3afcdbe62ab5 passed for final-state via powershell
+- `20260816235238667` - trusted execution receipt receipt-94450a2285bb passed for final-state via powershell
+- `20260817090635585` - trusted execution receipt receipt-4142a9714e34 passed for final-state via powershell
+- `20260817090906924` - trusted execution receipt receipt-96622cd716d6 passed for final-state via powershell
+- `20260817091034379` - Final verification evidence: cargo test 20 passed; ignored PostgreSQL contract 1 passed; go test and go vet passed; frontend unit 33 passed, check 0 errors, build passed; schema contract passed; API health 200 and admin unauthenticated 401
+- `20260817093749249` - trusted execution receipt receipt-77e115a6a62b passed for frontend-layout-regression via bun
+- `20260817093835442` - trusted execution receipt receipt-8727da4dbec0 passed for frontend-static-check via bun
+- `20260817093920271` - trusted execution receipt receipt-56de00c22fda passed for frontend-production-build via bun
+- `20260817102319104` - trusted execution receipt receipt-89ddcdf6bcde passed for frontend-static-check via bun
+- `20260817102326182` - trusted execution receipt receipt-89ddcdf6bcde passed for frontend-static-check via bun
+- `20260817102452767` - trusted execution receipt receipt-8e989722ab7f passed for frontend-layout-option-a via bun
+- `20260817102609627` - trusted execution receipt receipt-86d2264f1602 passed for frontend-production-build via bun
+- `20260817112131252` - trusted execution receipt receipt-fed30cb3e17f passed for frontend-layout-option-a via bun
+- `20260817112254031` - trusted execution receipt receipt-c75f714e3ad8 passed for frontend-static-check via bun
+- `20260817112413794` - trusted execution receipt receipt-5500c954f6d1 passed for frontend-production-build via bun

@@ -1,0 +1,12 @@
+schema_version = 4
+project_id = "40c47c873088f02b98caac820b328f484c8e3a0363805022a97d4abf7514e441"
+project_slug = "gogetsomefoodferris"
+platform = "fullstack"
+adapters = ["codex"]
+
+[automation]
+context = true
+plan = true
+harness = true
+proof = true
+trace = true

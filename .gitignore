@@ -1,0 +1,21 @@
+# Local credentials and runtime configuration must never be committed.
+.env
+backend/.env
+frontend/.env
+
+# Go and frontend build/test output.
+backend/bin/
+frontend/.svelte-kit/
+frontend/build/
+frontend/node_modules/
+
+# Bun/Node dependency trees and Rust build artifacts in any workspace.
+**/node_modules/
+**/target/
+target/
+
+# Local Baron/Codex orchestration state is not application source.
+.codex/
+.baron/cache/
+.baron/managed-state/
+.baron/local.toml
