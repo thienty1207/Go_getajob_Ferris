@@ -819,3 +819,4 @@
 - 2026-08-17T19:52:55+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
 - 2026-08-17T19:57:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
 - 2026-08-17T19:58:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T20:00:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation committed and pushed to origin/main at 787c9b1; working tree clean. Direct verification passed. Remaining evidence risk is Baron proof runner interruption, already recorded in recovery-afb9922188ca3578; generic client-rendered source extraction remains a documented crawler limitation and no live crawl was run during handoff.

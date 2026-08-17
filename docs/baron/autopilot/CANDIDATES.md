@@ -475,3 +475,14 @@ Candidates are not trusted facts. They require approval before becoming durable 
 - Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
 - Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
 
+## candidate-1786971619648940300-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-17T20:00:19+07:00
+- Summary: Implemented and pushed admin management/crawler runtime commit 787c9b1. Direct verification passed across schema, Go, Rust, PostgreSQL contract, frontend, API/browser smoke, and secret/artifact scan. Remaining risk: Baron proof runner for backend-go-tests stayed silent and was interrupted; current generic crawler documents a limitation for client-rendered sources such as FPT and no live crawl was triggered in this handoff.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
