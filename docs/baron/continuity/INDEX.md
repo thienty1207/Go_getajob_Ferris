@@ -820,3 +820,10 @@
 - 2026-08-17T19:57:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
 - 2026-08-17T19:58:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
 - 2026-08-17T20:00:19+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation committed and pushed to origin/main at 787c9b1; working tree clean. Direct verification passed. Remaining evidence risk is Baron proof runner interruption, already recorded in recovery-afb9922188ca3578; generic client-rendered source extraction remains a documented crawler limitation and no live crawl was run during handoff.
+- 2026-08-17T20:02:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T21:02:59+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T21:04:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-17T21:04:35+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-17T21:04:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - User requested a durable handoff document for another AI; next action is add root tiepquanduan.md with current project context and no secrets.
+- 2026-08-17T21:07:29+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-17T21:08:00+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Root tiepquanduan.md was created, secret-scanned, committed, and pushed as 1822648; direct documentation checks passed. Next session should read it before inspecting source.

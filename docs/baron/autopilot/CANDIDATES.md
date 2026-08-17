@@ -486,3 +486,14 @@ Candidates are not trusted facts. They require approval before becoming durable 
 - Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
 - Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
 
+## candidate-1786975680538191500-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-17T21:08:00+07:00
+- Summary: Created and pushed root tiepquanduan.md as a concise AI handoff guide. It documents product invariants, current frontend/backend/crawler/database state, run/test commands, known generic crawler limitation, and no-secret/no-mock rules. File was secret-scanned and git diff checked.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
