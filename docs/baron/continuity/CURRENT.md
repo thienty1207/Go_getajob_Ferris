@@ -1,8 +1,8 @@
 # Baron Continuity Resume
 
-- Last updated: 2026-08-22T20:06:40+07:00
-- Adapter: `codex`
-- Latest checkpoint: checkpoint hook observed.
+- Last updated: 2026-08-22T20:07:41+07:00
+- Adapter: `reasonix`
+- Latest checkpoint: Implementation committed and pushed as d1dbc72 on origin/main. Live real PDF gate and all direct test/schema/build gates pass. Baron trace standard passed; proof-provider receipt remains blocked and recovery-288449ab272b248e is preserved. No secrets, ignored runtime directories, or personal CV were committed.
 - Latest automation event: `Checkpoint`
 - Current task: `CV scan summary loading and match calibration`
 - Plan status: `interrupted`
@@ -12,7 +12,7 @@
 - Trace status: scored `standard/standard` passed `yes`
 - Recovery outcome: `blocked`
 - Recovery next action: Preserve direct verification evidence; inspect reviewer findings, commit only source/docs/migration changes, and report Baron proof-provider limitation without fabricating a receipt.
-- Changed files: backend/README.md, backend/internal/httpapi/handler.go, backend/internal/model/scan.go, backend/internal/processor/deepseek.go, backend/internal/processor/deepseek_test.go, backend/internal/processor/matcher.go, backend/internal/processor/matcher_test.go, backend/internal/repository/postgres_scans.go, backend/internal/repository/postgres_scans_test.go, backend/tests/live-cv-workflow.ps1, database/README.md, database/tests/validate-schema.ps1
+- Changed files: none
 - Next action: interrupted
 
 ## Resume Rules

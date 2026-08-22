@@ -1232,3 +1232,4 @@
 - 2026-08-22T20:03:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
 - 2026-08-22T20:04:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
 - 2026-08-22T20:06:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T20:07:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation committed and pushed as d1dbc72 on origin/main. Live real PDF gate and all direct test/schema/build gates pass. Baron trace standard passed; proof-provider receipt remains blocked and recovery-288449ab272b248e is preserved. No secrets, ignored runtime directories, or personal CV were committed.
