@@ -1,12 +1,12 @@
 # Current Baron Plan
 
-- Title: location-aware-crawler-and-matching
-- Plan: `docs/baron/plans/2026-08-17/2026-08-17-location-aware-crawler-and-matching.md`
+- Title: upload-workflow-reliability
+- Plan: `docs/baron/plans/2026-08-20/2026-08-20-upload-workflow-reliability.md`
 - Status: `in_progress`
-- Risk: `medium`
+- Risk: `high`
 - Verification: not_run
-- Next action: Scope expanded with the approved Admin Settings and Crawl Now control: database-backed hours/minutes crawler interval, runtime reload, queue-backed manual crawl requests, status visibility, and a future-extensible settings surface. Proceed with design/spec and TDD implementation; preserve no-mock and source-controlled crawler constraints.
-- Updated: 2026-08-17T16:32:47+07:00
+- Next action: Focused Home asset lifecycle slice: root cause established; begin TDD for validation-before-upload, unique Cloudinary ownership, transactional durable cleanup enqueue, and bounded retryable cleanup.
+- Updated: 2026-08-20T22:55:20+07:00
 
 ## Rules
 

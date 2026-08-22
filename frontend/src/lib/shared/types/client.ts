@@ -3,7 +3,6 @@ import type { JobMatch } from './job';
 export interface ClientScanInput {
 	file: File;
 	locationId: string;
-	radiusKm: number;
 }
 
 export interface ClientLocation {

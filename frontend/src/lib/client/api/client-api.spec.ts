@@ -20,17 +20,20 @@ describe('client API contract', () => {
 		};
 
 		const result = await startScan(
-			{ file: new File(['cv'], 'resume.pdf'), locationId: 'location-hanoi', radiusKm: 25 },
+			{ file: new File(['cv'], 'resume.pdf'), locationId: 'location-hanoi' },
+			'client-csrf-token',
 			fetcher
 		);
 
 		expect(result).toEqual({ scanId: 'scan-1', status: 'processing' });
 		expect(request?.method).toBe('POST');
+		expect(request?.credentials).toBe('include');
+		expect(request?.headers.get('x-csrf-token')).toBe('client-csrf-token');
 		expect(request?.url).toContain('/api/v1/client/scans');
 		expect(request?.headers.get('content-type')).toContain('multipart/form-data');
 		const form = await request?.formData();
 		expect(form?.get('location_id')).toBe('location-hanoi');
-		expect(form?.get('radius_km')).toBe('25');
+		expect(form?.get('radius_km')).toBeNull();
 	});
 
 	it('reads canonical active locations from the backend', async () => {
@@ -45,7 +48,10 @@ describe('client API contract', () => {
 	});
 
 	it('parses a processing response from the real status endpoint', async () => {
-		const result = await getScanStatus('scan-1', async () => response({ scan_id: 'scan-1', status: 'processing' }));
+		const result = await getScanStatus('scan-1', async (_input, init) => {
+			expect(init?.credentials).toBe('include');
+			return response({ scan_id: 'scan-1', status: 'processing' });
+		});
 
 		expect(result).toEqual({ scanId: 'scan-1', status: 'processing' });
 	});

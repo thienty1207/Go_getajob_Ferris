@@ -3,9 +3,7 @@ package httpapi
 import (
 	"context"
 	"errors"
-	"math"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -31,6 +29,12 @@ type Handler struct {
 	scans           scanAPI
 	health          healthChecker
 	maxRequestBytes int64
+	requireClient   bool
+	homeSections    *HomeSectionHandler
+}
+
+func (h *Handler) SetHomeSectionHandler(handler *HomeSectionHandler) {
+	h.homeSections = handler
 }
 
 // NewHandler configures the multipart request ceiling with room for form
@@ -61,21 +65,27 @@ func (h *Handler) CreateScan(c *gin.Context) {
 		defer c.Request.MultipartForm.RemoveAll()
 	}
 
-	radius, err := parseRadius(c.PostForm("radius_km"))
-	if err != nil {
-		writeError(c, http.StatusBadRequest, "invalid_scan_request", "Bán kính tìm kiếm không hợp lệ.")
-		return
-	}
 	locationID, err := uuid.Parse(strings.TrimSpace(c.PostForm("location_id")))
 	if err != nil || locationID == uuid.Nil {
 		writeError(c, http.StatusBadRequest, "invalid_scan_request", "Vui lòng chọn location hợp lệ.")
 		return
 	}
 
+	var clientUserID *uuid.UUID
+	if h.requireClient {
+		session, ok := ClientSessionFromContext(c)
+		if !ok || session.User.ID == uuid.Nil {
+			writeError(c, http.StatusUnauthorized, "client_unauthorized", "Vui lòng đăng nhập.")
+			return
+		}
+		userID := session.User.ID
+		clientUserID = &userID
+	}
+
 	scanID, err := h.scans.Start(c.Request.Context(), service.ScanInput{
-		File:       file,
-		LocationID: locationID,
-		RadiusKm:   radius,
+		File:         file,
+		LocationID:   locationID,
+		ClientUserID: clientUserID,
 	})
 	if err != nil {
 		writeMappedError(c, err)
@@ -87,13 +97,33 @@ func (h *Handler) CreateScan(c *gin.Context) {
 // GetScan maps the persisted lifecycle state into the stable client response
 // shapes expected by the frontend polling flow.
 func (h *Handler) GetScan(c *gin.Context) {
+	// Scan results are account-scoped structured CV data and must not be cached
+	// by a shared browser/proxy after the authenticated request completes.
+	c.Header("Cache-Control", "no-store")
 	scanID, err := uuid.Parse(c.Param("scan_id"))
 	if err != nil {
 		writeError(c, http.StatusBadRequest, "invalid_scan_id", "Scan ID không hợp lệ.")
 		return
 	}
 
-	scan, err := h.scans.Get(c.Request.Context(), scanID)
+	var scan model.Scan
+	if h.requireClient {
+		session, ok := ClientSessionFromContext(c)
+		ownedAPI, hasOwnedAPI := h.scans.(interface {
+			GetOwned(context.Context, uuid.UUID, uuid.UUID) (model.Scan, error)
+		})
+		if !ok || session.User.ID == uuid.Nil {
+			writeError(c, http.StatusUnauthorized, "client_unauthorized", "Vui lòng đăng nhập.")
+			return
+		}
+		if !hasOwnedAPI {
+			writeError(c, http.StatusServiceUnavailable, "scan_unavailable", "Service tạm thời không khả dụng.")
+			return
+		}
+		scan, err = ownedAPI.GetOwned(c.Request.Context(), scanID, session.User.ID)
+	} else {
+		scan, err = h.scans.Get(c.Request.Context(), scanID)
+	}
 	if err != nil {
 		writeMappedError(c, err)
 		return
@@ -196,19 +226,6 @@ func mapMatch(match model.JobMatch) matchResponse {
 		response.Salary = &salaryResponse{Display: match.Salary.Display, Currency: match.Salary.Currency}
 	}
 	return response
-}
-
-// parseRadius rejects non-finite and non-positive values before they enter the
-// scan service or database.
-func parseRadius(raw string) (float64, error) {
-	if strings.TrimSpace(raw) == "" {
-		return 0, errors.New("missing radius")
-	}
-	radius, err := strconv.ParseFloat(strings.TrimSpace(raw), 64)
-	if err != nil || math.IsNaN(radius) || math.IsInf(radius, 0) || radius <= 0 {
-		return 0, errors.New("invalid radius")
-	}
-	return radius, nil
 }
 
 func isRequestTooLarge(err error) bool {

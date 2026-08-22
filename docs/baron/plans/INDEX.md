@@ -11,4 +11,7 @@
 - [job-link-source-controlled-crawler](docs/baron/plans/2026-08-16/2026-08-16-job-link-source-controlled-crawler.md) - status: `completed` - risk: `medium`
 - [job-link-location-crawler-promotion-fixes](docs/baron/plans/2026-08-17/2026-08-17-job-link-location-crawler-promotion-fixes.md) - status: `interrupted` - risk: `medium`
 - [admin-job-link-status-button-fix](docs/baron/plans/2026-08-17/2026-08-17-admin-job-link-status-button-fix.md) - status: `interrupted` - risk: `medium`
-- [location-aware-crawler-and-matching](docs/baron/plans/2026-08-17/2026-08-17-location-aware-crawler-and-matching.md) - status: `in_progress` - risk: `medium`
+- [location-aware-crawler-and-matching](docs/baron/plans/2026-08-17/2026-08-17-location-aware-crawler-and-matching.md) - status: `interrupted` - risk: `medium`
+- [client-experience-home-cms-and-cv-history](docs/baron/plans/2026-08-20/2026-08-20-client-experience-home-cms-and-cv-history.md) - status: `in_progress` - risk: `medium`
+- [database-recovery-and-api-readiness](docs/baron/plans/2026-08-20/2026-08-20-database-recovery-and-api-readiness.md) - status: `in_progress` - risk: `medium`
+- [upload-workflow-reliability](docs/baron/plans/2026-08-20/2026-08-20-upload-workflow-reliability.md) - status: `in_progress` - risk: `high`

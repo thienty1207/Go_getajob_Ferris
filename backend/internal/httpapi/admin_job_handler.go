@@ -44,6 +44,7 @@ type adminJobResponse struct {
 	Company              string   `json:"company"`
 	Location             string   `json:"location"`
 	LocationID           *string  `json:"location_id,omitempty"`
+	LocationAssignmentSource string `json:"location_assignment_source"`
 	Role                 string   `json:"role"`
 	RequiredSkills       []string `json:"required_skills"`
 	PreferredSkills      []string `json:"preferred_skills"`
@@ -147,6 +148,7 @@ func mapAdminJob(job model.AdminJob) adminJobResponse {
 		Company:              job.Company,
 		Location:             job.Location,
 		LocationID:           locationID,
+		LocationAssignmentSource: job.LocationAssignmentSource,
 		Role:                 job.Role,
 		RequiredSkills:       job.RequiredSkills,
 		PreferredSkills:      job.PreferredSkills,

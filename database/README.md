@@ -20,6 +20,7 @@ The initial migration owns these durable domains:
 - `app_settings`: typed, database-backed product settings owned by the admin control room.
 - `crawl_requests`: idempotent manual Crawl Now requests consumed by the Rust daemon.
 - `crawler_runtime`: singleton heartbeat, cycle status, current source, and next-cycle evidence for the admin runtime view.
+- `home_sections` and `home_section_media`: four fixed admin-managed Home slots and ordered Cloudinary media metadata for the fourth slot.
 
 The migrations do not implement the Go API, crawler, DeepSeek integration, admin UI, job status transitions, or production deployment. Those consumers must use this schema without introducing raw CV/full-JD persistence. The promotion API keeps client reads under `/api/v1/client/promotions` and cookie-authenticated admin operations under `/api/v1/admin/promotions`.
 
@@ -53,11 +54,18 @@ database/migrations/000006_location_resolution_and_scan_location.up.sql
 database/migrations/000007_location_key_normalization.up.sql
 database/migrations/000008_settings_and_crawl_requests.up.sql
 database/migrations/000009_admin_management_runtime.up.sql
+database/migrations/000010_location_assignment_source.up.sql
+database/migrations/000011_client_auth.up.sql
+database/migrations/000012_client_cv_history.up.sql
+database/migrations/000013_home_sections.up.sql
 ```
-
 The matching down migrations are only for controlled rollback:
 
 ```text
+database/migrations/000013_home_sections.down.sql
+database/migrations/000012_client_cv_history.down.sql
+database/migrations/000011_client_auth.down.sql
+database/migrations/000010_location_assignment_source.down.sql
 database/migrations/000009_admin_management_runtime.down.sql
 database/migrations/000008_settings_and_crawl_requests.down.sql
 database/migrations/000007_location_key_normalization.down.sql
@@ -91,6 +99,10 @@ psql --set ON_ERROR_STOP=1 --file database/migrations/000006_location_resolution
 psql --set ON_ERROR_STOP=1 --file database/migrations/000007_location_key_normalization.up.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000008_settings_and_crawl_requests.up.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000009_admin_management_runtime.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000010_location_assignment_source.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000011_client_auth.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000012_client_cv_history.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000013_home_sections.up.sql
 
 # Only for local admin-screen verification; this is not crawler output.
 psql --set ON_ERROR_STOP=1 --file database/fixtures/development-job.sql
@@ -116,6 +128,10 @@ For a remote database, use the deployment platform's secret store for `PGHOST`, 
 Only run these after a backup and an explicit rollback decision:
 
 ```powershell
+psql --set ON_ERROR_STOP=1 --file database/migrations/000013_home_sections.down.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000012_client_cv_history.down.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000011_client_auth.down.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000010_location_assignment_source.down.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000009_admin_management_runtime.down.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000008_settings_and_crawl_requests.down.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000007_location_key_normalization.down.sql

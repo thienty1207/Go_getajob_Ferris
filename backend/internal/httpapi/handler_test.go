@@ -26,7 +26,6 @@ func TestCreateScanReturnsFrontendAcceptedContract(t *testing.T) {
 
 	body, contentType := multipartBody(t, "resume.pdf", "%PDF-1.7", map[string]string{
 		"location_id": locationID.String(),
-		"radius_km": "25",
 	})
 	request := httptest.NewRequest(http.MethodPost, "/api/v1/client/scans", body)
 	request.Header.Set("Content-Type", contentType)
@@ -42,8 +41,59 @@ func TestCreateScanReturnsFrontendAcceptedContract(t *testing.T) {
 	if payload["scan_id"] != scanID.String() || payload["status"] != "processing" {
 		t.Fatalf("payload = %#v, want snake_case processing response", payload)
 	}
-	if api.lastInput.LocationID != locationID || api.lastInput.RadiusKm != 25 || api.lastInput.File == nil {
+	if api.lastInput.LocationID != locationID || api.lastInput.RadiusKm != 0 || api.lastInput.File == nil {
 		t.Fatalf("service input = %#v, want parsed multipart fields", api.lastInput)
+	}
+}
+
+func TestAuthenticatedCreateScanRequiresCSRFAndBindsSessionOwner(t *testing.T) {
+	cfg := testConfig()
+	cfg.ClientCookieName = "ferris_client_session"
+	auth := newTestClientAuth()
+	api := &testScanAPI{startID: uuid.New()}
+	handler := NewHandler(api, healthyChecker{}, cfg)
+	router := NewAuthenticatedRouterWithClientAuth(
+		cfg, handler, nil, nil, nil, nil, nil, nil,
+		NewClientAuthHandler(auth, cfg), nil, nil, nil,
+	)
+	locationID := uuid.New()
+
+	body, contentType := multipartBody(t, "resume.txt", "Backend Engineer with Go experience", map[string]string{"location_id": locationID.String()})
+	request := httptest.NewRequest(http.MethodPost, "/api/v1/client/scans", body)
+	request.Header.Set("Content-Type", contentType)
+	request.AddCookie(&http.Cookie{Name: cfg.ClientCookieName, Value: "client-session-token"})
+	response := httptest.NewRecorder()
+	router.ServeHTTP(response, request)
+	if response.Code != http.StatusForbidden || api.startCalls != 0 {
+		t.Fatalf("request without CSRF status=%d starts=%d body=%s, want 403 and no scan", response.Code, api.startCalls, response.Body.String())
+	}
+
+	body, contentType = multipartBody(t, "resume.txt", "Backend Engineer with Go experience", map[string]string{"location_id": locationID.String()})
+	request = httptest.NewRequest(http.MethodPost, "/api/v1/client/scans", body)
+	request.Header.Set("Content-Type", contentType)
+	request.Header.Set("X-CSRF-Token", "client-csrf-token")
+	request.AddCookie(&http.Cookie{Name: cfg.ClientCookieName, Value: "client-session-token"})
+	response = httptest.NewRecorder()
+	router.ServeHTTP(response, request)
+	if response.Code != http.StatusAccepted || api.startCalls != 1 || api.lastInput.ClientUserID == nil || *api.lastInput.ClientUserID != auth.session.User.ID {
+		t.Fatalf("authenticated upload status=%d starts=%d owner=%v body=%s, want session-owned scan", response.Code, api.startCalls, api.lastInput.ClientUserID, response.Body.String())
+	}
+}
+
+func TestCreateScanAcceptsCanonicalLocationWithoutRadius(t *testing.T) {
+	api := &testScanAPI{startID: uuid.New()}
+	router := NewRouter(testConfig(), NewHandler(api, healthyChecker{}, testConfig()))
+	body, contentType := multipartBody(t, "resume.pdf", "%PDF-1.7", map[string]string{
+		"location_id": uuid.NewString(),
+	})
+	request := httptest.NewRequest(http.MethodPost, "/api/v1/client/scans", body)
+	request.Header.Set("Content-Type", contentType)
+	response := httptest.NewRecorder()
+
+	router.ServeHTTP(response, request)
+
+	if response.Code != http.StatusAccepted || api.lastInput.RadiusKm != 0 {
+		t.Fatalf("status=%d radius=%v body=%s, want accepted location-only request", response.Code, api.lastInput.RadiusKm, response.Body.String())
 	}
 }
 
@@ -86,7 +136,7 @@ func TestCreateScanMapsInternalErrorWithoutLeakingDetails(t *testing.T) {
 	router := NewRouter(testConfig(), NewHandler(api, healthyChecker{}, testConfig()))
 	body, contentType := multipartBody(t, "resume.txt", "plain text cv", map[string]string{
 		"location_id": uuid.NewString(),
-		"radius_km": "25",
+		"radius_km":   "25",
 	})
 	request := httptest.NewRequest(http.MethodPost, "/api/v1/client/scans", body)
 	request.Header.Set("Content-Type", contentType)
@@ -111,6 +161,9 @@ func TestGetScanMapsProcessingStatus(t *testing.T) {
 
 	if response.Code != http.StatusOK {
 		t.Fatalf("status = %d, want 200", response.Code)
+	}
+	if got := response.Header().Get("Cache-Control"); got != "no-store" {
+		t.Fatalf("Cache-Control = %q, want no-store for private scan data", got)
 	}
 	var payload map[string]any
 	decodeJSON(t, response, &payload)

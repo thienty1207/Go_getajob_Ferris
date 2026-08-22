@@ -9,3 +9,6 @@
 - 2026-08-17T12:28:02+07:00 - [recovery-5922f803b0fb1044](docs/baron/continuity/recovery/2026-08-17/recovery-5922f803b0fb1044.md) - outcome: `blocked`
 - 2026-08-17T15:15:28+07:00 - [recovery-f1056b842f5e44df](docs/baron/continuity/recovery/2026-08-17/recovery-f1056b842f5e44df.md) - outcome: `blocked`
 - 2026-08-17T19:56:21+07:00 - [recovery-afb9922188ca3578](docs/baron/continuity/recovery/2026-08-17/recovery-afb9922188ca3578.md) - outcome: `interrupted`
+- 2026-08-20T19:52:29+07:00 - [recovery-cb857b2e48a9927c](docs/baron/continuity/recovery/2026-08-20/recovery-cb857b2e48a9927c.md) - outcome: `blocked`
+- 2026-08-20T21:44:19+07:00 - [recovery-812418b2c9fbde1c](docs/baron/continuity/recovery/2026-08-20/recovery-812418b2c9fbde1c.md) - outcome: `failed`
+- 2026-08-20T22:08:17+07:00 - [recovery-89336a3fb49a4d50](docs/baron/continuity/recovery/2026-08-20/recovery-89336a3fb49a4d50.md) - outcome: `blocked`

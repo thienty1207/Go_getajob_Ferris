@@ -15,6 +15,9 @@ export function validateCvFile(file: File | null): ValidationResult {
 	if (!extension || !ACCEPTED_CV_EXTENSIONS.includes(extension as (typeof ACCEPTED_CV_EXTENSIONS)[number])) {
 		return { valid: false, message: 'CV chỉ hỗ trợ định dạng PDF, DOCX hoặc TXT.' };
 	}
+	if (file.size === 0) {
+		return { valid: false, message: 'File CV đang trống.' };
+	}
 
 	if (file.size > MAX_CV_BYTES) {
 		return { valid: false, message: 'CV phải có dung lượng tối đa 10 MB.' };

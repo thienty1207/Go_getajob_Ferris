@@ -1,19 +1,19 @@
 # Baron Continuity Resume
 
-- Last updated: 2026-08-17T21:08:00+07:00
-- Adapter: `codex`
-- Latest checkpoint: Root tiepquanduan.md was created, secret-scanned, committed, and pushed as 1822648; direct documentation checks passed. Next session should read it before inspecting source.
+- Last updated: 2026-08-22T18:45:45+07:00
+- Adapter: `reasonix`
+- Latest checkpoint: Implementation and direct verification complete: live Home image upload/Cloudinary/cleanup and authenticated CV upload/DeepSeek/location/history/delete gates pass; migration rehearsal, full tests, schema and secret scan pass. Next: commit and push main, then verify remote.
 - Latest automation event: `Checkpoint`
-- Current task: `location-aware-crawler-and-matching`
+- Current task: `upload-workflow-reliability`
 - Plan status: `in_progress`
 - Harness story: `unknown`
 - Harness risk: `unknown`
-- Proof status: recorded `20260817112413794` - trusted execution receipt receipt-5500c954f6d1 passed for frontend-production-build via bun
+- Proof status: recorded `20260820192136578` - trusted execution receipt receipt-333648290cda passed for frontend-production-build via bun
 - Trace status: scored `standard/standard` passed `yes`
-- Recovery outcome: `interrupted`
-- Recovery next action: Preserve direct receipts; retry Baron proof only after worker/state lock clears.
-- Changed files: docs/baron/autopilot/CANDIDATES.md, docs/baron/continuity/CURRENT.md, docs/baron/continuity/INDEX.md, docs/baron/traces/2026-08-17/20260817200019533.md
-- Next action: Scope expanded with the approved Admin Settings and Crawl Now control: database-backed hours/minutes crawler interval, runtime reload, queue-backed manual crawl requests, status visibility, and a future-extensible settings surface. Proceed with design/spec and TDD implementation; preserve no-mock and source-controlled crawler constraints.
+- Recovery outcome: `blocked`
+- Recovery next action: Use completed direct execution evidence and mandatory independent agent reviews; retry trusted receipt recording only if Baron proof worker clears.
+- Changed files: .baron/project.toml, .gitignore, .reasonix/commands/baron-context.md, .reasonix/commands/baron-status.md, .reasonix/settings.json, REASONIX.md, backend/.env.example, backend/cmd/api/main.go, backend/go.mod, backend/go.sum, backend/internal/cloudinary/uploader.go, backend/internal/cloudinary/uploader_integration_test.go
+- Next action: Focused Home asset lifecycle slice: root cause established; begin TDD for validation-before-upload, unique Cloudinary ownership, transactional durable cleanup enqueue, and bounded retryable cleanup.
 
 ## Resume Rules
 

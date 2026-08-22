@@ -10,7 +10,6 @@ describe('client scan store', () => {
 			status: 'idle',
 			selectedFile: null,
 			locationId: '',
-			radiusKm: 25,
 			errors: {},
 			errorMessage: '',
 			matches: [],

@@ -15,3 +15,15 @@
 - `finding-10f9c5bb182487c1` - Failed-state retry was not idempotent after an ambiguous commit
 - `finding-a3f87d2a15b84ba8` - Limiter cap rejected all new source keys while full
 - `finding-2a462e488db2c71f` - Crawler DNS validation is TOCTOU-prone: Spider re-resolves source hostname after one public DNS preflight, leaving a DNS-rebinding SSRF path; destination binding and negative proof are required.
+- `finding-db94f98c6c71b15d` - Home section repository inverts publicOnly filtering: public API can return inactive CMS data while admin can omit inactive drafts
+- `finding-9ea84b541a6d8741` - Home section media loader passes publicOnly directly as includeInactive, reversing active media visibility
+- `finding-6a01968f18ec3d3b` - DeepSeek structured profile decoder accepts trailing JSON values
+- `finding-d4c20ac41b71d795` - Raw CV orphan younger than startup threshold may remain for process lifetime
+- `finding-d8e5d7948430b032` - Cancelled processing context prevents durable FAILED scan transition
+- `finding-d570fa330bfc777f` - Client CV deletion can leave an orphaned structured profile
+- `finding-210c2c485b9e54aa` - Home section asset operations are not failure-atomic
+- `finding-f02046c74002bf66` - Duplicate Home media rows can share one Cloudinary public ID without reference ownership
+- `finding-f6587cb1caaadf2b` - Auth me endpoint rotates the sole CSRF token and invalidates other tabs
+- `finding-c4f368cef2d0ff5f` - Deleting the only CV on the last history page shows a false global empty state
+- `finding-f610d9f877987857` - DeepSeek CV sanitization does not remove several unnecessary PII shapes before provider upload
+- `finding-542a632c834af8f7` - Cloudinary configuration and provider errors can disclose credentials through startup logs

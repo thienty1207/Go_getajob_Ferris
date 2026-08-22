@@ -28,7 +28,7 @@ func NewMatchingProcessor(store MatchingStore, parser ProfileParser) *MatchingPr
 	return &MatchingProcessor{store: store, parser: parser}
 }
 
-func (p *MatchingProcessor) Process(ctx context.Context, scanID uuid.UUID, temporaryPath string, radiusKm float64) error {
+func (p *MatchingProcessor) Process(ctx context.Context, scanID uuid.UUID, temporaryPath string, _ float64) error {
 	if p.store == nil || p.parser == nil {
 		return &ProcessingError{Code: "matching_not_configured", Err: errors.New("matching dependencies are missing")}
 	}
@@ -36,7 +36,11 @@ func (p *MatchingProcessor) Process(ctx context.Context, scanID uuid.UUID, tempo
 	if err != nil {
 		return &ProcessingError{Code: "scan_context_failed", Err: err}
 	}
-	if scan.Status != model.StatusParsing || scan.ID == uuid.Nil || radiusKm <= 0 {
+	// The fourth argument is retained on the processor interface for source
+	// compatibility with older callers. Location-only matching now scopes
+	// candidates by the scan's canonical location, so zero is valid and no
+	// radius gate belongs in this layer anymore.
+	if scan.Status != model.StatusParsing || scan.ID == uuid.Nil {
 		return &ProcessingError{Code: "invalid_scan_state", Err: errors.New("scan is not ready for parsing")}
 	}
 	text, err := ExtractCVText(temporaryPath)

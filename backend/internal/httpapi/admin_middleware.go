@@ -69,6 +69,8 @@ func writeAdminAuthError(c *gin.Context, err error) {
 	switch {
 	case errors.Is(err, service.ErrAdminSessionMissing), errors.Is(err, service.ErrAdminSessionExpired), errors.Is(err, service.ErrAdminSessionRevoked), errors.Is(err, service.ErrAdminInactive):
 		writeError(c, http.StatusUnauthorized, "admin_auth_required", "Phiên quản trị không còn hợp lệ. Vui lòng đăng nhập lại.")
+	case errors.Is(err, service.ErrAdminAuthStorage):
+		writeError(c, http.StatusServiceUnavailable, "database_unavailable", "Database chưa sẵn sàng. Vui lòng thử lại sau.")
 	default:
 		writeError(c, http.StatusInternalServerError, "internal_error", "Service tạm thời không khả dụng.")
 	}

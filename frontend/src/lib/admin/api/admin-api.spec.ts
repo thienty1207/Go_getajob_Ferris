@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ApiError } from '$lib/shared/api/api-errors';
-import { createAdminJobLink, deleteAdminJobLink, getAdminJobLinks, getAdminJobs, getAdminSettings, requestAdminJobLinkCrawl, setAdminJobLinkStatus, updateAdminCrawlerSettings, updateAdminJobLink, uploadAdminPromotion } from './admin-api';
+import { createAdminHomeMedia, createAdminJobLink, deleteAdminHomeMedia, deleteAdminJobLink, deleteAdminCVProfile, getAdminClientUsers, getAdminCVProfiles, getAdminHomeSections, getAdminJobLinks, getAdminJobs, getAdminSettings, requestAdminJobLinkCrawl, setAdminJobLinkStatus, updateAdminCrawlerSettings, updateAdminHomeMedia, updateAdminHomeSection, updateAdminJobLink, uploadAdminPromotion } from './admin-api';
 
 function jsonResponse(body: unknown, status = 200) {
 	return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
@@ -143,5 +143,76 @@ describe('admin API contract', () => {
 		expect(requests.map((item) => item.method)).toEqual(['GET', 'PATCH', 'POST']);
 		expect(requests[1].headers.get('x-csrf-token')).toBe('csrf-token');
 		expect(requests[2].url).toContain('/job-links/source-1/crawl');
+	});
+
+	it('reads real client users and structured CV profiles and deletes CV with CSRF', async () => {
+		const requests: Request[] = [];
+		vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+			const request = new Request(input, init);
+			requests.push(request);
+			if (request.url.includes('/users?')) return jsonResponse({ items: [{ id: 'user-1', email: 'user@example.com', display_name: 'Example User', provider: 'google', created_at: '2026-08-20T00:00:00Z', last_login_at: '2026-08-20T00:01:00Z' }], page: 1, page_size: 10, total: 1 });
+			if (request.method === 'DELETE') return new Response(null, { status: 204 });
+			return jsonResponse({ items: [{ scan_id: 'scan-1', user_id: 'user-1', email: 'user@example.com', display_name: 'Example User', status: 'completed', location: 'Hồ Chí Minh', created_at: '2026-08-20T00:00:00Z', updated_at: '2026-08-20T00:01:00Z', match_count: 2, profile: { roles: ['Backend Developer'], skills: ['Go'], years_of_experience: 3, seniority: 'mid', domains: ['SaaS'], education: [], certifications: [] } }], page: 1, page_size: 10, total: 1 });
+		});
+
+		const users = await getAdminClientUsers();
+		const cvs = await getAdminCVProfiles(1, 10, 'user@example.com', 'Backend');
+		await deleteAdminCVProfile('scan-1', 'csrf-token');
+
+		expect(users.items[0].email).toBe('user@example.com');
+		expect(cvs.items[0].profile?.roles).toEqual(['Backend Developer']);
+		expect(requests.at(-1)?.headers.get('x-csrf-token')).toBe('csrf-token');
+	});
+
+	it('uses the real Home section API for text/image and media-strip changes', async () => {
+		const requests: Request[] = [];
+		const image = 'https://res.cloudinary.com/example/image/upload/home.png';
+		const hash = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+		const section = { slot: 1, layout: 'CONTENT_LEFT', is_active: true, title: 'Title', body: 'Body', image_alt_text: 'Alt', image_url: image, image_content_hash: hash, media: [] };
+		const media = { id: 'media-1', sort_order: 0, is_active: true, image_alt_text: 'Strip alt', image_url: image, image_content_hash: hash };
+		vi.stubGlobal('fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+			const request = new Request(input, init);
+			requests.push(request);
+			if (request.method === 'GET') return jsonResponse({ sections: [section] });
+			if (request.method === 'POST') return jsonResponse(media);
+			if (request.method === 'PATCH') return jsonResponse({ ...media, is_active: false });
+			if (request.method === 'DELETE') return new Response(null, { status: 204 });
+			return jsonResponse(section);
+		});
+
+		const sections = await getAdminHomeSections();
+		const updatedSection = await updateAdminHomeSection(1, { isActive: true, title: 'Title', body: 'Body', file: new File(['png'], 'home.png', { type: 'image/png' }) }, 'csrf-token');
+		const createdMedia = await createAdminHomeMedia(4, { sortOrder: 0, isActive: true, file: new File(['png'], 'strip.png', { type: 'image/png' }) }, 'csrf-token');
+		const updatedMedia = await updateAdminHomeMedia('media-1', { isActive: false }, 'csrf-token');
+		await deleteAdminHomeMedia('media-1', 'csrf-token');
+
+		expect(sections[0].slot).toBe(1);
+		expect(updatedSection.title).toBe('Title');
+		expect(createdMedia.id).toBe('media-1');
+		expect(updatedMedia.isActive).toBe(false);
+		expect(requests.map((request) => request.method)).toEqual(['GET', 'PUT', 'POST', 'PATCH', 'DELETE']);
+		expect(requests[1].headers.get('x-csrf-token')).toBe('csrf-token');
+		const sectionForm = await requests[1].formData();
+		expect(sectionForm.get('image')).toBeInstanceOf(File);
+		expect(sectionForm.get('title')).toBe('Title');
+		expect(sectionForm.get('body')).toBe('Body');
+		expect(sectionForm.has('eyebrow')).toBe(false);
+		expect(sectionForm.has('image_alt_text')).toBe(false);
+		expect(sectionForm.has('target_url')).toBe(false);
+		const mediaForm = await requests[2].formData();
+		expect(mediaForm.get('image')).toBeInstanceOf(File);
+		expect(mediaForm.has('image_alt_text')).toBe(false);
+		expect(mediaForm.has('target_url')).toBe(false);
+		expect(requests[4].url).toContain('/home-sections/4/items/media-1');
+	});
+
+	it('keeps the Home editor visible when the database has no section rows', async () => {
+		vi.stubGlobal('fetch', async () => jsonResponse({ sections: [] }));
+
+		const sections = await getAdminHomeSections();
+
+		expect(sections.map((section) => section.slot)).toEqual([1, 2, 3, 4]);
+		expect(sections.every((section) => section.isActive === false)).toBe(true);
+		expect(sections.every((section) => section.media.length === 0)).toBe(true);
 	});
 });

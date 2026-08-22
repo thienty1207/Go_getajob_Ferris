@@ -19,6 +19,16 @@ $settingsUpPath = Join-Path $migrationDirectory '000008_settings_and_crawl_reque
 $settingsDownPath = Join-Path $migrationDirectory '000008_settings_and_crawl_requests.down.sql'
 $runtimeUpPath = Join-Path $migrationDirectory '000009_admin_management_runtime.up.sql'
 $runtimeDownPath = Join-Path $migrationDirectory '000009_admin_management_runtime.down.sql'
+$locationAssignmentUpPath = Join-Path $migrationDirectory '000010_location_assignment_source.up.sql'
+$locationAssignmentDownPath = Join-Path $migrationDirectory '000010_location_assignment_source.down.sql'
+$clientAuthUpPath = Join-Path $migrationDirectory '000011_client_auth.up.sql'
+$clientAuthDownPath = Join-Path $migrationDirectory '000011_client_auth.down.sql'
+$clientCvHistoryUpPath = Join-Path $migrationDirectory '000012_client_cv_history.up.sql'
+$clientCvHistoryDownPath = Join-Path $migrationDirectory '000012_client_cv_history.down.sql'
+$homeSectionsUpPath = Join-Path $migrationDirectory '000013_home_sections.up.sql'
+$homeSectionsDownPath = Join-Path $migrationDirectory '000013_home_sections.down.sql'
+$homeAssetCleanupUpPath = Join-Path $migrationDirectory '000014_home_asset_cleanup.up.sql'
+$homeAssetCleanupDownPath = Join-Path $migrationDirectory '000014_home_asset_cleanup.down.sql'
 $fixturePath = Join-Path $PSScriptRoot '..\fixtures\development-job.sql'
 $failures = [System.Collections.Generic.List[string]]::new()
 
@@ -72,6 +82,14 @@ Assert-Condition -Condition (Test-Path -LiteralPath $settingsDownPath) -Message 
 Assert-Condition -Condition (Test-Path -LiteralPath $runtimeUpPath) -Message "Missing crawler-runtime up migration: $runtimeUpPath"
 Assert-Condition -Condition (Test-Path -LiteralPath $runtimeDownPath) -Message "Missing crawler-runtime down migration: $runtimeDownPath"
 Assert-Condition -Condition (Test-Path -LiteralPath $fixturePath) -Message "Missing explicit development fixture: $fixturePath"
+Assert-Condition -Condition (Test-Path -LiteralPath $clientAuthUpPath) -Message "Missing client-auth up migration: $clientAuthUpPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $clientAuthDownPath) -Message "Missing client-auth down migration: $clientAuthDownPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $clientCvHistoryUpPath) -Message "Missing client-CV-history up migration: $clientCvHistoryUpPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $clientCvHistoryDownPath) -Message "Missing client-CV-history down migration: $clientCvHistoryDownPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $homeSectionsUpPath) -Message "Missing Home-sections up migration: $homeSectionsUpPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $homeSectionsDownPath) -Message "Missing Home-sections down migration: $homeSectionsDownPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $homeAssetCleanupUpPath) -Message "Missing Home-asset-cleanup up migration: $homeAssetCleanupUpPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $homeAssetCleanupDownPath) -Message "Missing Home-asset-cleanup down migration: $homeAssetCleanupDownPath"
 
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Output $_ }
@@ -96,6 +114,16 @@ $settingsUp = if (Test-Path -LiteralPath $settingsUpPath) { Get-Content -Literal
 $settingsDown = if (Test-Path -LiteralPath $settingsDownPath) { Get-Content -LiteralPath $settingsDownPath -Raw } else { '' }
 $runtimeUp = if (Test-Path -LiteralPath $runtimeUpPath) { Get-Content -LiteralPath $runtimeUpPath -Raw } else { '' }
 $runtimeDown = if (Test-Path -LiteralPath $runtimeDownPath) { Get-Content -LiteralPath $runtimeDownPath -Raw } else { '' }
+$locationAssignmentUp = if (Test-Path -LiteralPath $locationAssignmentUpPath) { Get-Content -LiteralPath $locationAssignmentUpPath -Raw } else { '' }
+$locationAssignmentDown = if (Test-Path -LiteralPath $locationAssignmentDownPath) { Get-Content -LiteralPath $locationAssignmentDownPath -Raw } else { '' }
+$clientAuthUp = if (Test-Path -LiteralPath $clientAuthUpPath) { Get-Content -LiteralPath $clientAuthUpPath -Raw } else { '' }
+$clientAuthDown = if (Test-Path -LiteralPath $clientAuthDownPath) { Get-Content -LiteralPath $clientAuthDownPath -Raw } else { '' }
+$clientCvHistoryUp = if (Test-Path -LiteralPath $clientCvHistoryUpPath) { Get-Content -LiteralPath $clientCvHistoryUpPath -Raw } else { '' }
+$clientCvHistoryDown = if (Test-Path -LiteralPath $clientCvHistoryDownPath) { Get-Content -LiteralPath $clientCvHistoryDownPath -Raw } else { '' }
+$homeSectionsUp = if (Test-Path -LiteralPath $homeSectionsUpPath) { Get-Content -LiteralPath $homeSectionsUpPath -Raw } else { '' }
+$homeSectionsDown = if (Test-Path -LiteralPath $homeSectionsDownPath) { Get-Content -LiteralPath $homeSectionsDownPath -Raw } else { '' }
+$homeAssetCleanupUp = if (Test-Path -LiteralPath $homeAssetCleanupUpPath) { Get-Content -LiteralPath $homeAssetCleanupUpPath -Raw } else { '' }
+$homeAssetCleanupDown = if (Test-Path -LiteralPath $homeAssetCleanupDownPath) { Get-Content -LiteralPath $homeAssetCleanupDownPath -Raw } else { '' }
 $fixture = Get-Content -LiteralPath $fixturePath -Raw
 
 Assert-Contains -Text $up -Pattern '(?im)^BEGIN;\s*$' -Message 'Up migration must start a transaction.'
@@ -185,6 +213,38 @@ foreach ($column in @('storage_provider', 'cloudinary_public_id', 'cloudinary_se
 Assert-Contains -Text $adminUp -Pattern '(?is)storage_provider\s+IN\s*\(.*DATABASE.*CLOUDINARY' -Message 'Promotion storage provider must be constrained.'
 Assert-Contains -Text $adminUp -Pattern '(?is)cloudinary_secure_url.*https://' -Message 'Cloudinary delivery URLs must be HTTPS.'
 Assert-NotContains -Text $adminUp -Pattern '(?im)^\s*(INSERT|COPY)\s+' -Message 'Admin/Cloudinary migration must not seed data.'
+Assert-Contains -Text $clientCvHistoryUp -Pattern '(?im)^BEGIN;\s*$' -Message 'Client CV history up migration must start a transaction.'
+Assert-Contains -Text $clientCvHistoryUp -Pattern '(?im)^COMMIT;\s*$' -Message 'Client CV history up migration must commit its transaction.'
+Assert-Contains -Text $clientCvHistoryUp -Pattern '(?im)ADD\s+COLUMN\s+client_user_id\s+uuid' -Message 'Scans need an authenticated client owner column.'
+Assert-Contains -Text $clientCvHistoryUp -Pattern '(?im)scans_client_user_fk' -Message 'Scan ownership must reference client_users.'
+Assert-Contains -Text $clientCvHistoryUp -Pattern '(?im)scans_client_user_created_idx' -Message 'Client CV history needs an owner/time index.'
+Assert-Contains -Text $clientCvHistoryUp -Pattern '(?im)ALTER\s+COLUMN\s+radius_km\s+DROP\s+NOT NULL' -Message 'Legacy radius storage must be nullable for location-only scans.'
+Assert-Contains -Text $clientCvHistoryDown -Pattern '(?im)^BEGIN;\s*$' -Message 'Client CV history down migration must start a transaction.'
+Assert-Contains -Text $clientCvHistoryDown -Pattern '(?im)^COMMIT;\s*$' -Message 'Client CV history down migration must commit its transaction.'
+Assert-Contains -Text $homeSectionsUp -Pattern '(?im)^BEGIN;\s*$' -Message 'Home sections up migration must start a transaction.'
+Assert-Contains -Text $homeSectionsUp -Pattern '(?im)^COMMIT;\s*$' -Message 'Home sections up migration must commit a transaction.'
+foreach ($table in @('home_sections', 'home_section_media')) {
+    Assert-Contains -Text $homeSectionsUp -Pattern "(?im)CREATE\s+TABLE\s+public\.$table" -Message "Missing Home section table: public.$table"
+    Assert-Contains -Text $homeSectionsDown -Pattern "(?im)DROP\s+TABLE\s+IF\s+EXISTS\s+public\.$table" -Message "Home sections down migration must drop public.$table"
+}
+Assert-Contains -Text $homeSectionsUp -Pattern "(?is)slot\s+smallint.*layout\s+text.*home_sections_layout_check" -Message 'Home sections need fixed slot/layout fields.'
+Assert-Contains -Text $homeSectionsUp -Pattern "(?is)slot\s+IN\s*\(1,\s*3\).*CONTENT_LEFT.*slot\s*=\s*2.*IMAGE_LEFT.*slot\s*=\s*4.*MEDIA_STRIP" -Message 'Home section layouts must map to the four fixed slots.'
+Assert-Contains -Text $homeSectionsUp -Pattern '(?im)home_section_media_order_uidx' -Message 'Home media items need unique ordering per section.'
+Assert-Contains -Text $homeSectionsUp -Pattern '(?im)cloudinary_secure_url\s+text' -Message 'Home media must store Cloudinary metadata rather than binary bytes.'
+Assert-NotContains -Text $homeSectionsUp -Pattern '(?im)^\s*(INSERT|COPY)\s+' -Message 'Home sections migration must not seed mock content.'
+Assert-Contains -Text $homeSectionsDown -Pattern '(?im)^BEGIN;\s*$' -Message 'Home sections down migration must start a transaction.'
+Assert-Contains -Text $homeSectionsDown -Pattern '(?im)^COMMIT;\s*$' -Message 'Home sections down migration must commit a transaction.'
+Assert-Contains -Text $homeAssetCleanupUp -Pattern '(?im)^BEGIN;\s*$' -Message 'Home asset cleanup up migration must start a transaction.'
+Assert-Contains -Text $homeAssetCleanupUp -Pattern '(?im)^COMMIT;\s*$' -Message 'Home asset cleanup up migration must commit a transaction.'
+Assert-Contains -Text $homeAssetCleanupUp -Pattern '(?is)CREATE\s+TABLE\s+public\.home_asset_cleanup_queue' -Message 'Home asset cleanup migration must create its durable queue.'
+foreach ($column in @('id', 'cloudinary_public_id', 'attempt_count', 'next_attempt_at', 'created_at', 'updated_at')) {
+    Assert-Contains -Text $homeAssetCleanupUp -Pattern "(?im)^\s*$column\s+" -Message "Home asset cleanup queue is missing column: $column"
+}
+Assert-Contains -Text $homeAssetCleanupUp -Pattern '(?im)CREATE\s+INDEX\s+home_asset_cleanup_due_idx' -Message 'Home asset cleanup queue must index due retry work.'
+Assert-NotContains -Text $homeAssetCleanupUp -Pattern '(?im)^\s*(INSERT|COPY)\s+' -Message 'Home asset cleanup migration must not seed provider data.'
+Assert-Contains -Text $homeAssetCleanupDown -Pattern '(?im)^BEGIN;\s*$' -Message 'Home asset cleanup down migration must start a transaction.'
+Assert-Contains -Text $homeAssetCleanupDown -Pattern '(?im)^COMMIT;\s*$' -Message 'Home asset cleanup down migration must commit a transaction.'
+Assert-Contains -Text $homeAssetCleanupDown -Pattern '(?im)DROP\s+TABLE\s+IF\s+EXISTS\s+public\.home_asset_cleanup_queue;' -Message 'Home asset cleanup down migration must remove only its queue.'
 Assert-Contains -Text $jobLinkUp -Pattern '(?im)^BEGIN;\s*$' -Message 'Job Link up migration must start a transaction.'
 Assert-Contains -Text $jobLinkUp -Pattern '(?im)^COMMIT;\s*$' -Message 'Job Link up migration must commit its transaction.'
 Assert-Contains -Text $jobLinkDown -Pattern '(?im)^BEGIN;\s*$' -Message 'Job Link down migration must start a transaction.'
@@ -257,6 +317,29 @@ Assert-Contains -Text $runtimeUp -Pattern "(?is)runtime_key\s+text\s+PRIMARY\s+K
 Assert-Contains -Text $runtimeUp -Pattern "(?is)status\s+text.*CHECK\s*\(.*'OFFLINE'.*'IDLE'.*'RUNNING'.*'ERROR'" -Message 'Crawler runtime statuses must be constrained.'
 Assert-Contains -Text $runtimeUp -Pattern "(?is)INSERT\s+INTO\s+public\.crawler_runtime.*'default'.*'OFFLINE'" -Message 'Crawler runtime migration must seed its singleton row.'
 Assert-Contains -Text $runtimeDown -Pattern '(?im)^DROP\s+TABLE\s+IF\s+EXISTS\s+public\.crawler_runtime;' -Message 'Crawler-runtime down migration must remove only the runtime table.'
+
+foreach ($locationAssignmentMigration in @(@{ Text = $locationAssignmentUp; Name = 'Location-assignment-source up' }, @{ Text = $locationAssignmentDown; Name = 'Location-assignment-source down' })) {
+    Assert-Contains -Text $locationAssignmentMigration.Text -Pattern '(?im)^BEGIN;\s*$' -Message "$($locationAssignmentMigration.Name) migration must start a transaction."
+    Assert-Contains -Text $locationAssignmentMigration.Text -Pattern '(?im)^COMMIT;\s*$' -Message "$($locationAssignmentMigration.Name) migration must commit its transaction."
+}
+Assert-Contains -Text $locationAssignmentUp -Pattern '(?im)ADD\s+COLUMN\s+location_assignment_source\s+text\s+NOT\s+NULL\s+DEFAULT\s+''AUTO''' -Message 'Location source ownership column must exist on job_cache with AUTO default.'
+Assert-Contains -Text $locationAssignmentUp -Pattern "(?is)location_assignment_source\s*IN\s*\(\s*'AUTO'.*'ADMIN'" -Message 'Location assignment source must be constrained to AUTO or ADMIN.'
+Assert-Contains -Text $locationAssignmentDown -Pattern '(?im)DROP\s+COLUMN\s+IF\s+EXISTS\s+location_assignment_source;' -Message 'Location-assignment-source down migration must remove only its column.'
+
+foreach ($clientAuthMigration in @(@{ Text = $clientAuthUp; Name = 'Client-auth up' }, @{ Text = $clientAuthDown; Name = 'Client-auth down' })) {
+    Assert-Contains -Text $clientAuthMigration.Text -Pattern '(?im)^BEGIN;\s*$' -Message "$($clientAuthMigration.Name) migration must start a transaction."
+    Assert-Contains -Text $clientAuthMigration.Text -Pattern '(?im)^COMMIT;\s*$' -Message "$($clientAuthMigration.Name) migration must commit its transaction."
+}
+foreach ($table in @('client_users', 'client_google_identities', 'client_sessions')) {
+    Assert-Contains -Text $clientAuthUp -Pattern "(?im)CREATE\s+TABLE\s+public\.$table" -Message "Missing client table: public.$table"
+    Assert-Contains -Text $clientAuthDown -Pattern "(?im)DROP\s+TABLE\s+IF\s+EXISTS\s+public\.$table" -Message "Client-auth down migration must drop public.$table."
+}
+Assert-Contains -Text $clientAuthUp -Pattern "(?is)UNIQUE.*google_sub" -Message 'Client Google identity must be unique by provider subject.'
+Assert-Contains -Text $clientAuthUp -Pattern '(?is)token_hash\s+bytea.*octet_length\(token_hash\)\s*=\s*32' -Message 'Client session token must be stored as a 32-byte hash.'
+Assert-Contains -Text $clientAuthUp -Pattern '(?is)csrf_token_hash\s+bytea.*octet_length\(csrf_token_hash\)\s*=\s*32' -Message 'Client session CSRF hash must be a 32-byte value.'
+Assert-Contains -Text $clientAuthUp -Pattern "(?is)provider\s+.*CHECK\s*\(.*'google'" -Message 'Client provider must be constrained to google.'
+Assert-NotContains -Text $clientAuthUp -Pattern '(?im)^\s*(INSERT|COPY)\s+' -Message 'Client-auth migration must not seed or load data.'
+Assert-NotContains -Text $clientAuthUp -Pattern '(?i)password_hash' -Message 'Client users must not store a password (Google login only).'
 Assert-Contains -Text $fixture -Pattern '(?im)development-only' -Message 'Development fixture must be explicitly marked as development-only.'
 Assert-Contains -Text $fixture -Pattern "(?im)development-fixture" -Message 'Development fixture must use an unmistakable source key.'
 Assert-Contains -Text $fixture -Pattern "(?im)'DISABLED'" -Message 'Development fixture job must remain disabled from public results.'

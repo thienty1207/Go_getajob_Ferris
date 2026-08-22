@@ -19,3 +19,7 @@ target/
 .baron/cache/
 .baron/managed-state/
 .baron/local.toml
+.baron/update/
+
+# Reasonix crash-recovery lease is local; project hooks and handoff docs stay tracked.
+.reasonix/runtime/

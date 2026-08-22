@@ -8,11 +8,13 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"net"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
 	"time"
+	"unicode"
 	"unicode/utf8"
 
 	"github.com/gogetsomefoodferris/backend/internal/model"
@@ -84,7 +86,7 @@ func NewDeepSeekParser(config DeepSeekConfig) (*DeepSeekParser, error) {
 		baseURL = DefaultDeepSeekBaseURL
 	}
 	parsed, err := url.Parse(baseURL)
-	if err != nil || parsed.Scheme != "https" && parsed.Scheme != "http" || parsed.Host == "" {
+	if err != nil || parsed.Host == "" || parsed.Scheme != "https" && !isLoopbackHTTP(parsed) {
 		return nil, errors.New("DeepSeek base URL is invalid")
 	}
 	endpoint := baseURL
@@ -168,6 +170,12 @@ func (p *DeepSeekParser) parseWithModel(ctx context.Context, modelName, cvText s
 	if err := decoder.Decode(&profile); err != nil {
 		return model.StructuredProfile{}, errors.New("DeepSeek completion is not valid profile JSON")
 	}
+	// A successful first Decode does not guarantee that the provider returned
+	// exactly one JSON value. Require EOF so a second object/value cannot be
+	// silently ignored and later treated as validated structured profile data.
+	if err := decoder.Decode(&struct{}{}); !errors.Is(err, io.EOF) {
+		return model.StructuredProfile{}, errors.New("DeepSeek completion contains trailing JSON content")
+	}
 	if err := profile.Validate(); err != nil {
 		return model.StructuredProfile{}, err
 	}
@@ -241,21 +249,115 @@ func isSupportedSeniority(value string) bool {
 }
 
 var (
-	emailPattern        = regexp.MustCompile(`(?i)[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}`)
-	phonePattern        = regexp.MustCompile(`(?i)(?:\+?84|0)[\s().\-]*\d[\d\s().\-]{7,}\d`)
-	identityLinePattern = regexp.MustCompile(`(?im)^\s*(?:name|full name|họ tên|ho va ten|email|phone|điện thoại|dien thoai|address|địa chỉ|dia chi)\s*[:\-].*$`)
+	emailPattern = regexp.MustCompile(`(?i)[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}`)
+	// The provider does not need any telephone number. This broader pattern
+	// covers international formats instead of assuming every candidate uses a
+	// Vietnamese prefix; eight digits avoids matching ordinary CV years.
+	phonePattern        = regexp.MustCompile(`(?i)\+?\d(?:[\s().\-]*\d){7,14}`)
+	urlPattern          = regexp.MustCompile(`(?i)(?:https?://|www\.)[^\s]+|(?:linkedin|github)\.com/[^\s]+`)
+	identityLinePattern = regexp.MustCompile(`(?im)^\s*(?:name|full name|candidate|họ tên|ho va ten|email|e-mail|phone|mobile|telephone|điện thoại|dien thoai|date of birth|dob|birth date|ngày sinh|ngay sinh|id|identity|national id|cccd|cmnd|passport|address|địa chỉ|dia chi|photo|avatar|website|portfolio|linkedin|github)\s*[:\-].*$`)
+	addressLinePattern  = regexp.MustCompile(`(?im)^\s*\d{1,5}\s+.*(?:street|road|avenue|district|ward|đường|duong|phường|phuong|quận|quan|thành phố|thanh pho|tp\.?\s*hcm|hà nội|ha noi).*$`)
 )
 
 func sanitizeCVText(value string) string {
+	value = redactLikelyHeaderName(value)
 	value = identityLinePattern.ReplaceAllString(value, "")
+	value = addressLinePattern.ReplaceAllString(value, "")
 	value = emailPattern.ReplaceAllString(value, "[REDACTED_EMAIL]")
 	value = phonePattern.ReplaceAllString(value, "[REDACTED_PHONE]")
+	value = urlPattern.ReplaceAllString(value, "[REDACTED_URL]")
+	value = compactBlankLines(value)
 	value = strings.TrimSpace(value)
 	if utf8.RuneCountInString(value) > maxCVTextRunes {
 		runes := []rune(value)
 		value = string(runes[:maxCVTextRunes])
 	}
 	return value
+}
+
+// redactLikelyHeaderName removes an unlabeled candidate name only when nearby
+// contact details make the first line look like an identity header. Job titles
+// are deliberately excluded so matching-relevant text remains available.
+func redactLikelyHeaderName(value string) string {
+	lines := strings.Split(strings.ReplaceAll(value, "\r\n", "\n"), "\n")
+	first := -1
+	contactNearby := false
+	for index, line := range lines {
+		if index >= 10 {
+			break
+		}
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		if first == -1 {
+			first = index
+		}
+		if emailPattern.MatchString(trimmed) || phonePattern.MatchString(trimmed) || identityLinePattern.MatchString(trimmed) || urlPattern.MatchString(trimmed) {
+			contactNearby = true
+		}
+	}
+	if first >= 0 && contactNearby && looksLikePersonName(lines[first]) {
+		lines[first] = ""
+	}
+	return strings.Join(lines, "\n")
+}
+
+func looksLikePersonName(value string) bool {
+	words := strings.Fields(strings.TrimSpace(value))
+	if len(words) < 2 || len(words) > 6 {
+		return false
+	}
+	roleKeywords := []string{"engineer", "developer", "manager", "designer", "analyst", "consultant", "specialist", "intern", "director", "officer", "architect", "kỹ sư", "nhân viên", "chuyên viên", "quản lý", "thực tập"}
+	lower := strings.ToLower(value)
+	for _, keyword := range roleKeywords {
+		if strings.Contains(lower, keyword) {
+			return false
+		}
+	}
+	for _, word := range words {
+		hasLetter := false
+		for _, character := range strings.Trim(word, "-'’.") {
+			if !unicode.IsLetter(character) {
+				return false
+			}
+			hasLetter = true
+		}
+		if !hasLetter {
+			return false
+		}
+	}
+	return true
+}
+
+func compactBlankLines(value string) string {
+	lines := strings.Split(value, "\n")
+	compacted := make([]string, 0, len(lines))
+	blank := false
+	for _, line := range lines {
+		if strings.TrimSpace(line) == "" {
+			if blank {
+				continue
+			}
+			blank = true
+		} else {
+			blank = false
+		}
+		compacted = append(compacted, line)
+	}
+	return strings.Join(compacted, "\n")
+}
+
+func isLoopbackHTTP(parsed *url.URL) bool {
+	if parsed == nil || parsed.Scheme != "http" {
+		return false
+	}
+	host := strings.TrimSpace(parsed.Hostname())
+	if strings.EqualFold(host, "localhost") {
+		return true
+	}
+	ip := net.ParseIP(host)
+	return ip != nil && ip.IsLoopback()
 }
 
 func stripJSONFence(value string) string {

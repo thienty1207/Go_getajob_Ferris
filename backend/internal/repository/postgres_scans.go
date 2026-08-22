@@ -18,8 +18,8 @@ import (
 // The scan transaction creates the row and immediately moves it to PARSING so
 // a caller never observes a durable RECEIVED row that has no processor work.
 const createScanQuery = `
-INSERT INTO public.scans (status, location_id, location_text, latitude, longitude, radius_km)
-SELECT 'RECEIVED', id, display_name, latitude, longitude, $2
+INSERT INTO public.scans (status, client_user_id, location_id, location_text, latitude, longitude)
+SELECT 'RECEIVED', $2, id, display_name, latitude, longitude
 FROM public.locations
 WHERE id = $1 AND is_active = true
 RETURNING id`
@@ -48,9 +48,10 @@ WHERE id = $1
   )`
 
 const getScanQuery = `
-SELECT id, status, error_code, location_id, location_text, latitude::double precision, longitude::double precision, radius_km::double precision
+SELECT id, status, error_code, location_id, location_text, latitude::double precision, longitude::double precision
 FROM public.scans
-WHERE id = $1`
+WHERE id = $1
+  AND ($2::uuid IS NULL OR client_user_id = $2)`
 
 // Public matches come from active_job_cache, which hides closed jobs and
 // unapproved sources from client responses.
@@ -77,10 +78,7 @@ LIMIT 100`
 const listMatchCandidatesQuery = `
 WITH scan_context AS (
     SELECT id,
-           location_id,
-           latitude::double precision AS scan_latitude,
-           longitude::double precision AS scan_longitude,
-           radius_km::double precision AS radius_km
+           location_id
     FROM public.scans
     WHERE id = $1
 )
@@ -100,35 +98,10 @@ SELECT
     jobs.salary_source_text,
     jobs.salary_currency,
     jobs.original_url,
-    CASE
-        WHEN jobs.work_mode = 'REMOTE' THEN NULL::double precision
-        WHEN jobs.location_id = scan_context.location_id THEN 0::double precision
-        WHEN scan_context.scan_latitude IS NOT NULL
-             AND scan_context.scan_longitude IS NOT NULL
-             AND jobs.latitude IS NOT NULL
-             AND jobs.longitude IS NOT NULL
-        THEN 6371.0 * acos(LEAST(1.0, GREATEST(-1.0,
-            cos(radians(scan_context.scan_latitude)) * cos(radians(jobs.latitude))
-            * cos(radians(jobs.longitude) - radians(scan_context.scan_longitude))
-            + sin(radians(scan_context.scan_latitude)) * sin(radians(jobs.latitude))
-        )))
-        ELSE NULL::double precision
-    END AS distance_km
+    NULL::double precision AS distance_km
 FROM public.active_job_cache AS jobs
 CROSS JOIN scan_context
-WHERE jobs.work_mode = 'REMOTE'
-   OR jobs.location_id = scan_context.location_id
-   OR (
-       scan_context.scan_latitude IS NOT NULL
-       AND scan_context.scan_longitude IS NOT NULL
-       AND jobs.latitude IS NOT NULL
-       AND jobs.longitude IS NOT NULL
-       AND 6371.0 * acos(LEAST(1.0, GREATEST(-1.0,
-           cos(radians(scan_context.scan_latitude)) * cos(radians(jobs.latitude))
-           * cos(radians(jobs.longitude) - radians(scan_context.scan_longitude))
-           + sin(radians(scan_context.scan_latitude)) * sin(radians(jobs.latitude))
-       ))) <= scan_context.radius_km
-   )
+WHERE jobs.location_id = scan_context.location_id
 ORDER BY jobs.id`
 
 const completeScanProfileQuery = `
@@ -167,7 +140,13 @@ func NewPostgresScanRepository(pool *pgxpool.Pool) *PostgresScanRepository {
 // CreateScan atomically creates and claims a scan for processing. If commit
 // acknowledgement is interrupted, it verifies the row before retrying so a
 // client does not accidentally receive a duplicate scan.
-func (r *PostgresScanRepository) CreateScan(ctx context.Context, locationID uuid.UUID, radiusKm float64) (uuid.UUID, error) {
+func (r *PostgresScanRepository) CreateScan(ctx context.Context, locationID uuid.UUID, _ float64) (uuid.UUID, error) {
+	return r.CreateScanForClient(ctx, locationID, nil)
+}
+
+// CreateScanForClient persists the authenticated owner at the same time as
+// the scan row. The owner is never accepted from multipart form data.
+func (r *PostgresScanRepository) CreateScanForClient(ctx context.Context, locationID uuid.UUID, clientUserID *uuid.UUID) (uuid.UUID, error) {
 	tx, err := r.pool.BeginTx(ctx, pgx.TxOptions{})
 	if err != nil {
 		return uuid.Nil, err
@@ -175,7 +154,7 @@ func (r *PostgresScanRepository) CreateScan(ctx context.Context, locationID uuid
 	defer tx.Rollback(ctx)
 
 	var id uuid.UUID
-	if err := tx.QueryRow(ctx, createScanQuery, locationID, radiusKm).Scan(&id); err != nil {
+	if err := tx.QueryRow(ctx, createScanQuery, locationID, clientUserID).Scan(&id); err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return uuid.Nil, ErrLocationNotFound
 		}
@@ -237,6 +216,12 @@ func (r *PostgresScanRepository) SetStatus(ctx context.Context, id uuid.UUID, st
 // GetScan reads the scan and, for completed scans, their matches in one
 // repeatable-read transaction so the status and result set are consistent.
 func (r *PostgresScanRepository) GetScan(ctx context.Context, id uuid.UUID) (model.Scan, error) {
+	return r.GetScanForClient(ctx, id, uuid.Nil)
+}
+
+// GetScanForClient applies the ownership predicate before loading matches, so
+// a client cannot inspect another user's scan by changing the URL scan ID.
+func (r *PostgresScanRepository) GetScanForClient(ctx context.Context, id uuid.UUID, clientUserID uuid.UUID) (model.Scan, error) {
 	var (
 		scan       model.Scan
 		status     string
@@ -245,6 +230,10 @@ func (r *PostgresScanRepository) GetScan(ctx context.Context, id uuid.UUID) (mod
 		latitude   pgtype.Float8
 		longitude  pgtype.Float8
 	)
+	var ownerArg any
+	if clientUserID != uuid.Nil {
+		ownerArg = clientUserID
+	}
 
 	tx, err := r.pool.BeginTx(ctx, pgx.TxOptions{IsoLevel: pgx.RepeatableRead})
 	if err != nil {
@@ -252,7 +241,7 @@ func (r *PostgresScanRepository) GetScan(ctx context.Context, id uuid.UUID) (mod
 	}
 	defer tx.Rollback(ctx)
 
-	err = tx.QueryRow(ctx, getScanQuery, id).Scan(
+	err = tx.QueryRow(ctx, getScanQuery, id, ownerArg).Scan(
 		&scan.ID,
 		&status,
 		&errorCode,
@@ -260,7 +249,6 @@ func (r *PostgresScanRepository) GetScan(ctx context.Context, id uuid.UUID) (mod
 		&scan.Location,
 		&latitude,
 		&longitude,
-		&scan.RadiusKm,
 	)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return model.Scan{}, ErrScanNotFound

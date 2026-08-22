@@ -497,3 +497,124 @@ Candidates are not trusted facts. They require approval before becoming durable 
 - Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
 - Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
 
+## candidate-1787209478893828400-memory
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T14:04:38+07:00
+- Summary: Prepared an interruption-safe six-tranche plan for OAuth repair, client redesign, location-only scans, structured CV history, admin data wiring, and Home CMS. No implementation started. Documentation check is clean for new files; repository-wide git diff --check remains nonzero only because of a pre-existing blank line at EOF in frontend/src/lib/shared/styles/global.css. Awaiting explicit user confirmation of login-before-scan Option A.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787215895971633700-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T15:51:35+07:00
+- Summary: Implemented client OAuth, location-only owner-scoped CV scan/history, dedicated scan route, real admin User/CV data, and fixed-slot Home CMS with Cloudinary metadata. Automated gates and local browser smoke pass. Remaining risks are only external live proof for Google callback, DeepSeek real scan/raw-file cleanup, Cloudinary section upload/delete, and final review; no mock data or secrets were added.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787217574764727300-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T16:19:34+07:00
+- Summary: Client Google auth, owner-scoped CV history, location-only async scan lifecycle, and fixed-slot Home CMS implementation. Automated gates pass; external Google/DeepSeek/Cloudinary live proof remains pending; in-process worker is MVP hardening risk.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787219315957702200-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T16:48:35+07:00
+- Summary: Client login/CV CTA cleanup and Home CMS UI refinement completed. Frontend check/test/build and browser smoke pass. Home CMS slots are intentionally inactive/empty until real admin content is published. External Google OAuth, DeepSeek scan, and Cloudinary live proof remain open.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787220219385805800-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T17:03:39+07:00
+- Summary: Home vertical scroll clipping fixed and verified. No mock section content added. Frontend check/test/build, diff check, browser measurements, and trusted build receipt pass. External provider proofs remain pending.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787222556746627800-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T17:42:36+07:00
+- Summary: Fixed blank admin Home section editor caused by empty database response; added UI-only fixed slot normalization for 1-4; corrected PostgreSQL public/admin filtering for sections and media; focused tests and frontend gates pass; full Go suite partially blocked by Windows Application Control; admin browser session unavailable.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787222614255959900-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T17:43:34+07:00
+- Summary: Final state: admin Home editor renders empty fixed slots without mock data; Home CMS PostgreSQL public/admin section and media boundaries corrected; focused and frontend verification pass; full Go suite has Windows Application Control limitation; browser admin smoke pending.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787228618099894700-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T19:23:38+07:00
+- Summary: Simplified Home CMS: sections 1-3 now title/body/image with derived metadata; section 4 max 10 real images with desktop marquee and mobile two-row motion. Frontend test/check/build pass; focused Go vet pass; Go test execution blocked by Windows Application Control before assertions; authenticated browser proof pending.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787230370569839100-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T19:52:50+07:00
+- Summary: PostgreSQL recovery incident: admin auth storage failures now map to 503 database_unavailable with focused and full direct Go verification; live DB recovery, schema migration verification, and Baron proof receipt remain unresolved due service-control permission and proof-worker timeout.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787230947878569500-memory
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-20T20:02:27+07:00
+- Summary: PostgreSQL remains unavailable because the Windows service restart did not occur. UI errors are downstream symptoms. Code-side 503 handling is verified, but live recovery requires an elevated operator restart; no force-kill or database reset attempted.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+
+## candidate-1787399145786739500-skill-routing
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-22T18:45:45+07:00
+- Summary: Upload workflow reliability implementation is directly verified; live provider/database gates pass; three delegated reviewer agents were unavailable due usage limits; no trusted reviewer receipts fabricated. Remaining action is commit/push and remote verification.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+

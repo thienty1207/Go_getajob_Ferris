@@ -30,13 +30,20 @@ const MAX_PROMOTION_ALT_LENGTH = 180;
 const MAX_PROMOTION_COPY_LENGTH = 320;
 const MAX_CONTENT_HASH_LENGTH = 128;
 
-export async function startScan(input: ClientScanInput, fetcher: Fetcher = fetch): Promise<ScanAccepted> {
+export async function startScan(input: ClientScanInput, csrfToken: string, fetcher: Fetcher = fetch): Promise<ScanAccepted> {
+	if (!csrfToken.trim()) {
+		throw new ApiError('Phiên đăng nhập không hợp lệ cho thao tác quét CV.', 403, 'client_csrf_invalid');
+	}
 	const form = new FormData();
 	form.append('cv', input.file);
 	form.append('location_id', input.locationId);
-	form.append('radius_km', String(input.radiusKm));
 
-	const payload = await requestJson<unknown>(apiUrl(SCANS_PATH), { method: 'POST', body: form }, fetcher);
+	const payload = await requestJson<unknown>(apiUrl(SCANS_PATH), {
+		method: 'POST',
+		body: form,
+		credentials: 'include',
+		headers: { 'X-CSRF-Token': csrfToken }
+	}, fetcher);
 	return parseAccepted(payload);
 }
 
@@ -49,7 +56,7 @@ export async function getClientLocations(fetcher: Fetcher = fetch): Promise<Clie
 }
 
 export async function getScanStatus(scanId: string, fetcher: Fetcher = fetch): Promise<ScanStatusResponse> {
-	const payload = await requestJson<unknown>(apiUrl(`${SCANS_PATH}/${encodeURIComponent(scanId)}`), {}, fetcher);
+	const payload = await requestJson<unknown>(apiUrl(`${SCANS_PATH}/${encodeURIComponent(scanId)}`), { credentials: 'include' }, fetcher);
 	return parseStatus(payload);
 }
 

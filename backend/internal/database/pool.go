@@ -2,8 +2,10 @@ package database
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -24,9 +26,34 @@ func Open(ctx context.Context, databaseURL string) (*pgxpool.Pool, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := pool.Ping(ctx); err != nil {
+	if err := waitForDatabase(ctx, 500*time.Millisecond, pool.Ping); err != nil {
 		pool.Close()
 		return nil, err
 	}
 	return pool, nil
+}
+
+// waitForDatabase absorbs the short recovery window commonly seen after an
+// abrupt workstation/VPS restart. It remains bounded by the caller's startup
+// context, so a genuinely unavailable database still stops the API cleanly.
+func waitForDatabase(ctx context.Context, retryInterval time.Duration, ping func(context.Context) error) error {
+	if retryInterval <= 0 {
+		retryInterval = 500 * time.Millisecond
+	}
+	var lastErr error
+	for {
+		if err := ping(ctx); err == nil {
+			return nil
+		} else {
+			lastErr = err
+		}
+
+		timer := time.NewTimer(retryInterval)
+		select {
+		case <-ctx.Done():
+			timer.Stop()
+			return errors.Join(ctx.Err(), lastErr)
+		case <-timer.C:
+		}
+	}
 }

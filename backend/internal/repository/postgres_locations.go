@@ -68,7 +68,14 @@ RETURNING id, display_name, province, country, canonical_key, latitude::double p
 
 const assignJobLocationQuery = `
 UPDATE public.job_cache
-SET location_id = $2, updated_at = now()
+SET location_id = $2,
+    -- Location ownership invariant:
+    --  - a non-NULL assignment records the admin as owner (ADMIN), so the
+    --    crawler will preserve it across re-crawls and restarts;
+    --  - clearing the location (NULL) reverts to automatic resolution (AUTO)
+    --    and allows the crawler to re-resolve on the next cycle.
+    location_assignment_source = CASE WHEN $2::uuid IS NULL THEN 'AUTO' ELSE 'ADMIN' END,
+    updated_at = now()
 WHERE id = $1`
 
 type PostgresLocationRepository struct {

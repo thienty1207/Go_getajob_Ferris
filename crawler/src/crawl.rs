@@ -492,7 +492,7 @@ fn derive_work_mode(value: &str) -> String {
 
 fn normalize_employment_type(value: String) -> String {
     value
-        .split(['-', ' ', '/'])
+        .split(['.', ',', ';', '|', '-', '/', ' ', '\t'])
         .filter(|part| !part.is_empty())
         .map(|part| part.to_ascii_uppercase())
         .collect::<Vec<_>>()
@@ -903,8 +903,8 @@ fn crawl_status_is_failure(status: CrawlStatus) -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        crawl_status_is_failure, finalize_crawl_report, parse_job_posting_html,
-        validate_public_addresses, CrawlError, ScopedHttpFetchEngine,
+        crawl_status_is_failure, finalize_crawl_report, normalize_employment_type,
+        parse_job_posting_html, validate_public_addresses, CrawlError, ScopedHttpFetchEngine,
     };
     use crate::scope::ScopeError;
     use crate::{crawl::CrawlReport, reconcile::RunStatus, scope::SourceScope};
@@ -918,6 +918,35 @@ mod tests {
     use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
     use tokio::io::{AsyncReadExt, AsyncWriteExt};
     use tokio::net::TcpListener;
+
+    #[test]
+    fn normalize_employment_type_handles_mixed_separators() {
+        // Dot/comma/slash/space hyphen separators all become canonical "_"-joined enum tokens.
+        assert_eq!(
+            normalize_employment_type("FULL_TIME".to_owned()),
+            "FULL_TIME"
+        );
+        assert_eq!(
+            normalize_employment_type("FULL_TIME_PART_TIME".to_owned()),
+            "FULL_TIME_PART_TIME"
+        );
+        assert_eq!(
+            normalize_employment_type("FULL_TIME.PART_TIME.CONTRACTOR".to_owned()),
+            "FULL_TIME_PART_TIME_CONTRACTOR"
+        );
+        assert_eq!(
+            normalize_employment_type("FULL_TIME, PART_TIME, CONTRACTOR".to_owned()),
+            "FULL_TIME_PART_TIME_CONTRACTOR"
+        );
+        assert_eq!(
+            normalize_employment_type("FULL_TIME/PART_TIME".to_owned()),
+            "FULL_TIME_PART_TIME"
+        );
+        assert_eq!(
+            normalize_employment_type("FULL TIME / PART TIME".to_owned()),
+            "FULL_TIME_PART_TIME"
+        );
+    }
 
     #[test]
     fn pinned_destination_set_must_contain_only_public_addresses() {

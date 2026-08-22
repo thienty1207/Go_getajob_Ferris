@@ -233,6 +233,49 @@
 .job-cache-filter { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(170px, .8fr) auto auto; align-items: end; gap: 12px; }
 .job-cache-filter .admin-primary-button { min-height: 38px; min-width: 74px; }
 .admin-record-count { color: var(--text-muted); font-size: .66rem; }
+.admin-panel-meta { color: var(--text-muted); font-size: .68rem; }
+.admin-error-state { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; border: 1px solid rgba(255,48,77,.4); border-radius: 11px; padding: 13px; color: #ffb1bc; font-size: .7rem; }
+.admin-error-state strong { color: var(--text); }
+.admin-loading-inline { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 150px; color: var(--text-muted); font-size: .72rem; }
+.admin-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 15px; color: var(--text-muted); font-size: .7rem; }
+.admin-user-list, .admin-cv-list { display: grid; gap: 8px; }
+.admin-user-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 11px; padding: 12px 14px; }
+.admin-user-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.admin-user-avatar-fallback { display: grid; place-items: center; color: #071119; background: var(--accent-bright); font-size: .85rem; font-weight: 850; }
+.admin-user-main { display: grid; min-width: 0; gap: 4px; }
+.admin-user-main strong { overflow: hidden; color: var(--text); font-size: .76rem; text-overflow: ellipsis; white-space: nowrap; }
+.admin-user-main span, .admin-user-meta small { overflow: hidden; color: var(--text-muted); font-size: .65rem; text-overflow: ellipsis; white-space: nowrap; }
+.admin-user-meta { display: grid; justify-items: end; gap: 4px; color: var(--success); font-size: .63rem; text-transform: uppercase; }
+.admin-cv-row { border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.admin-cv-row-head { display: flex; justify-content: space-between; gap: 14px; }
+.admin-cv-row-head h3 { margin: 8px 0 4px; color: var(--text); font-size: .8rem; }
+.admin-cv-row-head p { margin: 0; color: var(--text-muted); font-size: .64rem; }
+.admin-status-chip { display: inline-flex; border: 1px solid rgba(129,214,176,.35); border-radius: 99px; padding: 4px 7px; color: var(--success); font-size: .57rem; font-weight: 850; text-transform: uppercase; }
+.admin-cv-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; color: var(--text-muted); font-size: .65rem; }
+.admin-cv-profile-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+.admin-cv-profile-grid div { min-width: 0; padding: 9px; border: 1px solid var(--line); border-radius: 8px; }
+.admin-cv-profile-grid span { display: block; margin-bottom: 4px; color: var(--text-muted); font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; }
+.admin-cv-profile-grid strong { display: block; overflow: hidden; color: var(--text-soft); font-size: .68rem; text-overflow: ellipsis; white-space: nowrap; }
+.admin-cv-muted { margin: 14px 0 0; padding-top: 13px; border-top: 1px solid var(--line); color: var(--text-muted); font-size: .66rem; }
+
+.home-section-admin-list { display: grid; gap: 18px; }
+.home-section-editor { min-width: 0; }
+.home-section-editor-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(270px, .72fr); gap: 18px; }
+.home-section-editor-copy, .home-section-editor-media, .home-media-upload-form { display: grid; align-content: start; gap: 12px; min-width: 0; }
+.home-section-editor-media { padding-left: 18px; border-left: 1px solid var(--line); }
+.home-section-editor-media > img, .home-section-empty-media { display: block; width: 100%; aspect-ratio: 16 / 9; min-height: 170px; overflow: hidden; border: 1px solid var(--line); border-radius: 11px; object-fit: cover; background: #090c10; }
+.home-section-empty-media { display: grid; place-items: center; color: var(--text-muted); font-size: .72rem; }
+.home-media-admin-grid { display: grid; grid-template-columns: minmax(230px, .7fr) minmax(0, 1.3fr); gap: 18px; }
+.home-media-upload-form { padding-right: 18px; border-right: 1px solid var(--line); }
+.home-media-admin-list { display: grid; align-content: start; gap: 8px; min-width: 0; }
+.home-media-admin-row { display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; gap: 12px; align-items: center; min-width: 0; border: 1px solid var(--line); border-radius: 11px; padding: 9px; background: rgba(0,0,0,.14); }
+.home-media-admin-row.inactive { opacity: .55; }
+.home-media-admin-row > img { display: block; width: 112px; aspect-ratio: 16 / 9; border-radius: 7px; object-fit: cover; background: #090c10; }
+.home-media-admin-row > div:not(.home-media-admin-actions) { display: grid; min-width: 0; gap: 4px; }
+.home-media-admin-row strong { color: var(--text); font-size: .7rem; }
+.home-media-admin-row span { overflow: hidden; color: var(--text-muted); font-size: .62rem; text-overflow: ellipsis; white-space: nowrap; }
+.home-media-admin-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.home-media-admin-actions button { padding: 7px 9px; }
 
 .job-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 13px; color: var(--text-muted); font-size: .7rem; }
 .job-toolbar strong { color: var(--text); }
@@ -245,22 +288,58 @@
 .job-title-cell strong { display: block; max-width: 260px; overflow: hidden; color: var(--text); font-size: .76rem; text-overflow: ellipsis; white-space: nowrap; }
 .job-title-cell span { display: block; margin-top: 4px; color: var(--text-muted); font-size: .65rem; }
 .job-source-cell { display: grid; gap: 4px; }
-.job-source-cell small { color: var(--text-muted); font-size: .61rem; }
-.job-location-cell select, .job-mobile-location select { width: 100%; min-width: 130px; border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; color: var(--text-soft); background: rgba(0,0,0,.23); font-size: .64rem; }
-.job-location-cell select:focus, .job-mobile-location select:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(255,48,77,.11); }
+.location-select { position: relative; width: 100%; min-width: 150px; }
+.location-select-trigger { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 30px; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; color: var(--text); background: rgba(0,0,0,.23); font-size: .64rem; text-align: left; cursor: pointer; }
+.location-select-trigger:hover { border-color: var(--text-muted); }
+.location-select.open .location-select-trigger, .location-select-trigger:focus-visible { border-color: var(--accent); outline: 2px solid var(--accent-bright); outline-offset: 2px; box-shadow: 0 0 0 3px rgba(255,48,77,.11); }
+.location-select.disabled .location-select-trigger { cursor: not-allowed; opacity: .65; }
+.location-select-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+.location-select-caret { flex: none; color: var(--text-muted); font-size: .58rem; }
+/* Menu render bằng position:fixed trong viewport để thoát khỏi ancestor bị clip
+   (.job-table-wrap overflow-x, .admin-root overflow:hidden). Tọa độ do JS tính từ
+   rect trigger; danh sách bên trong tự cuộn khi vượt max-height. */
+.location-select-portal { position: fixed; z-index: 80; top: auto; left: auto; bottom: auto; margin: 0; padding: 0; }
+.location-select-listbox { list-style: none; margin: 0; padding: 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-strong); box-shadow: var(--shadow); overflow-y: auto; max-height: 100%; }
+.location-select-listbox li { display: block; padding: 7px 9px; border-radius: 7px; color: var(--text); font-size: .66rem; line-height: 1.2; cursor: pointer; }
+.location-select-listbox li[data-empty="true"] { color: var(--text-muted); font-style: italic; }
+.location-select-listbox li[aria-selected="true"] { background: var(--accent-soft); color: var(--text); font-weight: 700; }
+.location-select-listbox li[aria-selected="true"][data-empty="true"] { color: var(--accent-bright); font-weight: 700; }
+.location-select-listbox li.active:not([aria-disabled="true"]) { background: rgba(255,48,77,.18); color: #fff; outline: 2px solid var(--accent-bright); outline-offset: -2px; }
+.location-select-listbox li:hover:not([aria-disabled="true"]) { background: rgba(255,48,77,.18); color: #fff; }
+.location-select-listbox li[aria-disabled="true"] { color: var(--text-muted); opacity: .5; cursor: not-allowed; font-style: normal; }
 .job-badge { display: inline-flex; width: max-content; border: 1px solid var(--line); border-radius: 99px; padding: 4px 7px; color: var(--text-muted); font-size: .56rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
 .job-badge.active { border-color: rgba(129,214,176,.35); color: var(--success); }
 .job-badge.disabled, .job-badge.review { border-color: rgba(255,48,77,.33); color: #ff9baa; }
 .job-badge.fixture { border-color: rgba(255,190,109,.38); color: #ffd18f; }
+.job-mode-badge { display: inline-flex; width: max-content; border: 1px solid var(--line); border-radius: 8px; padding: 3px 8px; color: var(--text-soft); font-size: .62rem; font-weight: 700; }
+.job-mode-badge.is-remote { border-color: rgba(129,214,176,.4); color: var(--success); background: rgba(129,214,176,.07); }
+.job-mode-badge.is-hybrid { border-color: rgba(190,150,255,.4); color: #d1b6ff; background: rgba(190,150,255,.07); }
+.job-mode-badge.is-onsite { border-color: rgba(255,48,77,.35); color: #ff9baa; background: rgba(255,48,77,.06); }
+.job-type-badges { display: flex; flex-wrap: wrap; gap: 5px; min-width: 0; }
+.job-type-badge { display: inline-flex; width: max-content; white-space: nowrap; border: 1px solid rgba(171,185,204,.3); border-radius: 8px; padding: 3px 8px; color: var(--text-soft); font-size: .6rem; font-weight: 700; }
 .job-link-small { color: var(--accent-bright); font-size: .66rem; font-weight: 800; text-decoration: none; }
 .job-link-small:hover { color: white; }
-.job-hash { display: block; max-width: 125px; overflow: hidden; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .59rem; text-overflow: ellipsis; white-space: nowrap; }
+/* Last seen phải nằm gọn trên một dòng để không làm lệch hàng bảng. */
+.job-lastseen-cell { white-space: nowrap; }
 .job-mobile-list { display: none; gap: 10px; }
-.job-mobile-card { display: grid; gap: 10px; border: 1px solid var(--line); border-radius: 13px; padding: 14px; background: rgba(13,17,23,.8); }
-.job-mobile-card h3 { margin: 0; color: var(--text); font-size: .83rem; }
-.job-mobile-card p { margin: 0; color: var(--text-muted); font-size: .68rem; }
-.job-mobile-location { display: grid; gap: 6px; color: var(--text-muted); font-size: .61rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.job-mobile-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; color: var(--text-soft); font-size: .64rem; }
+.job-mobile-card { display: grid; gap: 12px; min-width: 0; border: 1px solid var(--line); border-radius: 13px; padding: 14px; background: rgba(13,17,23,.8); }
+.job-mobile-topline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
+.job-mobile-title { margin: 0; color: var(--text); font-size: .86rem; line-height: 1.35; min-width: 0; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.job-mobile-sub { margin: 0; color: var(--text-muted); font-size: .7rem; line-height: 1.45; min-width: 0; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.job-mobile-card p { margin: 0; }
+.job-mobile-row { display: grid; gap: 6px; min-width: 0; }
+.job-mobile-label { color: var(--text-muted); font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+/* Grid 2 cột trên mobile cho các metadata có label; mỗi ô tự wrap để không tràn card.
+   min-width:0 là bắt buộc để child của grid/flex có thể ngắn hơn nội dung của nó. */
+.job-mobile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; min-width: 0; }
+.job-mobile-field { display: grid; gap: 3px; min-width: 0; }
+.job-mobile-field > span:last-child { min-width: 0; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+.job-mobile-wide { grid-column: 1 / -1; }
+.job-mobile-hash { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .6rem; }
+.job-mobile-link { color: var(--accent-bright); font-size: .7rem; font-weight: 800; text-decoration: none; word-break: break-word; }
+.job-mobile-link:hover { color: white; }
+/* Location dropdown trong card mobile phải chiếm đúng chiều rộng card, không đẩy trang tràn ngang. */
+.job-mobile-row .location-select { width: 100%; max-width: 100%; min-width: 0; }
 .job-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 15px; }
 .job-pagination span { margin: 0 7px; color: var(--text-muted); font-size: .66rem; }
 
@@ -289,6 +368,14 @@
 
 @keyframes admin-spin { to { transform: rotate(360deg); } }
 
+@media (max-width: 768px) {
+	/* Job Cache chuyển sang mobile card từ <=768px; bảng desktop (min-width 1020) bị ẩn để
+	   không gây horizontal overflow. Chỉ áp dụng cho lưới job cache, không đụng layout khác. */
+	.job-table-wrap { display: none; }
+	.job-mobile-list { display: grid; }
+	.job-pagination { justify-content: center; flex-wrap: wrap; }
+}
+
 @media (max-width: 1050px) {
 	.admin-root { --admin-sidebar-width: 215px; }
 	.promotion-admin-grid { grid-template-columns: 1fr; }
@@ -311,12 +398,18 @@
 	.admin-metric-grid { grid-template-columns: 1fr; }
 	.admin-dashboard-grid { grid-template-columns: 1fr; }
 	.admin-management-grid, .admin-location-layout { grid-template-columns: 1fr; }
+	.home-section-editor-grid, .home-media-admin-grid { grid-template-columns: 1fr; }
+	.home-section-editor-media { padding-left: 0; border-left: 0; }
+	.home-media-upload-form { padding-right: 0; border-right: 0; }
 	.job-cache-filter { grid-template-columns: 1fr 1fr; }
 	.job-cache-filter .admin-field:first-child { grid-column: 1 / -1; }
 	.job-cache-filter .admin-primary-button { width: 100%; }
 	.admin-runtime-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.admin-filter-bar { grid-template-columns: 1fr; }
 	.cv-filter-bar { grid-template-columns: 1fr; }
+	.admin-cv-row-head { align-items: flex-start; flex-direction: column; }
+	.admin-cv-actions { justify-content: flex-start; }
+	.admin-cv-profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.admin-readonly-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.admin-login-grid { grid-template-columns: 1fr; }
 	.admin-login-hero { min-height: 280px; padding: 27px; }
@@ -342,7 +435,14 @@
 	.admin-form-grid .wide { grid-column: auto; }
 	.admin-readonly-grid { grid-template-columns: 1fr; }
 	.admin-form-actions { align-items: stretch; flex-direction: column; }
+	.admin-user-row { grid-template-columns: auto minmax(0, 1fr); }
+	.admin-user-meta { grid-column: 2; justify-items: start; }
+	.admin-cv-profile-grid { grid-template-columns: 1fr; }
 	.admin-form-actions .admin-primary-button { width: 100%; }
+	.home-media-admin-row { grid-template-columns: 88px minmax(0, 1fr); }
+	.home-media-admin-row > img { width: 88px; }
+	.home-media-admin-actions { grid-column: 1 / -1; justify-content: stretch; }
+	.home-media-admin-actions button { flex: 1; }
 	.admin-record-meta { align-items: flex-start; flex-direction: column; }
 	.admin-job-location-row, .admin-location-row { grid-template-columns: 1fr; }
 	.admin-job-location-row select { width: 100%; max-width: none; }
@@ -351,6 +451,9 @@
 	.admin-runtime-grid { grid-template-columns: 1fr; }
 	.job-table-wrap { display: none; }
 	.job-mobile-list { display: grid; }
+	.job-mobile-grid { grid-template-columns: 1fr; }
+	.job-pagination { justify-content: center; flex-wrap: wrap; }
+	.job-pagination .admin-secondary-button { min-width: 0; flex: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -18,9 +18,15 @@ describe('promotion layout boundaries', () => {
 		expect(ruleBody(carouselStyles, '.promotion-carousel')).toContain('align-self: start;');
 	});
 
-	it('keeps the idle result state beside the upload flow on desktop', () => {
+	it('keeps Home focused on promotions, upload, and managed sections', () => {
 		expect(clientPageSource).toContain('class:has-promotions={promotions.length > 0}');
 		expect(clientPageSource).toContain('class="hero-primary"');
-		expect(clientPageSource).toContain('class="results-placeholder hero-results"');
+		expect(clientPageSource).toContain('getClientHomeSections');
+		expect(clientPageSource).toContain('class="home-sections"');
+		expect(clientPageSource).toContain('/client/scans/');
+		expect(clientPageSource).not.toContain('hero-copy');
+		expect(clientPageSource).not.toContain('Tìm công việc thật sự');
+		expect(clientPageSource).not.toContain('hero-results');
+		expect(clientPageSource).not.toContain('results-placeholder');
 	});
 });

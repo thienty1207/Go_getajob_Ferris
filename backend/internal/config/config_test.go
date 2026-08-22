@@ -144,6 +144,25 @@ func TestLoadRejectsNonFiniteRadiusLimit(t *testing.T) {
 	}
 }
 
+func TestLoadRejectsSharedAdminAndClientCookieName(t *testing.T) {
+	t.Setenv("DATABASE_URL", "postgres://app:secret@localhost:5432/jobs")
+	t.Setenv("ADMIN_COOKIE_NAME", "shared_session")
+	t.Setenv("CLIENT_COOKIE_NAME", "shared_session")
+
+	if _, err := Load(); err == nil {
+		t.Fatal("Load() error = nil when admin and client sessions share one cookie name")
+	}
+}
+
+func TestLoadRejectsPlainHTTPDeepSeekOutsideLoopback(t *testing.T) {
+	t.Setenv("DATABASE_URL", "postgres://app:secret@localhost:5432/jobs")
+	t.Setenv("DEEPSEEK_BASE_URL", "http://provider.example")
+
+	if _, err := Load(); err == nil {
+		t.Fatal("Load() error = nil for a plaintext non-loopback DeepSeek endpoint")
+	}
+}
+
 func TestLoadFromDotEnvBuildsLocalPostgresURLAndKeepsProcessEnvironmentPrecedence(t *testing.T) {
 	envPath := filepath.Join(t.TempDir(), ".env")
 	envContent := "port=5432\nusername=postgres\npassword=file-secret\nhost=127.0.0.1\ndatabase=gogetsomefoodferris\n"

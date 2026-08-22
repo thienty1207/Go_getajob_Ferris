@@ -1,6 +1,8 @@
 import { ApiError } from '$lib/shared/api/api-errors';
 import { resolveApiUrl } from '$lib/shared/api/api-url';
 import type { PromotionSlide } from '$lib/shared/types/client';
+import type { ClientCertificationRecord, ClientEducationRecord, ClientStructuredProfile } from '$lib/shared/types/client-cv';
+import { createEditableHomeSectionSlots, parseHomeSection, parseHomeSectionMedia, parseHomeSectionsPayload, type HomeSection, type HomeSectionMedia } from '$lib/shared/types/home-section';
 
 const ADMIN_PATH = '/api/v1/admin';
 const MAX_RESPONSE_BYTES = 1_000_000;
@@ -11,6 +13,43 @@ export interface AdminUser {
 	email: string;
 	isActive: boolean;
 	lastLoginAt?: string;
+}
+
+export interface AdminClientUser {
+	id: string;
+	email: string;
+	displayName: string;
+	avatarUrl?: string;
+	provider: string;
+	createdAt: string;
+	lastLoginAt: string;
+}
+
+export interface AdminClientUserPage {
+	items: AdminClientUser[];
+	page: number;
+	pageSize: number;
+	total: number;
+}
+
+export interface AdminCVProfile {
+	scanId: string;
+	userId: string;
+	email: string;
+	displayName: string;
+	status: string;
+	location: string;
+	createdAt: string;
+	updatedAt: string;
+	matchCount: number;
+	profile?: ClientStructuredProfile;
+}
+
+export interface AdminCVProfilePage {
+	items: AdminCVProfile[];
+	page: number;
+	pageSize: number;
+	total: number;
 }
 
 export interface AdminAuthResponse {
@@ -154,6 +193,19 @@ export interface AdminCrawlRequest {
 	errorCode?: string;
 }
 
+export interface AdminHomeSectionInput {
+	isActive: boolean;
+	title: string;
+	body: string;
+	file?: File;
+}
+
+export interface AdminHomeMediaInput {
+	sortOrder: number;
+	isActive: boolean;
+	file: File;
+}
+
 export async function adminLogin(email: string, password: string): Promise<AdminAuthResponse> {
 	const response = await adminRequest<unknown>('/auth/login', {
 		method: 'POST',
@@ -165,6 +217,90 @@ export async function adminLogin(email: string, password: string): Promise<Admin
 
 export async function getAdminMe(): Promise<AdminAuthResponse> {
 	return parseAuthResponse(await adminRequest<unknown>('/auth/me', { method: 'GET' }));
+}
+
+export async function getAdminClientUsers(page = 1, pageSize = 10, search = ''): Promise<AdminClientUserPage> {
+	const query = new URLSearchParams({ page: String(page), page_size: String(pageSize) });
+	if (search.trim()) query.set('q', search.trim());
+	const payload = asRecord(await adminRequest<unknown>(`/users?${query}`, { method: 'GET' }));
+	if (!Array.isArray(payload.items)) throw new ApiError('User service trả về danh sách không hợp lệ.', 502, 'invalid_user_response');
+	return {
+		items: payload.items.map(parseAdminClientUser),
+		page: integerField(payload.page, 1, 100_000),
+		pageSize: integerField(payload.page_size, 1, 10),
+		total: integerField(payload.total, 0, Number.MAX_SAFE_INTEGER)
+	};
+}
+
+export async function getAdminCVProfiles(page = 1, pageSize = 10, user = '', role = ''): Promise<AdminCVProfilePage> {
+	const query = new URLSearchParams({ page: String(page), page_size: String(pageSize) });
+	if (user.trim()) query.set('user', user.trim());
+	if (role.trim()) query.set('role', role.trim());
+	const payload = asRecord(await adminRequest<unknown>(`/cv-profiles?${query}`, { method: 'GET' }));
+	if (!Array.isArray(payload.items)) throw new ApiError('CV service trả về danh sách không hợp lệ.', 502, 'invalid_cv_response');
+	return {
+		items: payload.items.map(parseAdminCVProfile),
+		page: integerField(payload.page, 1, 100_000),
+		pageSize: integerField(payload.page_size, 1, 10),
+		total: integerField(payload.total, 0, Number.MAX_SAFE_INTEGER)
+	};
+}
+
+export async function deleteAdminCVProfile(scanId: string, csrfToken: string): Promise<void> {
+	await adminRequest<void>(`/cv-profiles/${encodeURIComponent(scanId)}`, {
+		method: 'DELETE',
+		headers: { 'X-CSRF-Token': csrfToken }
+	});
+}
+
+export async function getAdminHomeSections(): Promise<HomeSection[]> {
+	const payload = await adminRequest<unknown>('/home-sections', { method: 'GET' });
+	return createEditableHomeSectionSlots(parseHomeSectionsPayload(payload));
+}
+
+export async function updateAdminHomeSection(slot: number, input: AdminHomeSectionInput, csrfToken: string): Promise<HomeSection> {
+	if (!Number.isInteger(slot) || slot < 1 || slot > 3) throw new ApiError('Section Home không hợp lệ.', 400, 'invalid_home_section');
+	const form = new FormData();
+	form.set('is_active', String(input.isActive));
+	form.set('title', input.title);
+	form.set('body', input.body);
+	if (input.file) form.set('image', input.file);
+	return parseHomeSection(await adminRequest<unknown>(`/home-sections/${slot}`, {
+		method: 'PUT',
+		headers: { 'X-CSRF-Token': csrfToken },
+		body: form
+	}));
+}
+
+export async function createAdminHomeMedia(slot: number, input: AdminHomeMediaInput, csrfToken: string): Promise<HomeSectionMedia> {
+	if (slot !== 4) throw new ApiError('Media strip chỉ thuộc section 4.', 400, 'invalid_home_media');
+	const form = new FormData();
+	form.set('sort_order', String(input.sortOrder));
+	form.set('is_active', String(input.isActive));
+	form.set('image', input.file);
+	return parseHomeSectionMedia(await adminRequest<unknown>(`/home-sections/${slot}/items`, {
+		method: 'POST',
+		headers: { 'X-CSRF-Token': csrfToken },
+		body: form
+	}));
+}
+
+export async function updateAdminHomeMedia(id: string, input: Partial<Omit<AdminHomeMediaInput, 'file'>>, csrfToken: string): Promise<HomeSectionMedia> {
+	return parseHomeSectionMedia(await adminRequest<unknown>(`/home-sections/4/items/${encodeURIComponent(id)}`, {
+		method: 'PATCH',
+		headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+		body: JSON.stringify({
+			...(input.sortOrder === undefined ? {} : { sort_order: input.sortOrder }),
+			...(input.isActive === undefined ? {} : { is_active: input.isActive })
+		})
+	}));
+}
+
+export async function deleteAdminHomeMedia(id: string, csrfToken: string): Promise<void> {
+	await adminRequest<void>(`/home-sections/4/items/${encodeURIComponent(id)}`, {
+		method: 'DELETE',
+		headers: { 'X-CSRF-Token': csrfToken }
+	});
 }
 
 export async function adminLogout(csrfToken: string): Promise<void> {
@@ -385,6 +521,80 @@ function parseAuthResponse(value: unknown): AdminAuthResponse {
 		},
 		csrfToken: stringField(record.csrf_token, 200)
 	};
+}
+
+function parseAdminClientUser(value: unknown): AdminClientUser {
+	const record = asRecord(value);
+	return {
+		id: stringField(record.id, 100),
+		email: stringField(record.email, 320),
+		displayName: stringField(record.display_name, 200),
+		...(optionalString(record.avatar_url, 2048) ? { avatarUrl: optionalString(record.avatar_url, 2048) } : {}),
+		provider: stringField(record.provider, 32),
+		createdAt: stringField(record.created_at, 80),
+		lastLoginAt: stringField(record.last_login_at, 80)
+	};
+}
+
+function parseAdminCVProfile(value: unknown): AdminCVProfile {
+	const record = asRecord(value);
+	const status = stringField(record.status, 32).toLowerCase();
+	if (!['received', 'parsing', 'matching', 'completed', 'failed'].includes(status)) {
+		throw new ApiError('CV service trả về trạng thái không hợp lệ.', 502, 'invalid_cv_response');
+	}
+	return {
+		scanId: stringField(record.scan_id, 100),
+		userId: stringField(record.user_id, 100),
+		email: stringField(record.email, 320),
+		displayName: stringField(record.display_name, 200),
+		status,
+		location: stringField(record.location, 240),
+		createdAt: stringField(record.created_at, 80),
+		updatedAt: stringField(record.updated_at, 80),
+		matchCount: integerField(record.match_count, 0, Number.MAX_SAFE_INTEGER),
+		...(record.profile === undefined || record.profile === null ? {} : { profile: parseClientStructuredProfile(record.profile) })
+	};
+}
+
+function parseClientStructuredProfile(value: unknown): ClientStructuredProfile {
+	const record = asRecord(value);
+	return {
+		roles: stringArray(record.roles, 100, 240),
+		skills: stringArray(record.skills, 100, 240),
+		yearsOfExperience: numberField(record.years_of_experience),
+		seniority: stringField(record.seniority, 80),
+		domains: stringArray(record.domains, 100, 240),
+		education: parseEducationRecords(record.education),
+		certifications: parseCertificationRecords(record.certifications)
+	};
+}
+
+function parseEducationRecords(value: unknown): ClientEducationRecord[] {
+	if (!Array.isArray(value) || value.length > 20) throw new ApiError('CV service trả về education không hợp lệ.', 502, 'invalid_cv_response');
+	return value.map((entry) => {
+		const record = asRecord(entry);
+		return {
+			...(optionalString(record.institution, 240) ? { institution: optionalString(record.institution, 240) } : {}),
+			...(optionalString(record.degree, 240) ? { degree: optionalString(record.degree, 240) } : {}),
+			...(optionalString(record.field_of_study, 240) ? { fieldOfStudy: optionalString(record.field_of_study, 240) } : {}),
+			...(record.start_year === undefined || record.start_year === null ? {} : { startYear: integerField(record.start_year, 1900, 2200) }),
+			...(record.end_year === undefined || record.end_year === null ? {} : { endYear: integerField(record.end_year, 1900, 2200) }),
+			...(optionalString(record.grade, 120) ? { grade: optionalString(record.grade, 120) } : {})
+		} satisfies ClientEducationRecord;
+	});
+}
+
+function parseCertificationRecords(value: unknown): ClientCertificationRecord[] {
+	if (!Array.isArray(value) || value.length > 20) throw new ApiError('CV service trả về certifications không hợp lệ.', 502, 'invalid_cv_response');
+	return value.map((entry) => {
+		const record = asRecord(entry);
+		return {
+			...(optionalString(record.certificate_name, 240) ? { certificateName: optionalString(record.certificate_name, 240) } : {}),
+			...(optionalString(record.issuer, 240) ? { issuer: optionalString(record.issuer, 240) } : {}),
+			...(record.issued_year === undefined || record.issued_year === null ? {} : { issuedYear: integerField(record.issued_year, 1900, 2200) }),
+			...(record.expires_year === undefined || record.expires_year === null ? {} : { expiresYear: integerField(record.expires_year, 1900, 2200) })
+		} satisfies ClientCertificationRecord;
+	});
 }
 
 function parsePromotion(value: unknown): PromotionSlide {

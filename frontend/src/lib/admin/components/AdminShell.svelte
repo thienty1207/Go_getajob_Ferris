@@ -17,12 +17,15 @@
 	let userEmail = $derived($auth.user?.email ?? 'Admin');
 	let manageJobOpen = $state(false);
 	let manageUserOpen = $state(false);
+	let manageSectionOpen = $state(false);
 	let isManageJobPath = $derived(activePath.startsWith('/admin/sources') || activePath.startsWith('/admin/locations') || activePath.startsWith('/admin/jobs'));
 	let isManageUserPath = $derived(activePath.startsWith('/admin/users') || activePath.startsWith('/admin/cvs'));
+	let isManageSectionPath = $derived(activePath.startsWith('/admin/sections'));
 
 	$effect(() => {
 		if (isManageJobPath) manageJobOpen = true;
 		if (isManageUserPath) manageUserOpen = true;
+		if (isManageSectionPath) manageSectionOpen = true;
 	});
 
 	onMount(() => {
@@ -83,6 +86,10 @@
 			{#if manageUserOpen}<div class="admin-nav-submenu">
 				<a class:active={activePath.startsWith('/admin/users')} href="/admin/users" onclick={handleNavigation}><span class="admin-nav-icon">◎</span><span>Users</span></a>
 				<a class:active={activePath.startsWith('/admin/cvs')} href="/admin/cvs" onclick={handleNavigation}><span class="admin-nav-icon">▤</span><span>CV Profiles</span></a>
+			</div>{/if}
+			<button class:active={isManageSectionPath} class="admin-nav-group-toggle" type="button" aria-expanded={manageSectionOpen} onclick={() => { manageSectionOpen = !manageSectionOpen; }}><span class="admin-nav-icon">▦</span><span>Quản lý section</span><span class="admin-nav-group-caret" aria-hidden="true">{manageSectionOpen ? '−' : '+'}</span></button>
+			{#if manageSectionOpen}<div class="admin-nav-submenu">
+				<a class:active={activePath.startsWith('/admin/sections/home')} href="/admin/sections/home" onclick={handleNavigation}><span class="admin-nav-icon">⌂</span><span>Trang Home</span></a>
 			</div>{/if}
 			<a class:active={activePath.startsWith('/admin/settings')} href="/admin/settings" onclick={handleNavigation}><span class="admin-nav-icon">⚙</span><span>Settings</span></a>
 		</nav>

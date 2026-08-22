@@ -14,3 +14,7 @@
 - [location-aware-crawler-and-client-matching](docs/baron/harness/intents/2026-08-17/location-aware-crawler-and-client-matching-intent-1b4544f1565cfd31.md) - risk: `medium` - confirmation: `confirmed`
 - [admin-global-settings-and-crawl-control](docs/baron/harness/intents/2026-08-17/admin-global-settings-and-crawl-control-intent-f20fb08284481af1.md) - risk: `medium` - confirmation: `confirmed`
 - [admin-management-and-crawler-runtime](docs/baron/harness/intents/2026-08-17/admin-management-and-crawler-runtime-intent-b6b59d0badff0788.md) - risk: `medium` - confirmation: `confirmed`
+- [client-experience-home-cms-and-cv-history](docs/baron/harness/intents/2026-08-20/client-experience-home-cms-and-cv-history-intent-ecf89e0b03c5ee75.md) - risk: `medium` - confirmation: `needs_confirmation`
+- [client-experience-home-cms-and-cv-history](docs/baron/harness/intents/2026-08-20/client-experience-home-cms-and-cv-history-intent-fffbdb23db59cb15.md) - risk: `medium` - confirmation: `confirmed`
+- [database-recovery-and-api-readiness](docs/baron/harness/intents/2026-08-20/database-recovery-and-api-readiness-intent-2d9cbf9aabb8b879.md) - risk: `medium` - confirmation: `confirmed`
+- [upload-workflow-reliability](docs/baron/harness/intents/2026-08-20/upload-workflow-reliability-intent-9a0ab368712f6d23.md) - risk: `high` - confirmation: `confirmed`

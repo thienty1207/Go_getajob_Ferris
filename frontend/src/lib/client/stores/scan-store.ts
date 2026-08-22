@@ -8,7 +8,6 @@ export interface ScanState {
 	status: ScanUiStatus;
 	selectedFile: File | null;
 	locationId: string;
-	radiusKm: number;
 	errors: ScanFieldErrors;
 	errorMessage: string;
 	matches: JobMatch[];
@@ -20,7 +19,6 @@ function initialState(): ScanState {
 		status: 'idle',
 		selectedFile: null,
 		locationId: '',
-		radiusKm: 25,
 		errors: {},
 		errorMessage: '',
 		matches: [],

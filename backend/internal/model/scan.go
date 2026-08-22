@@ -1,6 +1,10 @@
 package model
 
-import "github.com/google/uuid"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 // ScanStatus is the persisted scan lifecycle. The repository and database
 // both guard legal transitions so a client cannot skip directly to results.
@@ -88,6 +92,19 @@ type StructuredProfile struct {
 	Domains           []string              `json:"domains"`
 	Education         []EducationRecord     `json:"education"`
 	Certifications    []CertificationRecord `json:"certifications"`
+}
+
+// ClientCVHistoryItem is the durable, owner-scoped view of one submitted CV.
+// It deliberately contains structured profile fields only; the uploaded file
+// and raw extracted text never enter this response model.
+type ClientCVHistoryItem struct {
+	ScanID     uuid.UUID
+	Status     ScanStatus
+	Location   string
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	Profile    *StructuredProfile
+	MatchCount int
 }
 
 type JobCandidate struct {

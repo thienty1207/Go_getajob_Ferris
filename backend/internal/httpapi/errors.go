@@ -38,6 +38,16 @@ func mapError(err error) (int, string, string) {
 		return http.StatusRequestEntityTooLarge, "promotion_image_too_large", "Ảnh quảng bá vượt quá dung lượng cho phép."
 	case errors.Is(err, service.ErrPromotionStorage):
 		return http.StatusBadGateway, "promotion_storage_unavailable", "Không thể lưu ảnh quảng bá lúc này. Vui lòng thử lại sau."
+	case errors.Is(err, service.ErrInvalidHomeSection):
+		return http.StatusBadRequest, "invalid_home_section", "Nội dung section Home chưa hợp lệ."
+	case errors.Is(err, service.ErrInvalidHomeMedia):
+		return http.StatusBadRequest, "invalid_home_media", "Ảnh section Home chưa hợp lệ."
+	case errors.Is(err, service.ErrHomeSectionStorage):
+		return http.StatusBadGateway, "home_section_storage_unavailable", "Không thể lưu ảnh section Home lúc này. Vui lòng thử lại sau."
+	case errors.Is(err, repository.ErrHomeSectionNotFound), errors.Is(err, repository.ErrHomeSectionMediaNotFound):
+		return http.StatusNotFound, "home_section_not_found", "Section Home không tồn tại."
+	case errors.Is(err, repository.ErrHomeSectionMediaLimit):
+		return http.StatusConflict, "home_section_media_limit", "Section ảnh đã đạt tối đa 10 ảnh."
 	case errors.Is(err, repository.ErrPromotionNotFound):
 		return http.StatusNotFound, "promotion_not_found", "Quảng bá không tồn tại."
 	case errors.Is(err, service.ErrInvalidScanInput):
@@ -48,10 +58,18 @@ func mapError(err error) (int, string, string) {
 		return http.StatusRequestEntityTooLarge, "upload_too_large", "Tệp CV vượt quá dung lượng cho phép."
 	case errors.Is(err, repository.ErrScanNotFound):
 		return http.StatusNotFound, "scan_not_found", "Scan không tồn tại."
+	case errors.Is(err, repository.ErrClientCVNotFound):
+		return http.StatusNotFound, "cv_not_found", "CV không tồn tại hoặc không thuộc tài khoản này."
+	case errors.Is(err, repository.ErrAdminCVNotFound):
+		return http.StatusNotFound, "cv_not_found", "CV không tồn tại."
+	case errors.Is(err, service.ErrInvalidClientCVUser):
+		return http.StatusBadRequest, "invalid_cv_request", "Yêu cầu CV chưa hợp lệ."
 	case errors.Is(err, service.ErrScanProcessing):
 		return http.StatusInternalServerError, "scan_unavailable", "Không thể cập nhật trạng thái scan."
 	case errors.Is(err, service.ErrAdminSessionMissing), errors.Is(err, service.ErrAdminSessionExpired), errors.Is(err, service.ErrAdminSessionRevoked), errors.Is(err, service.ErrAdminInactive):
 		return http.StatusUnauthorized, "admin_auth_required", "Phiên quản trị không còn hợp lệ. Vui lòng đăng nhập lại."
+	case errors.Is(err, service.ErrAdminAuthStorage):
+		return http.StatusServiceUnavailable, "database_unavailable", "Database chưa sẵn sàng. Vui lòng thử lại sau."
 	case errors.Is(err, service.ErrAdminCSRFInvalid):
 		return http.StatusForbidden, "admin_csrf_invalid", "Phiên quản trị không hợp lệ cho thao tác này."
 	case errors.Is(err, service.ErrInvalidAdminEmail), errors.Is(err, service.ErrInvalidAdminPassword):

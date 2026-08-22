@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"crypto/hmac"
 	"crypto/rand"
 	"crypto/sha256"
 	"crypto/subtle"
@@ -32,10 +33,11 @@ var (
 )
 
 const (
-	adminTokenBytes  = 32
-	adminMinPassword = 12
-	adminMaxPassword = 200
-	bcryptCost       = bcrypt.DefaultCost
+	adminTokenBytes        = 32
+	adminMinPassword       = 12
+	adminMaxPassword       = 200
+	adminLegacyCSRFPurpose = "ferris/admin/csrf-cookie/v1"
+	bcryptCost             = bcrypt.DefaultCost
 )
 
 // AdminAuthService owns credential verification and session token lifecycle.
@@ -190,17 +192,14 @@ func (s *AdminAuthService) ValidateCSRF(session model.AdminSession, rawToken str
 	return subtle.ConstantTimeCompare(presented, session.CSRFTokenHash) == 1
 }
 
-// RefreshCSRF rotates the readable-in-memory token after a page reload while
-// retaining only its digest in PostgreSQL. This avoids persisting a raw CSRF
-// token but still lets the frontend recover from a hard refresh.
+// RefreshCSRF is the compatibility path for sessions created before the
+// HttpOnly CSRF cookie existed. Its session-bound derivation is deterministic,
+// so concurrent legacy tabs cannot race to install different sole hashes.
 func (s *AdminAuthService) RefreshCSRF(ctx context.Context, session model.AdminSession) (string, error) {
 	if err := s.ensureLiveSession(session); err != nil {
 		return "", err
 	}
-	rawToken, err := randomToken()
-	if err != nil {
-		return "", fmt.Errorf("generate admin csrf token: %w", err)
-	}
+	rawToken := deriveSessionCSRFToken(adminLegacyCSRFPurpose, session.ID, session.TokenHash)
 	if err := s.repository.RotateAdminCSRF(ctx, session.ID, hashToken(rawToken)); err != nil {
 		return "", fmt.Errorf("rotate admin csrf token: %w", ErrAdminAuthStorage)
 	}
@@ -248,4 +247,11 @@ func randomToken() (string, error) {
 func hashToken(raw string) []byte {
 	digest := sha256.Sum256([]byte(raw))
 	return digest[:]
+}
+
+func deriveSessionCSRFToken(purpose string, sessionID uuid.UUID, sessionTokenHash []byte) string {
+	mac := hmac.New(sha256.New, sessionTokenHash)
+	_, _ = mac.Write([]byte(purpose))
+	_, _ = mac.Write(sessionID[:])
+	return base64.RawURLEncoding.EncodeToString(mac.Sum(nil))
 }

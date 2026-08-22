@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import { onMount, getContext } from 'svelte';
 	import JobCacheTable from '$lib/admin/components/JobCacheTable.svelte';
+	import LocationSelect, { type LocationSelectOption } from '$lib/admin/components/LocationSelect.svelte';
 	import { assignAdminJobLocation, getAdminJobs, getAdminLocationOptions, type AdminJobPage, type AdminLocationOption } from '$lib/admin/api/admin-api';
 	import { ADMIN_AUTH_CONTEXT } from '$lib/admin/api/admin-session';
 	import type { AdminAuthStore } from '$lib/admin/stores/admin-auth-store';
@@ -16,6 +17,16 @@
 	let selectedLocationId = $state('');
 	let unresolvedLocation = $state(false);
 	let assigningJobId = $state<string | null>(null);
+
+	function filterOptions(): LocationSelectOption[] {
+		return [
+			{ id: '', label: 'Tất cả location' },
+			...locations.map((location) => ({
+				id: location.id,
+				label: `${location.displayName}${location.isActive ? '' : ' · DISABLED'}`
+			}))
+		];
+	}
 
 	onMount(() => {
 		search = page.url.searchParams.get('q') ?? '';
@@ -89,7 +100,7 @@
 <section class="admin-panel admin-filter-panel">
 	<form class="job-cache-filter" onsubmit={(event) => { event.preventDefault(); applyFilter(); }}>
 		<div class="admin-field"><label for="job-search">Tìm kiếm</label><input id="job-search" bind:value={search} type="search" placeholder="Tên job, công ty, role, link…" autocomplete="off" /></div>
-		<div class="admin-field"><label for="job-location-filter">Location</label><select id="job-location-filter" bind:value={selectedLocationId} disabled={unresolvedLocation}><option value="">Tất cả location</option>{#each locations as location (location.id)}<option value={location.id}>{location.displayName}{location.isActive ? '' : ' · DISABLED'}</option>{/each}</select></div>
+		<div class="admin-field"><label for="job-location-filter">Location</label><LocationSelect id="job-location-filter" options={filterOptions()} value={selectedLocationId} label="Location" disabled={unresolvedLocation} onChange={(v) => { selectedLocationId = v ?? ''; }} /></div>
 		<label class="admin-checkbox-row"><input type="checkbox" bind:checked={unresolvedLocation} /><span>Chưa gán location</span></label>
 		<button class="admin-primary-button" type="submit" disabled={loading}>Tìm</button>
 	</form>

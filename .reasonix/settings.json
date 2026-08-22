@@ -1,0 +1,29 @@
+{
+  "_baron": {
+    "adapter": "reasonix",
+    "managed": true
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "command": "baron automation hook session-start --adapter reasonix",
+        "description": "Load shared Baron context",
+        "timeout": 15000
+      }
+    ],
+    "Stop": [
+      {
+        "command": "baron automation hook stop --adapter reasonix",
+        "description": "Persist the shared handoff without inferring completion",
+        "timeout": 5000
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "command": "baron automation hook prompt --adapter reasonix",
+        "description": "Record the submitted task in the shared Vault",
+        "timeout": 5000
+      }
+    ]
+  }
+}

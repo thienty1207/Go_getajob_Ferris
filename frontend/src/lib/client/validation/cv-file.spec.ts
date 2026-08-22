@@ -16,6 +16,13 @@ describe('validateCvFile', () => {
 		expect(validateCvFile(null)).toEqual({ valid: false, message: 'Vui lòng chọn file CV.' });
 	});
 
+	it('rejects an empty file before upload', () => {
+		expect(validateCvFile(file('resume.txt', 0))).toEqual({
+			valid: false,
+			message: 'File CV đang trống.'
+		});
+	});
+
 	it('rejects unsupported extensions', () => {
 		expect(validateCvFile(file('resume.zip', 1024))).toEqual({
 			valid: false,

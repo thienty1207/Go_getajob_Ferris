@@ -5,6 +5,9 @@ import { sveltekit } from '@sveltejs/kit/vite';
 export default defineConfig({
 	envPrefix: ['PUBLIC_'],
 	server: {
+		// Keep the browser, OAuth state cookie, and callback redirect on one
+		// local host. localhost and 127.0.0.1 are different cookie hosts.
+		host: '127.0.0.1',
 		proxy: {
 			'/api': {
 				target: 'http://127.0.0.1:8080',

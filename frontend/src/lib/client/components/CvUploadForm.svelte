@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ScanFieldErrors } from '$lib/client/validation/scan-form';
 	import type { ClientLocation } from '$lib/shared/types/client';
+	import ClientLocationSelect from './ClientLocationSelect.svelte';
 
 	interface Props {
 		selectedFile: File | null;
@@ -8,17 +9,16 @@
 		locations: ClientLocation[];
 		locationsLoading: boolean;
 		locationServiceError: string;
-		radiusKm: number;
 		errors: ScanFieldErrors;
 		disabled: boolean;
 		formValid: boolean;
+		authenticated: boolean;
 		onFileChange: (file: File | null) => void;
 		onLocationChange: (value: string) => void;
-		onRadiusChange: (value: number) => void;
 		onSubmit: () => void;
 	}
 
-	let { selectedFile, locationId, locations, locationsLoading, locationServiceError, radiusKm, errors, disabled, formValid, onFileChange, onLocationChange, onRadiusChange, onSubmit }: Props = $props();
+	let { selectedFile, locationId, locations, locationsLoading, locationServiceError, errors, disabled, formValid, authenticated, onFileChange, onLocationChange, onSubmit }: Props = $props();
 	let isDragOver = $state(false);
 	let fileInput: HTMLInputElement;
 
@@ -50,7 +50,7 @@
 
 <section class="upload-card" aria-labelledby="upload-title">
 	<div class="upload-heading"><span class="upload-icon" aria-hidden="true">↑</span><div><h2 id="upload-title">Tải CV của bạn lên</h2></div></div>
-	<p class="upload-intro">Chọn khu vực, bán kính và để matching engine tìm các job đang hoạt động phù hợp với bạn.</p>
+	<p class="upload-intro">Chọn Job Location để matching engine tìm các job đang hoạt động phù hợp với bạn.</p>
 
 	<form onsubmit={handleSubmit} novalidate>
 		<div
@@ -93,56 +93,17 @@
 		</div>
 		{#if errors.file}<p class="field-error" id="file-error" role="alert">{errors.file}</p>{/if}
 
-		<div class="field-grid">
-			<label class="field-group" for="location">
+		<div class="field-grid single-field">
+			<div class="field-group">
 				<span><span class="field-icon" aria-hidden="true">⌖</span> Khu vực</span>
-				<select
-					id="location"
-					name="location_id"
-					value={locationId}
-					disabled={disabled || locationsLoading || locations.length === 0}
-					onchange={(event) => onLocationChange((event.currentTarget as HTMLSelectElement).value)}
-					aria-describedby="location-error"
-					aria-invalid={Boolean(errors.location)}
-					aria-required="true"
-					required
-				>
-					<option value="" disabled>{locationsLoading ? 'Đang tải location…' : locations.length === 0 ? 'Chưa có location khả dụng' : 'Chọn tỉnh / thành phố'}</option>
-					{#each locations as location (location.id)}
-						<option value={location.id}>{location.displayName}</option>
-					{/each}
-				</select>
-				{#if errors.location}<small class="field-error" id="location-error">{errors.location}</small>{/if}
-				{#if locationServiceError}<small class="field-error">{locationServiceError}</small>{/if}
-			</label>
-
-			<label class="field-group" for="radius">
-				<span><span class="field-icon" aria-hidden="true">◎</span> Bán kính</span>
-				<select
-					id="radius"
-					name="radius_km"
-					value={String(radiusKm)}
-					disabled={disabled}
-					onchange={(event) => onRadiusChange(Number((event.currentTarget as HTMLSelectElement).value))}
-					aria-describedby="radius-error"
-					aria-invalid={Boolean(errors.radiusKm)}
-					aria-required="true"
-					required
-				>
-					<option value="5">5 km</option>
-					<option value="10">10 km</option>
-					<option value="25">25 km</option>
-					<option value="50">50 km</option>
-					<option value="100">100 km</option>
-				</select>
-				{#if errors.radiusKm}<small class="field-error" id="radius-error">{errors.radiusKm}</small>{/if}
-			</label>
+				<ClientLocationSelect locations={locations} value={locationId} loading={locationsLoading} disabled={disabled} error={errors.location || locationServiceError} onChange={onLocationChange} />
+			</div>
 		</div>
 
 		<button class="primary-button" type="submit" disabled={disabled || !formValid}>
-			{#if disabled}<span class="button-spinner" aria-hidden="true"></span> Đang xử lý…{:else}Quét CV & tìm việc <span aria-hidden="true">→</span>{/if}
+			{#if disabled}<span class="button-spinner" aria-hidden="true"></span> Đang xử lý…{:else if authenticated}Quét CV & tìm việc <span aria-hidden="true">→</span>{:else}Đăng nhập để quét CV <span aria-hidden="true">→</span>{/if}
 		</button>
 	</form>
 
-	<p class="privacy-note"><span aria-hidden="true">⌑</span> File CV chỉ được xử lý tạm thời, không lưu như hồ sơ CV dài hạn.</p>
+	<p class="privacy-note"><span aria-hidden="true">⌑</span> File gốc chỉ dùng để parse và sẽ được xóa; lịch sử của bạn chỉ giữ structured profile.</p>
 </section>

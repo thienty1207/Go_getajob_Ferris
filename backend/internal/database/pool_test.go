@@ -3,32 +3,35 @@ package database
 import (
 	"context"
 	"errors"
-	"strings"
 	"testing"
+	"time"
 )
 
-func TestOpenRejectsBlankDatabaseURL(t *testing.T) {
-	_, err := Open(context.Background(), " ")
-	if err == nil {
-		t.Fatal("Open() error = nil, want blank URL error")
+func TestWaitForDatabaseRetriesRecoveryUntilReady(t *testing.T) {
+	attempts := 0
+	err := waitForDatabase(context.Background(), time.Millisecond, func(context.Context) error {
+		attempts++
+		if attempts < 3 {
+			return errors.New("database system is in recovery mode")
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatalf("waitForDatabase() error = %v", err)
 	}
-	if !strings.Contains(err.Error(), "DATABASE_URL") {
-		t.Fatalf("Open() error = %q, want DATABASE_URL in local configuration error", err)
+	if attempts != 3 {
+		t.Fatalf("ping attempts = %d, want 3", attempts)
 	}
 }
 
-func TestOpenHonorsCanceledContext(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	cancel()
+func TestWaitForDatabaseStopsAtContextDeadline(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Millisecond)
+	defer cancel()
 
-	_, err := Open(ctx, "postgres://app:secret@127.0.0.1:5432/jobs?connect_timeout=1")
-	if err == nil {
-		t.Fatal("Open() error = nil for canceled context")
-	}
-	if errors.Is(err, context.Canceled) {
-		return
-	}
-	if !strings.Contains(strings.ToLower(err.Error()), "cancel") {
-		t.Fatalf("Open() error = %v, want canceled-context error", err)
+	err := waitForDatabase(ctx, time.Millisecond, func(context.Context) error {
+		return errors.New("database unavailable")
+	})
+	if !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("waitForDatabase() error = %v, want context deadline", err)
 	}
 }

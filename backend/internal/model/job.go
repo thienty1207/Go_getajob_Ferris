@@ -18,6 +18,7 @@ type AdminJob struct {
 	Company              string
 	Location             string
 	LocationID           *uuid.UUID
+	LocationAssignmentSource string
 	Role                 string
 	RequiredSkills       []string
 	PreferredSkills      []string

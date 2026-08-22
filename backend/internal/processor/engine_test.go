@@ -45,7 +45,7 @@ func TestMatchingProcessorPersistsStructuredProfileAndDeterministicMatches(t *te
 		t.Fatal(err)
 	}
 	store := &testMatchingStore{
-		scan: model.Scan{ID: uuid.New(), Status: model.StatusParsing, RadiusKm: 25},
+		scan: model.Scan{ID: uuid.New(), Status: model.StatusParsing},
 		candidate: []model.JobCandidate{{
 			ID:             uuid.New(),
 			Title:          "Backend Engineer",
@@ -57,7 +57,9 @@ func TestMatchingProcessorPersistsStructuredProfileAndDeterministicMatches(t *te
 	}
 	engine := NewMatchingProcessor(store, testProfileParser{})
 
-	if err := engine.Process(context.Background(), store.scan.ID, path, 25); err != nil {
+	// Location-only matching deliberately passes zero for the deprecated radius
+	// argument; the processor must still parse and score real candidates.
+	if err := engine.Process(context.Background(), store.scan.ID, path, 0); err != nil {
 		t.Fatalf("Process() error = %v", err)
 	}
 	if store.model != "test-parser" || len(store.profile.Skills) != 1 || len(store.matches) != 1 || store.matches[0].MatchPercent <= 0 {
@@ -68,7 +70,7 @@ func TestMatchingProcessorPersistsStructuredProfileAndDeterministicMatches(t *te
 func TestMatchingProcessorDoesNotInventResultsWhenCVTextCannotBeExtracted(t *testing.T) {
 	store := &testMatchingStore{scan: model.Scan{ID: uuid.New(), Status: model.StatusParsing}}
 	engine := NewMatchingProcessor(store, testProfileParser{})
-	if err := engine.Process(context.Background(), store.scan.ID, filepath.Join(t.TempDir(), "missing.txt"), 25); err == nil {
+	if err := engine.Process(context.Background(), store.scan.ID, filepath.Join(t.TempDir(), "missing.txt"), 0); err == nil {
 		t.Fatal("Process() error = nil for missing CV file")
 	}
 	if store.model != "" || len(store.matches) != 0 {

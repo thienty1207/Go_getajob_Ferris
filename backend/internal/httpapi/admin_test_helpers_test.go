@@ -10,9 +10,12 @@ import (
 )
 
 type testAdminAuth struct {
-	session     model.AdminSession
-	logoutCalls int
-	auditCalls  int
+	session         model.AdminSession
+	authenticateErr error
+	loginErr        error
+	logoutErr       error
+	logoutCalls     int
+	auditCalls      int
 }
 
 func newTestAdminAuth() *testAdminAuth {
@@ -26,10 +29,16 @@ func newTestAdminAuth() *testAdminAuth {
 }
 
 func (auth *testAdminAuth) Login(context.Context, string, string) (service.LoginResult, error) {
+	if auth.loginErr != nil {
+		return service.LoginResult{}, auth.loginErr
+	}
 	return service.LoginResult{User: auth.session.User, Session: auth.session, SessionToken: "session-token", CSRFToken: "csrf-token"}, nil
 }
 
 func (auth *testAdminAuth) Authenticate(_ context.Context, token string) (model.AdminSession, error) {
+	if auth.authenticateErr != nil {
+		return model.AdminSession{}, auth.authenticateErr
+	}
 	if token != "session-token" {
 		return model.AdminSession{}, service.ErrAdminSessionMissing
 	}
@@ -45,6 +54,9 @@ func (auth *testAdminAuth) RefreshCSRF(context.Context, model.AdminSession) (str
 }
 
 func (auth *testAdminAuth) Logout(context.Context, model.AdminSession) error {
+	if auth.logoutErr != nil {
+		return auth.logoutErr
+	}
 	auth.logoutCalls++
 	return nil
 }

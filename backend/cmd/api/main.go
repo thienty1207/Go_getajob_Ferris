@@ -31,7 +31,7 @@ func main() {
 
 	// Fail fast during startup so the API never advertises a healthy process
 	// while its PostgreSQL dependency is unavailable.
-	startupCtx, cancelStartup := context.WithTimeout(context.Background(), 10*time.Second)
+	startupCtx, cancelStartup := context.WithTimeout(context.Background(), 30*time.Second)
 	pool, err := database.Open(startupCtx, cfg.DatabaseURL)
 	cancelStartup()
 	if err != nil {
@@ -60,6 +60,7 @@ func main() {
 		logger.Warn("DEEPSEEK_API_KEY is not configured; CV scans will fail without fabricating profiles")
 	}
 	scanService := service.NewScanService(scanRepository, scanProcessor, cfg)
+	defer scanService.Close()
 	promotionRepository := repository.NewPostgresPromotionRepository(pool)
 	if cfg.CloudinaryURL == "" {
 		logger.Error("CLOUDINARY_URL is required for the promotion feature")
@@ -89,9 +90,28 @@ func main() {
 	settingsRepository := repository.NewPostgresSettingsRepository(pool)
 	settingsService := service.NewSettingsService(settingsRepository)
 	settingsHandler := httpapi.NewAdminSettingsHandler(settingsService)
+	clientAuthRepository := repository.NewPostgresClientAuthRepository(pool)
+	clientAuthService := service.NewClientAuthService(clientAuthRepository, cfg)
+	clientAuthHandler := httpapi.NewClientAuthHandler(clientAuthService, cfg)
+	clientCVRepository := repository.NewPostgresClientCVRepository(pool)
+	clientCVService := service.NewClientCVService(clientCVRepository)
+	clientCVHandler := httpapi.NewClientCVHandler(clientCVService)
+	homeSectionRepository := repository.NewPostgresHomeSectionRepository(pool)
+	homeSectionService := service.NewHomeSectionService(homeSectionRepository, cfg, promotionAssets)
+	// Home image deletion is decoupled from HTTP requests through a durable
+	// PostgreSQL queue. Starting the consumer here also resumes cleanup jobs
+	// left by a prior crash or provider outage.
+	homeSectionService.StartCleanupWorker()
+	defer homeSectionService.Close()
+	homeSectionHandler := httpapi.NewHomeSectionHandler(homeSectionService, cfg.MaxPromotionImageBytes)
+	handler.SetHomeSectionHandler(homeSectionHandler)
+	adminClientUserRepository := repository.NewPostgresAdminClientUserRepository(pool)
+	adminClientUserHandler := httpapi.NewAdminClientUserHandler(adminClientUserRepository)
+	adminCVRepository := repository.NewPostgresAdminCVRepository(pool)
+	adminCVHandler := httpapi.NewAdminCVHandler(adminCVRepository)
 	server := &http.Server{
 		Addr:              cfg.Address,
-		Handler:           httpapi.NewAuthenticatedRouterWithLocations(cfg, handler, promotionHandler, authHandler, jobHandler, jobLinkHandler, locationHandler, settingsHandler),
+		Handler:           httpapi.NewAuthenticatedRouterWithClientAuth(cfg, handler, promotionHandler, authHandler, jobHandler, jobLinkHandler, locationHandler, settingsHandler, clientAuthHandler, clientCVHandler, adminClientUserHandler, adminCVHandler),
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       30 * time.Second,
 		WriteTimeout:      30 * time.Second,

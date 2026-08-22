@@ -26,6 +26,8 @@ const (
 	defaultAdminSessionTTL        = 12 * time.Hour
 	defaultAdminLoginRateLimit    = 5
 	defaultAdminCookieName        = "ferris_admin_session"
+	defaultClientSessionTTL       = 30 * 24 * time.Hour
+	defaultClientCookieName       = "ferris_client_session"
 	defaultDatabaseHost           = "127.0.0.1"
 	defaultDatabasePort           = "5432"
 	defaultDatabaseName           = "gogetsomefoodferris"
@@ -65,6 +67,13 @@ type Config struct {
 	DeepSeekBaseURL              string
 	DeepSeekPrimaryModel         string
 	DeepSeekFallbackModel        string
+	GoogleClientID               string
+	GoogleClientSecret           string
+	GoogleRedirectURL            string
+	ClientSessionTTL             time.Duration
+	ClientCookieName             string
+	ClientCookieSecure           bool
+	ClientRedirectOrigin         string
 }
 
 // Load reads configuration only from the current process environment.
@@ -151,6 +160,13 @@ func loadConfig(lookup func(string) string, includeLegacyDatabaseKeys bool) (Con
 		DeepSeekBaseURL:              valueOrDefault(lookup, "DEEPSEEK_BASE_URL", defaultDeepSeekBaseURL),
 		DeepSeekPrimaryModel:         valueOrDefault(lookup, "DEEPSEEK_PRIMARY_MODEL", defaultDeepSeekPrimaryModel),
 		DeepSeekFallbackModel:        valueOrDefault(lookup, "DEEPSEEK_FALLBACK_MODEL", defaultDeepSeekFallbackModel),
+		GoogleClientID:               strings.TrimSpace(lookup("GOOGLE_CLIENT_ID")),
+		GoogleClientSecret:           strings.TrimSpace(lookup("GOOGLE_CLIENT_SECRET")),
+		GoogleRedirectURL:            strings.TrimSpace(lookup("GOOGLE_REDIRECT_URL")),
+		ClientSessionTTL:             defaultClientSessionTTL,
+		ClientCookieName:             valueOrDefault(lookup, "CLIENT_COOKIE_NAME", defaultClientCookieName),
+		ClientCookieSecure:           cfgClientCookieSecure(lookup, valueOrDefault(lookup, "APP_ENV", defaultEnvironment)),
+		ClientRedirectOrigin:         strings.TrimSpace(lookup("CLIENT_REDIRECT_ORIGIN")),
 	}
 
 	if cfg.DatabaseURL == "" {
@@ -229,16 +245,47 @@ func loadConfig(lookup func(string) string, includeLegacyDatabaseKeys bool) (Con
 	if !validModelName(cfg.DeepSeekPrimaryModel) || !validModelName(cfg.DeepSeekFallbackModel) {
 		return Config{}, fmt.Errorf("invalid DeepSeek model")
 	}
+	if err := validateGoogleOAuth(cfg.GoogleClientID, cfg.GoogleClientSecret, cfg.GoogleRedirectURL, cfg.Environment, lookup); err != nil {
+		return Config{}, err
+	}
+	if strings.TrimSpace(cfg.ClientCookieName) == "" || strings.ContainsAny(cfg.ClientCookieName, " \t\r\n;=") {
+		return Config{}, fmt.Errorf("invalid CLIENT_COOKIE_NAME")
+	}
+	if cfg.ClientCookieName == cfg.AdminCookieName {
+		return Config{}, fmt.Errorf("admin and client cookie names must be different")
+	}
+	if raw := strings.TrimSpace(lookup("CLIENT_SESSION_TTL")); raw != "" {
+		cfg.ClientSessionTTL, err = time.ParseDuration(raw)
+		if err != nil || cfg.ClientSessionTTL < 15*time.Minute || cfg.ClientSessionTTL > 7*24*time.Hour {
+			return Config{}, fmt.Errorf("invalid CLIENT_SESSION_TTL")
+		}
+	}
+	if raw := strings.TrimSpace(lookup("CLIENT_COOKIE_SECURE")); raw != "" {
+		cfg.ClientCookieSecure, err = strconv.ParseBool(raw)
+		if err != nil {
+			return Config{}, fmt.Errorf("invalid CLIENT_COOKIE_SECURE")
+		}
+	}
 
 	return cfg, nil
 }
 
 func validateProviderURL(value string) error {
 	parsed, err := url.Parse(strings.TrimSpace(value))
-	if err != nil || parsed.Host == "" || (parsed.Scheme != "http" && parsed.Scheme != "https") || parsed.User != nil {
+	if err != nil || parsed.Host == "" || parsed.User != nil {
 		return errors.New("invalid provider URL")
 	}
-	return nil
+	if parsed.Scheme == "https" {
+		return nil
+	}
+	if parsed.Scheme == "http" {
+		host := parsed.Hostname()
+		ip := net.ParseIP(host)
+		if strings.EqualFold(host, "localhost") || ip != nil && ip.IsLoopback() {
+			return nil
+		}
+	}
+	return errors.New("invalid provider URL")
 }
 
 func validModelName(value string) bool {
@@ -255,6 +302,42 @@ func cfgCookieSecure(lookup func(string) string, environment string) bool {
 		return err == nil && parsed
 	}
 	return strings.EqualFold(strings.TrimSpace(environment), "production")
+}
+
+// cfgClientCookieSecure mirrors cfgCookieSecure for the separate client
+// session cookie so dev local HTTP works while production stays Secure.
+func cfgClientCookieSecure(lookup func(string) string, environment string) bool {
+	if raw := strings.TrimSpace(lookup("CLIENT_COOKIE_SECURE")); raw != "" {
+		parsed, err := strconv.ParseBool(raw)
+		return err == nil && parsed
+	}
+	return strings.EqualFold(strings.TrimSpace(environment), "production")
+}
+
+// validateGoogleOAuth requires all three Google OAuth values when client login
+// is enabled. Google client login is considered enabled whenever a client ID is
+// present; the secret and redirect URL must then be complete. In production the
+// redirect URL must be HTTPS so the authorization code never transits plaintext;
+// local development may use plain HTTP for the loopback callback.
+func validateGoogleOAuth(clientID, clientSecret, redirectURL string, environment string, lookup func(string) string) error {
+	if strings.TrimSpace(clientID) == "" {
+		return nil // Google client login not configured; endpoints will 503.
+	}
+	if strings.TrimSpace(clientSecret) == "" {
+		return fmt.Errorf("GOOGLE_CLIENT_SECRET is required when GOOGLE_CLIENT_ID is set")
+	}
+	parsed, err := url.Parse(strings.TrimSpace(redirectURL))
+	if err != nil {
+		return fmt.Errorf("invalid GOOGLE_REDIRECT_URL")
+	}
+	validScheme := parsed.Scheme == "https"
+	if environment == "" || !strings.EqualFold(strings.TrimSpace(environment), "production") {
+		validScheme = validScheme || parsed.Scheme == "http"
+	}
+	if !validScheme || parsed.Host == "" || parsed.User != nil {
+		return fmt.Errorf("invalid GOOGLE_REDIRECT_URL")
+	}
+	return nil
 }
 
 func valueOrDefault(lookup func(string) string, key, fallback string) string {

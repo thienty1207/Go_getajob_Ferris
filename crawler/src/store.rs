@@ -97,28 +97,28 @@ pub async fn load_crawler_interval_setting(
 
 pub async fn heartbeat_runtime<C>(client: &C) -> Result<(), PostgresError>
 where
-	C: GenericClient + Sync,
+    C: GenericClient + Sync,
 {
-	client
-		.execute(
-			"UPDATE public.crawler_runtime
+    client
+        .execute(
+            "UPDATE public.crawler_runtime
 			 SET last_heartbeat_at = now(),
 			     status = CASE WHEN status = 'OFFLINE' THEN 'IDLE' ELSE status END,
 			     updated_at = now()
 			 WHERE runtime_key = 'default'",
-			&[],
-		)
-		.await?;
-	Ok(())
+            &[],
+        )
+        .await?;
+    Ok(())
 }
 
 pub async fn mark_runtime_cycle_started<C>(client: &C) -> Result<(), PostgresError>
 where
-	C: GenericClient + Sync,
+    C: GenericClient + Sync,
 {
-	client
-		.execute(
-			"UPDATE public.crawler_runtime
+    client
+        .execute(
+            "UPDATE public.crawler_runtime
 			 SET status = 'RUNNING',
 			     last_heartbeat_at = now(),
 			     last_cycle_started_at = now(),
@@ -127,42 +127,42 @@ where
 			     last_error_code = NULL,
 			     updated_at = now()
 			 WHERE runtime_key = 'default'",
-			&[],
-		)
-		.await?;
-	Ok(())
+            &[],
+        )
+        .await?;
+    Ok(())
 }
 
 pub async fn mark_runtime_source<C>(client: &C, source_key: &str) -> Result<(), PostgresError>
 where
-	C: GenericClient + Sync,
+    C: GenericClient + Sync,
 {
-	client
-		.execute(
-			"UPDATE public.crawler_runtime
+    client
+        .execute(
+            "UPDATE public.crawler_runtime
 			 SET status = 'RUNNING',
 			     last_heartbeat_at = now(),
 			     current_source_key = $1,
 			     updated_at = now()
 			 WHERE runtime_key = 'default'",
-			&[&source_key],
-		)
-		.await?;
-	Ok(())
+            &[&source_key],
+        )
+        .await?;
+    Ok(())
 }
 
 pub async fn mark_runtime_cycle_finished<C>(
-	client: &C,
-	next_cycle_at: Option<DateTime<Utc>>,
+    client: &C,
+    next_cycle_at: Option<DateTime<Utc>>,
 ) -> Result<(), PostgresError>
 where
-	C: GenericClient + Sync,
+    C: GenericClient + Sync,
 {
-	let status = "IDLE";
-	let error_code: Option<&str> = None;
-	client
-		.execute(
-			"UPDATE public.crawler_runtime
+    let status = "IDLE";
+    let error_code: Option<&str> = None;
+    client
+        .execute(
+            "UPDATE public.crawler_runtime
 			 SET status = $1,
 			     last_heartbeat_at = now(),
 			     last_cycle_finished_at = now(),
@@ -171,24 +171,24 @@ where
 			     last_error_code = $3,
 			     updated_at = now()
 			 WHERE runtime_key = 'default'",
-			&[&status, &next_cycle_at, &error_code],
-		)
-		.await?;
-	Ok(())
+            &[&status, &next_cycle_at, &error_code],
+        )
+        .await?;
+    Ok(())
 }
 
 pub async fn mark_runtime_error<C>(
-	client: &C,
-	next_cycle_at: Option<DateTime<Utc>>,
-	error_code: &str,
+    client: &C,
+    next_cycle_at: Option<DateTime<Utc>>,
+    error_code: &str,
 ) -> Result<(), PostgresError>
 where
-	C: GenericClient + Sync,
+    C: GenericClient + Sync,
 {
-	let status = "ERROR";
-	client
-		.execute(
-			"UPDATE public.crawler_runtime
+    let status = "ERROR";
+    client
+        .execute(
+            "UPDATE public.crawler_runtime
 			 SET status = $1,
 			     last_heartbeat_at = now(),
 			     last_cycle_finished_at = now(),
@@ -197,10 +197,10 @@ where
 			     last_error_code = $3,
 			     updated_at = now()
 			 WHERE runtime_key = 'default'",
-			&[&status, &next_cycle_at, &error_code],
-		)
-		.await?;
-	Ok(())
+            &[&status, &next_cycle_at, &error_code],
+        )
+        .await?;
+    Ok(())
 }
 
 pub async fn mark_inactive_crawl_requests(client: &Client) -> Result<u64, PostgresError> {
@@ -503,7 +503,7 @@ where
     Ok(row.map(|row| row.get("location_id")))
 }
 
-const UPSERT_JOB_CACHE_QUERY: &str = r#"
+pub const UPSERT_JOB_CACHE_QUERY: &str = r#"
 INSERT INTO public.job_cache (
     source_id,
     source_job_key,
@@ -530,17 +530,30 @@ INSERT INTO public.job_cache (
     original_url,
     status,
     missing_healthy_cycles,
+    location_assignment_source,
     last_seen_at,
     updated_at
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8::double precision, $9::double precision, $10, $11, $12, $13, $14::double precision, $15, $16, $23, $17::double precision, $18::double precision, $19, $20, $21, $22, $24, $25, now(), now())
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8::double precision, $9::double precision, $10, $11, $12, $13, $14::double precision, $15, $16, $23, $17::double precision, $18::double precision, $19, $20, $21, $22, $24, $25, 'AUTO', now(), now())
 ON CONFLICT (source_id, source_job_key)
 DO UPDATE SET
     content_hash = EXCLUDED.content_hash,
     title = EXCLUDED.title,
     company = EXCLUDED.company,
     location_text = EXCLUDED.location_text,
-    location_id = EXCLUDED.location_id,
+    -- Location ownership invariant:
+    --  - ADMIN rows keep the canonical location the admin chose; the crawler
+    --    must never overwrite or clear it (including on unresolved NULL).
+    --  - AUTO rows accept crawler resolution, but an unresolved (NULL) result
+    --    must not clobber an already-resolved value with NULL.
+    location_id = CASE
+        WHEN job_cache.location_assignment_source = 'ADMIN' THEN job_cache.location_id
+        WHEN EXCLUDED.location_id IS NULL THEN job_cache.location_id
+        ELSE EXCLUDED.location_id
+    END,
+    -- The crawler never flips an ADMIN row back to AUTO, and a new insert is
+    -- always AUTO by construction (see the literal above).
+    location_assignment_source = job_cache.location_assignment_source,
     latitude = EXCLUDED.latitude,
     longitude = EXCLUDED.longitude,
     role = EXCLUDED.role,
@@ -578,5 +591,48 @@ fn run_status_name(status: RunStatus) -> &'static str {
         RunStatus::SourceError => "SOURCE_ERROR",
         RunStatus::ParserError => "PARSER_ERROR",
         RunStatus::Anomaly => "ANOMALY",
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{RECONCILE_MISSING_JOBS_QUERY, UPSERT_JOB_CACHE_QUERY};
+
+    // Guards the location-ownership invariant of the crawler upsert. The crawler
+    // must never blind-overwrite job_cache.location_id because that erases the
+    // canonical location an admin assigned in the Job Cache console.
+    #[test]
+    fn upsert_must_not_blind_overwrite_location_id() {
+        assert!(
+            !UPSERT_JOB_CACHE_QUERY.contains("location_id = EXCLUDED.location_id"),
+            "crawler upsert must not blind-overwrite location_id"
+        );
+    }
+
+    #[test]
+    fn upsert_must_preserve_admin_location_and_reject_null_overwrite() {
+        // The DO UPDATE branch must (a) keep the current value on ADMIN rows and
+        // (b) never let an unresolved (NULL) crawler result NULL-out a resolved one.
+        assert!(
+            UPSERT_JOB_CACHE_QUERY.contains("job_cache.location_assignment_source = 'ADMIN'"),
+            "upsert must guard ADMIN-owned locations"
+        );
+        assert!(
+            UPSERT_JOB_CACHE_QUERY
+                .contains("WHEN EXCLUDED.location_id IS NULL THEN job_cache.location_id"),
+            "upsert must not NULL-out an existing location when the crawler cannot resolve one"
+        );
+        assert!(
+            UPSERT_JOB_CACHE_QUERY
+                .contains("location_assignment_source = job_cache.location_assignment_source"),
+            "upsert must never change the assignment source on an existing row"
+        );
+    }
+
+    #[test]
+    fn reconcile_missing_jobs_must_not_touch_location() {
+        // Location assignment is canonical metadata and must survive lifecycle
+        // transitions (ACTIVE -> VERIFYING -> CLOSED) driven by reconciliation.
+        assert!(!RECONCILE_MISSING_JOBS_QUERY.contains("location"));
     }
 }

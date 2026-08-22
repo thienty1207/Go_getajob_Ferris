@@ -11,6 +11,7 @@ import (
 	cld "github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/gogetsomefoodferris/backend/internal/service"
+	"github.com/google/uuid"
 )
 
 // UploadClient is the small Cloudinary surface the application needs. Keeping
@@ -36,7 +37,8 @@ func NewStore(rawURL string) (*Store, error) {
 	}
 	instance, err := cld.NewFromURL(rawURL)
 	if err != nil {
-		return nil, fmt.Errorf("parse CLOUDINARY_URL: %w", err)
+		// net/url includes the original credential-bearing value in parse errors.
+		return nil, errors.New("invalid Cloudinary configuration")
 	}
 	return &Store{client: &instance.Upload}, nil
 }
@@ -54,19 +56,43 @@ func (s *Store) Upload(ctx context.Context, data []byte, _ string, slot int16, c
 	if s == nil || s.client == nil || len(data) == 0 || slot < 1 || slot > 3 || !isSHA256(contentHash) {
 		return service.PromotionAsset{}, errors.New("invalid Cloudinary upload input")
 	}
+	return s.uploadImage(ctx, data, "ferris/promotions", fmt.Sprintf("slot-%d-%s", slot, contentHash))
+}
+
+func (s *Store) UploadHomeSection(ctx context.Context, data []byte, _ string, slot int16, contentHash string) (service.PromotionAsset, error) {
+	if s == nil || s.client == nil || len(data) == 0 || slot < 1 || slot > 4 || !isSHA256(contentHash) {
+		return service.PromotionAsset{}, errors.New("invalid Cloudinary home section upload input")
+	}
+	// The content hash remains useful for diagnostics, but it cannot be the
+	// ownership key: two media rows may intentionally upload identical bytes.
+	// A per-upload suffix ensures deleting one row can never delete another
+	// row's provider asset.
+	return s.uploadImage(ctx, data, "ferris/home-sections", fmt.Sprintf("slot-%d-%s-%s", slot, contentHash, uuid.NewString()))
+}
+
+func (s *Store) uploadImage(ctx context.Context, data []byte, folder, publicID string) (service.PromotionAsset, error) {
 	overwrite := false
 	uniqueFilename := false
 	discardOriginalFilename := true
 	result, err := s.client.Upload(ctx, bytes.NewReader(data), uploader.UploadParams{
-		Folder:                  "ferris/promotions",
-		PublicID:                fmt.Sprintf("slot-%d-%s", slot, contentHash),
+		Folder:                  folder,
+		PublicID:                publicID,
 		ResourceType:            "image",
 		Overwrite:               &overwrite,
 		UniqueFilename:          &uniqueFilename,
 		DiscardOriginalFilename: &discardOriginalFilename,
 	})
 	if err != nil {
-		return service.PromotionAsset{}, fmt.Errorf("upload promotion to Cloudinary: %w", err)
+		// SDK errors may include the credential-bearing CLOUDINARY_URL. Keep the
+		// provider detail inside this boundary and return only a stable category.
+		return service.PromotionAsset{}, errors.New("Cloudinary upload failed")
+	}
+	// cloudinary-go currently returns a nil Go error for some rejected HTTP
+	// responses and puts the provider failure in UploadResult.Error instead.
+	// Check that field before metadata validation so operators see the real
+	// configuration failure rather than a misleading "incomplete metadata".
+	if result != nil && strings.TrimSpace(result.Error.Message) != "" {
+		return service.PromotionAsset{}, errors.New("Cloudinary upload failed")
 	}
 	if result == nil || strings.TrimSpace(result.PublicID) == "" || strings.TrimSpace(result.AssetID) == "" || !isSecureURL(result.SecureURL) {
 		return service.PromotionAsset{}, errors.New("Cloudinary returned incomplete promotion metadata")
@@ -92,19 +118,17 @@ func (s *Store) Destroy(ctx context.Context, publicID string) error {
 		Invalidate:   &invalidate,
 	})
 	if err != nil {
-		return fmt.Errorf("destroy old Cloudinary promotion: %w", err)
+		return errors.New("Cloudinary destroy failed")
+	}
+	// Destroy has the same SDK response behavior as Upload: provider errors may
+	// arrive inside the result with no Go error from the HTTP call.
+	if result != nil && strings.TrimSpace(result.Error.Message) != "" {
+		return errors.New("Cloudinary destroy failed")
 	}
 	if result == nil || (result.Result != "ok" && result.Result != "not found") {
-		return fmt.Errorf("destroy old Cloudinary promotion returned %q", resultValue(result))
+		return errors.New("Cloudinary destroy failed")
 	}
 	return nil
-}
-
-func resultValue(result *uploader.DestroyResult) string {
-	if result == nil {
-		return "nil"
-	}
-	return result.Result
 }
 
 func isSecureURL(raw string) bool {

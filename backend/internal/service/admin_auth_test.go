@@ -98,6 +98,42 @@ func TestAdminAuthRejectsExpiredAndRevokedSessions(t *testing.T) {
 	}
 }
 
+func TestAdminAuthLegacyCSRFRefreshIsStableAndProtectedSessionCompatible(t *testing.T) {
+	t.Parallel()
+	now := time.Date(2026, 8, 20, 12, 0, 0, 0, time.UTC)
+	user := model.AdminUser{ID: uuid.New(), Email: "admin@example.com", IsActive: true}
+	repo := &recordingAdminRepository{session: model.AdminSession{
+		ID:            uuid.New(),
+		AdminUserID:   user.ID,
+		TokenHash:     hashToken("legacy-session-token"),
+		CSRFTokenHash: hashToken("pre-cookie-csrf-token"),
+		ExpiresAt:     now.Add(time.Hour),
+		User:          user,
+	}}
+	auth := NewAdminAuthService(repo, config.Config{})
+	auth.now = func() time.Time { return now }
+
+	first, err := auth.RefreshCSRF(context.Background(), repo.session)
+	if err != nil {
+		t.Fatalf("first RefreshCSRF() error = %v", err)
+	}
+	second, err := auth.RefreshCSRF(context.Background(), repo.session)
+	if err != nil {
+		t.Fatalf("second RefreshCSRF() error = %v", err)
+	}
+	if first == "" || second != first {
+		t.Fatalf("legacy refresh tokens = %q and %q, want one stable session-bound token", first, second)
+	}
+
+	protectedSession, err := auth.Authenticate(context.Background(), "legacy-session-token")
+	if err != nil {
+		t.Fatalf("Authenticate() after legacy refresh error = %v", err)
+	}
+	if !auth.ValidateCSRF(protectedSession, first) || auth.ValidateCSRF(protectedSession, "pre-cookie-csrf-token") {
+		t.Fatal("legacy refresh token did not remain compatible with protected-session validation")
+	}
+}
+
 type recordingAdminRepository struct {
 	user         model.AdminUser
 	passwordHash string
@@ -139,6 +175,7 @@ func (r *recordingAdminRepository) TouchAdminSession(context.Context, uuid.UUID,
 
 func (r *recordingAdminRepository) RotateAdminCSRF(_ context.Context, _ uuid.UUID, hash []byte) error {
 	r.rotatedCSRF = append([]byte(nil), hash...)
+	r.session.CSRFTokenHash = append([]byte(nil), hash...)
 	return nil
 }
 

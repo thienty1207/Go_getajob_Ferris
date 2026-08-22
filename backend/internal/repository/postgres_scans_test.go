@@ -54,15 +54,33 @@ func TestPublicMatchQueryUsesApprovedActiveView(t *testing.T) {
 	}
 }
 
-func TestMatchCandidateQueryKeepsRemoteAndLocationRadiusRulesExplicit(t *testing.T) {
+func TestMatchCandidateQueryUsesCanonicalLocationOnly(t *testing.T) {
 	query := strings.ToLower(listMatchCandidatesQuery)
-	for _, required := range []string{"active_job_cache", "work_mode = 'remote'", "location_id", "radius_km", "6371"} {
+	for _, required := range []string{"active_job_cache", "location_id", "jobs.location_id = scan_context.location_id"} {
 		if !strings.Contains(query, required) {
 			t.Fatalf("candidate query missing %q: %s", required, listMatchCandidatesQuery)
 		}
 	}
+	for _, forbidden := range []string{"radius_km", "6371", "work_mode = 'remote'"} {
+		if strings.Contains(query, forbidden) {
+			t.Fatalf("candidate query still applies deprecated radius/remote rule %q: %s", forbidden, listMatchCandidatesQuery)
+		}
+	}
 	if strings.Contains(query, "description") || strings.Contains(query, "raw") {
 		t.Fatalf("candidate query exposes raw job content: %s", listMatchCandidatesQuery)
+	}
+}
+
+func TestScanQueriesPersistAndEnforceClientOwnership(t *testing.T) {
+	createQuery := strings.ToLower(createScanQuery)
+	if !strings.Contains(createQuery, "client_user_id") || !strings.Contains(createQuery, "$2") {
+		t.Fatalf("create scan query must persist client owner: %s", createScanQuery)
+	}
+	getQuery := strings.ToLower(getScanQuery)
+	for _, required := range []string{"client_user_id", "$2::uuid", "client_user_id = $2"} {
+		if !strings.Contains(getQuery, required) {
+			t.Fatalf("get scan query missing ownership guard %q: %s", required, getScanQuery)
+		}
 	}
 }
 
