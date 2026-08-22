@@ -1,17 +1,18 @@
 use anyhow::{anyhow, Context, Result};
+use chrono::{Duration as ChronoDuration, Utc};
 use ferris_crawler::config::{
     database_crawl_interval_seconds, load_crawl_interval_seconds, load_database_url,
 };
 use ferris_crawler::crawl::{crawl_source, JsonLdJobPostingAdapter};
 use ferris_crawler::scope::SourceScope;
 use ferris_crawler::store::{
-	attach_crawl_request_run, begin_crawl_run, claim_next_crawl_request, complete_crawl_request,
-	crawl_run_is_finished, fail_crawl_request, finish_crawl_run_if_unfinished, load_active_sources,
-	heartbeat_runtime, load_crawler_interval_setting, mark_inactive_crawl_requests,
-	mark_runtime_cycle_finished, mark_runtime_cycle_started, mark_runtime_error, mark_runtime_source,
-	persist_healthy_observations, reconcile_missing_jobs, ActiveSource, AuthoritativeObservationBatch,
+    attach_crawl_request_run, begin_crawl_run, claim_next_crawl_request, complete_crawl_request,
+    crawl_run_is_finished, fail_crawl_request, finish_crawl_run_if_unfinished, heartbeat_runtime,
+    load_active_sources, load_crawler_interval_setting, mark_inactive_crawl_requests,
+    mark_runtime_cycle_finished, mark_runtime_cycle_started, mark_runtime_error,
+    mark_runtime_source, persist_healthy_observations, reconcile_missing_jobs, ActiveSource,
+    AuthoritativeObservationBatch,
 };
-use chrono::{Duration as ChronoDuration, Utc};
 use std::thread;
 use tokio::sync::oneshot;
 use tokio::time::{sleep, Duration, Instant};
@@ -87,95 +88,95 @@ async fn main() -> Result<()> {
 }
 
 async fn run_scheduled_cycle(database_url: &str, interval_seconds: Option<u64>) -> Result<()> {
-	mark_runtime_cycle_started_db(database_url).await?;
-	let heartbeat_task = tokio::spawn(runtime_heartbeat_loop(database_url.to_owned()));
-	let cycle_result = run_cycle(database_url).await;
-	heartbeat_task.abort();
-	let _ = heartbeat_task.await;
+    mark_runtime_cycle_started_db(database_url).await?;
+    let heartbeat_task = tokio::spawn(runtime_heartbeat_loop(database_url.to_owned()));
+    let cycle_result = run_cycle(database_url).await;
+    heartbeat_task.abort();
+    let _ = heartbeat_task.await;
 
-	let next_cycle_at = interval_seconds.map(|seconds| {
-		Utc::now() + ChronoDuration::seconds(i64::try_from(seconds).unwrap_or(i64::MAX))
-	});
-	let runtime_result = match &cycle_result {
-		Ok(()) => mark_runtime_cycle_finished_db(database_url, next_cycle_at).await,
-		Err(_) => mark_runtime_error_db(database_url, next_cycle_at, "cycle_failed").await,
-	};
-	if let Err(error) = runtime_result {
-		return Err(error.context("persist crawler runtime result"));
-	}
-	cycle_result
+    let next_cycle_at = interval_seconds.map(|seconds| {
+        Utc::now() + ChronoDuration::seconds(i64::try_from(seconds).unwrap_or(i64::MAX))
+    });
+    let runtime_result = match &cycle_result {
+        Ok(()) => mark_runtime_cycle_finished_db(database_url, next_cycle_at).await,
+        Err(_) => mark_runtime_error_db(database_url, next_cycle_at, "cycle_failed").await,
+    };
+    if let Err(error) = runtime_result {
+        return Err(error.context("persist crawler runtime result"));
+    }
+    cycle_result
 }
 
 async fn runtime_heartbeat_loop(database_url: String) {
-	loop {
-		sleep(Duration::from_secs(REQUEST_POLL_INTERVAL_SECONDS)).await;
-		if let Err(error) = heartbeat_runtime_db(&database_url).await {
-			eprintln!("crawler: runtime heartbeat failed: {error:#}");
-		}
-	}
+    loop {
+        sleep(Duration::from_secs(REQUEST_POLL_INTERVAL_SECONDS)).await;
+        if let Err(error) = heartbeat_runtime_db(&database_url).await {
+            eprintln!("crawler: runtime heartbeat failed: {error:#}");
+        }
+    }
 }
 
 async fn mark_runtime_cycle_started_db(database_url: &str) -> Result<()> {
-	let (client, connection) = tokio_postgres::connect(database_url, NoTls)
-		.await
-		.context("connect crawler to mark runtime cycle started")?;
-	tokio::spawn(async move {
-		if let Err(error) = connection.await {
-			eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
-		}
-	});
-	mark_runtime_cycle_started(&client)
-		.await
-		.context("mark crawler runtime cycle started")
+    let (client, connection) = tokio_postgres::connect(database_url, NoTls)
+        .await
+        .context("connect crawler to mark runtime cycle started")?;
+    tokio::spawn(async move {
+        if let Err(error) = connection.await {
+            eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
+        }
+    });
+    mark_runtime_cycle_started(&client)
+        .await
+        .context("mark crawler runtime cycle started")
 }
 
 async fn mark_runtime_cycle_finished_db(
-	database_url: &str,
-	next_cycle_at: Option<chrono::DateTime<Utc>>,
+    database_url: &str,
+    next_cycle_at: Option<chrono::DateTime<Utc>>,
 ) -> Result<()> {
-	let (client, connection) = tokio_postgres::connect(database_url, NoTls)
-		.await
-		.context("connect crawler to mark runtime cycle finished")?;
-	tokio::spawn(async move {
-		if let Err(error) = connection.await {
-			eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
-		}
-	});
-	mark_runtime_cycle_finished(&client, next_cycle_at)
-		.await
-		.context("mark crawler runtime cycle finished")
+    let (client, connection) = tokio_postgres::connect(database_url, NoTls)
+        .await
+        .context("connect crawler to mark runtime cycle finished")?;
+    tokio::spawn(async move {
+        if let Err(error) = connection.await {
+            eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
+        }
+    });
+    mark_runtime_cycle_finished(&client, next_cycle_at)
+        .await
+        .context("mark crawler runtime cycle finished")
 }
 
 async fn mark_runtime_error_db(
-	database_url: &str,
-	next_cycle_at: Option<chrono::DateTime<Utc>>,
-	error_code: &str,
+    database_url: &str,
+    next_cycle_at: Option<chrono::DateTime<Utc>>,
+    error_code: &str,
 ) -> Result<()> {
-	let (client, connection) = tokio_postgres::connect(database_url, NoTls)
-		.await
-		.context("connect crawler to mark runtime error")?;
-	tokio::spawn(async move {
-		if let Err(error) = connection.await {
-			eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
-		}
-	});
-	mark_runtime_error(&client, next_cycle_at, error_code)
-		.await
-		.context("mark crawler runtime error")
+    let (client, connection) = tokio_postgres::connect(database_url, NoTls)
+        .await
+        .context("connect crawler to mark runtime error")?;
+    tokio::spawn(async move {
+        if let Err(error) = connection.await {
+            eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
+        }
+    });
+    mark_runtime_error(&client, next_cycle_at, error_code)
+        .await
+        .context("mark crawler runtime error")
 }
 
 async fn heartbeat_runtime_db(database_url: &str) -> Result<()> {
-	let (client, connection) = tokio_postgres::connect(database_url, NoTls)
-		.await
-		.context("connect crawler to heartbeat runtime")?;
-	tokio::spawn(async move {
-		if let Err(error) = connection.await {
-			eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
-		}
-	});
-	heartbeat_runtime(&client)
-		.await
-		.context("write crawler runtime heartbeat")
+    let (client, connection) = tokio_postgres::connect(database_url, NoTls)
+        .await
+        .context("connect crawler to heartbeat runtime")?;
+    tokio::spawn(async move {
+        if let Err(error) = connection.await {
+            eprintln!("crawler runtime PostgreSQL connection stopped: {error}");
+        }
+    });
+    heartbeat_runtime(&client)
+        .await
+        .context("write crawler runtime heartbeat")
 }
 
 async fn load_runtime_interval_seconds(database_url: &str, fallback: u64) -> Result<u64> {
@@ -233,7 +234,8 @@ async fn process_one_pending_request(database_url: &str) -> Result<bool> {
         .await
         .context("mark manual crawl request source")?;
     let heartbeat_task = tokio::spawn(runtime_heartbeat_loop(database_url.to_owned()));
-    let source_result = run_source(&mut client, database_url, request.source, Some(request_id)).await;
+    let source_result =
+        run_source(&mut client, database_url, request.source, Some(request_id)).await;
     heartbeat_task.abort();
     let _ = heartbeat_task.await;
     match source_result {
@@ -276,14 +278,14 @@ async fn run_cycle(database_url: &str) -> Result<()> {
     if sources.is_empty() {
         println!("crawler: no ACTIVE Job Link sources; nothing to crawl");
         return Ok(());
-	}
+    }
 
-	for source in sources {
-		mark_runtime_source(&client, &source.source_key)
-			.await
-			.with_context(|| format!("mark crawler source {}", source.source_key))?;
-		run_source(&mut client, database_url, source, None).await?;
-	}
+    for source in sources {
+        mark_runtime_source(&client, &source.source_key)
+            .await
+            .with_context(|| format!("mark crawler source {}", source.source_key))?;
+        run_source(&mut client, database_url, source, None).await?;
+    }
     Ok(())
 }
 

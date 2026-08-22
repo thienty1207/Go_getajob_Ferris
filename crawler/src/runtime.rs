@@ -18,21 +18,21 @@ impl RuntimeStatus {
 }
 
 pub fn cycle_status(succeeded: bool) -> RuntimeStatus {
-	if succeeded {
-		RuntimeStatus::Idle
-	} else {
-		RuntimeStatus::Error
-	}
+    if succeeded {
+        RuntimeStatus::Idle
+    } else {
+        RuntimeStatus::Error
+    }
 }
 
 #[cfg(test)]
 mod tests {
-	use super::{cycle_status, RuntimeStatus};
+    use super::{cycle_status, RuntimeStatus};
 
-	#[test]
-	fn cycle_completion_maps_to_truthful_runtime_state() {
-		assert_eq!(cycle_status(true), RuntimeStatus::Idle);
-		assert_eq!(cycle_status(false), RuntimeStatus::Error);
-		assert_eq!(RuntimeStatus::Running.database_value(), "RUNNING");
-	}
+    #[test]
+    fn cycle_completion_maps_to_truthful_runtime_state() {
+        assert_eq!(cycle_status(true), RuntimeStatus::Idle);
+        assert_eq!(cycle_status(false), RuntimeStatus::Error);
+        assert_eq!(RuntimeStatus::Running.database_value(), "RUNNING");
+    }
 }
