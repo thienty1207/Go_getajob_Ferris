@@ -11,7 +11,8 @@
 - Current local runtime at the time of handoff: PostgreSQL accepting connections, backend health `200`, public Home API `200`, frontend `200`.
 - No mock data, raw CV, OAuth secret, Cloudinary credential, or DeepSeek key is tracked. Local `.env` files remain ignored.
 - Three mandatory independent reviewer agents were requested but the environment rejected all three because their usage limit was exhausted. Direct code/test/security checks above are recorded; do not claim reviewer receipts exist.
-- Next action: stage only the intended source, migration, test, and handoff files; inspect the staged diff and secret scan; commit and push `main` to `origin`.
+- Delivery: commits `e16d521` (implementation) and `2bfb7e2` (verified handoff) are pushed; `main` matches `origin/main`.
+- Next action: resume only for new product work or for repairing the Baron proof-provider receipt path. Do not re-run or overwrite the completed upload/CV implementation without a new failing reproduction.
 
 - Updated: 2026-08-20
 - Task: Implement the approved Sugoi-oniichan client experience, owner-scoped CV scan/history, and admin-managed Home sections.

@@ -1,19 +1,19 @@
 # Baron Continuity Resume
 
-- Last updated: 2026-08-22T18:47:22+07:00
+- Last updated: 2026-08-22T18:48:40+07:00
 - Adapter: `reasonix`
-- Latest checkpoint: Commit e16d521 pushed to origin/main after direct automated and live upload/CV verification; remote SHA verified. No reviewer receipts fabricated because delegated agents hit usage limits.
+- Latest checkpoint: Final delivery state: commits e16d521 and 2bfb7e2 are pushed to origin/main; live Home/CV gates and direct verification pass; Reasonix handoff updated. Baron high-risk plan remains intentionally interrupted because proof worker receipt path is unavailable.
 - Latest automation event: `Checkpoint`
 - Current task: `upload-workflow-reliability`
-- Plan status: `in_progress`
+- Plan status: `interrupted`
 - Harness story: `unknown`
 - Harness risk: `unknown`
 - Proof status: recorded `20260820192136578` - trusted execution receipt receipt-333648290cda passed for frontend-production-build via bun
 - Trace status: scored `standard/standard` passed `yes`
 - Recovery outcome: `blocked`
 - Recovery next action: Use completed direct execution evidence and mandatory independent agent reviews; retry trusted receipt recording only if Baron proof worker clears.
-- Changed files: docs/baron/continuity/CURRENT.md, docs/baron/continuity/INDEX.md
-- Next action: Focused Home asset lifecycle slice: root cause established; begin TDD for validation-before-upload, unique Cloudinary ownership, transactional durable cleanup enqueue, and bounded retryable cleanup.
+- Changed files: docs/baron/continuity/CURRENT.md, docs/baron/continuity/INDEX.md, docs/reasonix/CURRENT.md
+- Next action: Implementation is complete and pushed as e16d521; direct automated and live evidence passes. Baron high-risk completion is intentionally interrupted because its proof ledger has only the frontend receipt and the proof worker previously hung, so no fake receipt is recorded. Resume only after a working proof provider can record backend/crawler/live gates.
 
 ## Resume Rules
 
