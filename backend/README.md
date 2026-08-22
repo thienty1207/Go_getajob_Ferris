@@ -7,7 +7,7 @@ This directory contains the real API boundary for the client scan flow, promotio
 - `GET /healthz` checks that the PostgreSQL pool is reachable.
 - `GET /api/v1/client/locations` returns active canonical locations for the client selector.
 - `POST /api/v1/client/scans` accepts multipart fields `cv`, `location_id`, and `radius_km` and returns `202` with `{ "scan_id": "...", "status": "processing" }`.
-- `GET /api/v1/client/scans/:scan_id` returns `processing`, `failed`, or `completed` using the SvelteKit client contract.
+- `GET /api/v1/client/scans/:scan_id` returns `processing`, `failed`, or `completed` using the SvelteKit client contract. Processing includes `phase` (`received`, `parsing`, or `matching`); completed includes the bounded `cv_summary` and only matches for `ACTIVE` jobs.
 - `GET /api/v1/client/promotions` returns up to three active promotion metadata records; `GET /api/v1/client/promotions/:slot/image` keeps the same-origin image contract and redirects Cloudinary-backed rows to the CDN.
 - `POST /api/v1/admin/auth/login`, `GET /api/v1/admin/auth/me`, and `POST /api/v1/admin/auth/logout` implement the cookie session boundary.
 - `GET /api/v1/admin/promotions` lists current slots; `PUT /api/v1/admin/promotions/:slot` uploads one multipart `image` through Cloudinary; `DELETE /api/v1/admin/promotions/:slot` removes a slot. State-changing routes require an authenticated session and CSRF header.
@@ -41,6 +41,13 @@ psql --set ON_ERROR_STOP=1 --file database/migrations/000005_canonical_locations
 psql --set ON_ERROR_STOP=1 --file database/migrations/000006_location_resolution_and_scan_location.up.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000007_location_key_normalization.up.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000008_settings_and_crawl_requests.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000009_admin_management_runtime.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000010_location_assignment_source.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000011_client_auth.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000012_client_cv_history.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000013_home_sections.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000014_home_asset_cleanup.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000015_cv_summary.up.sql
 # Optional local admin Job Cache verification fixture; never crawler output.
 psql --set ON_ERROR_STOP=1 --file database/fixtures/development-job.sql
 ```

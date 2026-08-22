@@ -52,6 +52,7 @@ type StructuredProfilePayload struct {
 	Domains           []string                    `json:"domains"`
 	Education         []model.EducationRecord     `json:"education"`
 	Certifications    []model.CertificationRecord `json:"certifications"`
+	Summary           model.CVSummary             `json:"summary"`
 }
 
 type deepSeekCompletionRequest struct {
@@ -208,10 +209,17 @@ func (payload StructuredProfilePayload) Validate() error {
 			return errors.New("certification field exceeds limit")
 		}
 	}
+	if err := payload.Summary.Validate(); err != nil {
+		return err
+	}
+	if summary := strings.Join(append(append(append([]string{payload.Summary.Headline, payload.Summary.Overview}, payload.Summary.TargetRoles...), payload.Summary.Strengths...), payload.Summary.Gaps...), " "); emailPattern.MatchString(summary) || phonePattern.MatchString(summary) || urlPattern.MatchString(summary) {
+		return errors.New("summary contains disallowed personal data")
+	}
 	return nil
 }
 
 func (payload StructuredProfilePayload) ToModel() model.StructuredProfile {
+	summary := payload.Summary
 	return model.StructuredProfile{
 		Roles:             payload.Roles,
 		Skills:            payload.Skills,
@@ -220,6 +228,7 @@ func (payload StructuredProfilePayload) ToModel() model.StructuredProfile {
 		Domains:           payload.Domains,
 		Education:         payload.Education,
 		Certifications:    payload.Certifications,
+		Summary:           &summary,
 	}
 }
 
@@ -372,5 +381,5 @@ func stripJSONFence(value string) string {
 }
 
 const profileSchemaPrompt = `Return exactly one JSON object and no markdown. Use this schema:
-{"roles":["string"],"skills":["string"],"years_of_experience":0,"seniority":"JUNIOR|MID|SENIOR|UNSPECIFIED","domains":["string"],"education":[{"institution":"string","degree":"string","field_of_study":"string","start_year":2020,"end_year":2024,"grade":"string"}],"certifications":[{"certificate_name":"string","issuer":"string","issued_year":2020,"expires_year":2025}]}
-Do not return name, email, phone, address, photo, raw CV text, or any field outside the schema. Use empty arrays when a field is not present. Keep years_of_experience between 0 and 100.`
+{"roles":["string"],"skills":["string"],"years_of_experience":0,"seniority":"JUNIOR|MID|SENIOR|UNSPECIFIED","domains":["string"],"education":[{"institution":"string","degree":"string","field_of_study":"string","start_year":2020,"end_year":2024,"grade":"string"}],"certifications":[{"certificate_name":"string","issuer":"string","issued_year":2020,"expires_year":2025}],"summary":{"headline":"string","overview":"string","target_roles":["string"],"strengths":["string"],"gaps":["string"]}}
+The summary must be concise and useful for a job seeker: one headline, one short overview, one to five target roles, one to five strengths, and one to four gaps or next areas to improve. Do not return name, email, phone, address, photo, raw CV text, URLs, or any field outside the schema. Use empty arrays only for education or certifications; summary lists must contain useful bounded items. Keep years_of_experience between 0 and 100.`

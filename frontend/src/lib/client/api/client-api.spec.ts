@@ -50,10 +50,10 @@ describe('client API contract', () => {
 	it('parses a processing response from the real status endpoint', async () => {
 		const result = await getScanStatus('scan-1', async (_input, init) => {
 			expect(init?.credentials).toBe('include');
-			return response({ scan_id: 'scan-1', status: 'processing' });
+			return response({ scan_id: 'scan-1', status: 'processing', phase: 'parsing' });
 		});
 
-		expect(result).toEqual({ scanId: 'scan-1', status: 'processing' });
+		expect(result).toEqual({ scanId: 'scan-1', status: 'processing', phase: 'parsing' });
 	});
 
 	it('turns a non-success response into an ApiError', async () => {
@@ -67,6 +67,13 @@ describe('client API contract', () => {
 			response({
 				scan_id: 'scan-1',
 				status: 'completed',
+				cv_summary: {
+					headline: 'IT support professional',
+					overview: 'Experienced with user support and incident handling.',
+					target_roles: ['IT Support', 'IT Officer'],
+					strengths: ['Troubleshooting', 'User communication'],
+					gaps: ['Add cloud operations exposure']
+				},
 				matches: [
 					{
 						id: 'job-from-api',
@@ -87,6 +94,13 @@ describe('client API contract', () => {
 
 		expect(result).toMatchObject({
 			status: 'completed',
+			cvSummary: {
+				headline: 'IT support professional',
+				overview: 'Experienced with user support and incident handling.',
+				targetRoles: ['IT Support', 'IT Officer'],
+				strengths: ['Troubleshooting', 'User communication'],
+				gaps: ['Add cloud operations exposure']
+			},
 			matches: [
 				{
 					matchPercent: 82,
@@ -96,6 +110,18 @@ describe('client API contract', () => {
 				}
 			]
 		});
+	});
+
+	it('rejects a malformed CV summary instead of rendering unbounded provider text', async () => {
+		const result = getScanStatus('scan-invalid-summary', async () =>
+			response({
+				scan_id: 'scan-invalid-summary',
+				status: 'completed',
+				cv_summary: { headline: '', overview: 'x', target_roles: [], strengths: ['Troubleshooting'], gaps: ['x'] },
+				matches: []
+			})
+		);
+		await expect(result).rejects.toMatchObject({ code: 'invalid_response' });
 	});
 
 	it('parses an honest empty result and a source-declared failure', async () => {

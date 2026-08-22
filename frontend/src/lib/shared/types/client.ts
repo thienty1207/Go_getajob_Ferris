@@ -36,11 +36,21 @@ export interface ScanAccepted {
 export interface ScanProcessing {
 	scanId: string;
 	status: 'processing';
+	phase: 'received' | 'parsing' | 'matching';
+}
+
+export interface ClientCVSummary {
+	headline: string;
+	overview: string;
+	targetRoles: string[];
+	strengths: string[];
+	gaps: string[];
 }
 
 export interface ScanCompleted {
 	scanId: string;
 	status: 'completed';
+	cvSummary?: ClientCVSummary;
 	matches: JobMatch[];
 }
 

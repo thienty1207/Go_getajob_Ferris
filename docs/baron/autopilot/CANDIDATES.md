@@ -629,3 +629,14 @@ Candidates are not trusted facts. They require approval before becoming durable 
 - Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
 - Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
 
+## candidate-1787403722534952500-proof-continuity
+
+- Status: `candidate`
+- Trusted fact: `no`
+- Approval required: `yes`
+- Created: 2026-08-22T20:02:02+07:00
+- Summary: CV scan summary/loading/match calibration complete. Direct gates pass: backend Go tests/vet, schema, frontend unit/check/build, crawler test/check, and real PDF with PostgreSQL+DeepSeek. Baron proof-provider execution hung and was recovered; no receipt fabricated. Reviewers were stopped after timeout with no findings. Remaining risk is proof-provider infrastructure only; source diff is ready for commit/push.
+- Observed automation: Checkpoint, ContextCompiled, PlanStarted, Prompt, ProofRecorded, SessionStart, Stop, TraceScored
+- Resume sources: docs/baron/continuity/CURRENT.md, docs/baron/continuity/CURRENT_RECOVERY.md, docs/baron/plans/CURRENT.md, docs/baron/harness/CURRENT_INTENT.md, docs/baron/proofs/INDEX.md, docs/baron/traces/INDEX.md
+- Safe action: keep as candidate until approved; do not rewrite skills, agents, memory facts, or runtime policy from this item alone.
+

@@ -1201,3 +1201,34 @@
 - 2026-08-22T18:47:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Commit e16d521 pushed to origin/main after direct automated and live upload/CV verification; remote SHA verified. No reviewer receipts fabricated because delegated agents hit usage limits.
 - 2026-08-22T18:48:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
 - 2026-08-22T18:48:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Final delivery state: commits e16d521 and 2bfb7e2 are pushed to origin/main; live Home/CV gates and direct verification pass; Reasonix handoff updated. Baron high-risk plan remains intentionally interrupted because proof worker receipt path is unavailable.
+- 2026-08-22T18:50:30+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-22T19:11:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-22T19:14:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-22T19:20:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - stop hook observed.
+- 2026-08-22T19:23:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-22T19:23:33+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Approved new scope: add real CV summary, phase-based scan loading, active-job-only results, and deterministic role calibration; next: write design and implementation plan.
+- 2026-08-22T19:24:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:27:24+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:28:50+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:29:36+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:30:15+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:31:09+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:31:39+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:33:41+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-22T19:36:32+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Backend contract and tests are green; next edit frontend API types, scan loading modal, and CV summary result card.
+- 2026-08-22T19:37:52+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:39:02+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:39:49+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:41:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:44:44+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:49:34+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - session_start hook observed.
+- 2026-08-22T19:52:08+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:52:48+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T19:55:28+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - CV scan summary/loading/match calibration is implemented. Backend, frontend, schema, crawler checks and live PDF gate passed; handoff files updated. Next: run Baron review/trace, inspect diff, commit and push while keeping .env and personal CV untracked.
+- 2026-08-22T19:56:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-22T19:56:23+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-22T20:01:10+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-22T20:01:12+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
+- 2026-08-22T20:03:31+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T20:04:06+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T20:06:40+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.

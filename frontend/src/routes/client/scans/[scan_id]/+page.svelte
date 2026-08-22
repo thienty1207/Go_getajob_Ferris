@@ -115,23 +115,19 @@
 
 	<main class="page-container scan-result-page">
 		<div class="scan-result-heading">
-			<div>
-				<span class="section-kicker">CV SCAN</span>
-				<h1>Kết quả matching.</h1>
-			</div>
+			<div><h1>Kết quả quét CV.</h1></div>
 			<a class="back-link scan-back-link" href="/client">Quét CV khác</a>
 		</div>
 
 		{#if errorMessage}
 			<ClientErrorState message={errorMessage} onRetry={retry} />
 		{:else if isLoading || result?.status === 'processing'}
-			<ScanProgress status="polling" />
+			<ScanProgress phase={result?.status === 'processing' ? result.phase : 'received'} />
 		{:else if result?.status === 'failed'}
 			<ClientErrorState message={result.message} onRetry={retry} />
-		{:else if result?.status === 'completed' && result.matches.length === 0}
-			<ClientEmptyState onRetry={() => (window.location.href = '/client')} />
 		{:else if result?.status === 'completed'}
-			<MatchResults matches={result.matches} />
+			<MatchResults matches={result.matches} summary={result.cvSummary} />
+			{#if result.matches.length === 0}<ClientEmptyState onRetry={() => (window.location.href = '/client')} />{/if}
 		{:else if timedOut}
 			<ClientErrorState message={errorMessage} onRetry={retry} />
 		{/if}

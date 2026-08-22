@@ -1,5 +1,18 @@
 # Reasonix — Continuity Current
 
+## 2026-08-22 — CV scan summary, loading state, and match calibration
+
+- Status: **IMPLEMENTED AND VERIFIED; handoff ready**.
+- Backend now returns a bounded `cv_summary` with `headline`, `overview`, `target_roles`, `strengths`, and `gaps`. The processing response also returns `phase` (`received`, `parsing`, or `matching`) so the client can render real progress state.
+- Completed scan queries and match persistence explicitly require `jobs.status = 'ACTIVE'`; closed/expired jobs cannot enter a client result even when their cache row is still present.
+- Deterministic matching keeps the agreed weights (required skills 35%, role relevance 25%, experience 15%, seniority 15%, preferred skills/domain 10%). Missing job evidence earns zero for that component, and role-family separation prevents an IT Helpdesk/Officer CV from receiving a high score for unrelated software roles.
+- Database migration `000015_cv_summary` adds only structured summary JSONB to `structured_profiles`; no raw CV or unnecessary PII is retained.
+- Client Home and result pages show a centered scan modal with phase/progress UI. The result page places the concise AI CV summary above the active-job match list. No technical helper copy or mock content was added.
+- Verification passed: `go test ./... -count=1`, `go vet ./...`, schema contract, frontend `bun run test:unit -- --run` (24 files / 102 tests), `bun run check` (0 errors / 0 warnings), and `bun run build`.
+- Real live gate passed with `C:\Users\tytyb\Downloads\Documents\HoThienTy_IT_Officer.pdf`, local PostgreSQL, and the configured DeepSeek provider: authenticated upload, DeepSeek parse, summary, active-only results, role calibration, structured history, owner cleanup, and raw-CV retention (`0 files`). No mock profile or mock job was used.
+- Next action: run final Baron review/trace gates, inspect the diff, commit, and push without adding local `.env` files or the supplied CV.
+- Baron note: standard trace score passed. The Baron proof provider was attempted for the frontend build but hung without a receipt and was interrupted; recovery `recovery-288449ab272b248e` records the limitation. The implementation plan is intentionally interrupted, not falsely marked complete. Direct command output and the real PDF gate remain the source verification evidence.
+
 ## 2026-08-22 — Authoritative handoff after upload/CV reliability verification
 
 - Status: **IMPLEMENTED AND VERIFIED; ready to commit/push**.

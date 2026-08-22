@@ -26,6 +26,18 @@ img/        Brand assets
 docs/       Architecture, plans, specs, verification records
 ```
 
+## 2026-08-22 — Trạng thái mới nhất: CV scan summary và match đúng role
+
+- Đã triển khai loading modal có phase thật (`received` → `parsing` → `matching`) ngay khi người dùng bấm quét CV; UI chỉ hiển thị trạng thái cần thiết, không thêm hướng dẫn kỹ thuật.
+- Kết quả scan có `cv_summary` ngắn gọn gồm headline, overview, target roles, strengths và gaps; summary chỉ là structured data, không lưu raw CV hay PII thừa.
+- Client chỉ nhận job có lifecycle `ACTIVE`. Job `CLOSED` hoặc hết hạn không còn xuất hiện trong kết quả dù cache cũ vẫn còn trong database.
+- Match vẫn deterministic theo 35/25/15/15/10. Role relevance đã tách role family; CV Helpdesk/IT Officer không còn bị chấm cao cho job software không liên quan. Thành phần dữ liệu job bị thiếu không được tự cộng điểm.
+- Migration mới: `database/migrations/000015_cv_summary.up.sql` đã apply vào PostgreSQL local; down migration đi kèm.
+- Gate thật đã chạy bằng CV `C:\Users\tytyb\Downloads\Documents\HoThienTy_IT_Officer.pdf` với DeepSeek và PostgreSQL thật: parse, summary, active-only, role calibration, history, cleanup đều PASS; raw file sau xử lý là `0`.
+- Verification: `go test ./... -count=1`, `go vet ./...`, schema validation, frontend 102 unit tests, `bun run check`, `bun run build` đều PASS.
+- Khi tiếp quản: đọc `docs/reasonix/CURRENT.md` trước. Việc còn lại là Baron review/trace, kiểm tra diff, commit/push; tuyệt đối không commit `.env` hoặc file CV cá nhân.
+- Baron proof note: `baron trace score .` đạt `standard`. Lệnh `baron proof execute` cho frontend build bị treo không trả receipt và đã được interrupt; recovery `recovery-288449ab272b248e` đã ghi lại. Plan Baron đang ở trạng thái `interrupted` để không báo hoàn thành giả; không cần làm lại code vì các gate trực tiếp đã PASS.
+
 ## 2. Đọc trước khi làm việc
 
 ```text

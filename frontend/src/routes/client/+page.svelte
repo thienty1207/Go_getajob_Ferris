@@ -8,6 +8,7 @@
 	import ClientHeader from '$lib/client/components/ClientHeader.svelte';
 	import CvUploadForm from '$lib/client/components/CvUploadForm.svelte';
 	import PromotionCarousel from '$lib/client/components/PromotionCarousel.svelte';
+	import ScanProgress from '$lib/client/components/ScanProgress.svelte';
 	import { clientAuth } from '$lib/client/stores/client-auth-store';
 	import { createScanStore } from '$lib/client/stores/scan-store';
 	import type { ClientLocation, PromotionSlide } from '$lib/shared/types/client';
@@ -144,6 +145,10 @@
 				onSubmit={submitScan}
 			/>
 		</section>
+
+		{#if $scanStore.status === 'submitting'}
+			<ScanProgress phase="received" />
+		{/if}
 
 		{#if $scanStore.status === 'error'}
 			<ClientErrorState message={$scanStore.errorMessage} onRetry={() => scanStore.patch({ status: 'idle', errorMessage: '' })} />

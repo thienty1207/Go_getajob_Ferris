@@ -1,13 +1,32 @@
 <script lang="ts">
 	interface Props {
-		status: 'submitting' | 'polling';
+		phase: 'received' | 'parsing' | 'matching';
 	}
 
-	let { status }: Props = $props();
+	let { phase }: Props = $props();
+
+	const phases = [
+		{ id: 'received', label: 'Nhận CV' },
+		{ id: 'parsing', label: 'Phân tích' },
+		{ id: 'matching', label: 'Đối chiếu' }
+	] as const;
+
+	const phaseIndex = $derived(phases.findIndex((item) => item.id === phase));
+	const phaseTitle = $derived(
+		phase === 'received' ? 'Đang nhận CV…' : phase === 'parsing' ? 'Đang phân tích CV…' : 'Đang tìm việc phù hợp…'
+	);
+	const progress = $derived(`${Math.max(18, Math.min(88, (phaseIndex + 1) * 30))}%`);
 </script>
 
-<section class="state-card processing-card" aria-live="polite" aria-busy="true">
-	<div class="processing-orbit" aria-hidden="true"><span></span></div>
-	<div class="processing-copy"><span class="section-kicker">{status === 'submitting' ? 'UPLOADING CV' : 'MATCHING IN PROGRESS'}</span><h2>{status === 'submitting' ? 'Đang gửi CV an toàn…' : 'Đang tìm các job phù hợp…'}</h2><p>Go get a job ferris đang chờ matching service hoàn tất. Đừng đóng cửa sổ này.</p></div>
-	<div class="processing-steps" aria-label="Tiến trình xử lý"><span class:active={status === 'submitting'} class:done={status === 'polling'}>Upload CV</span><span class:active={status === 'polling'}>Matching</span><span>Results</span></div>
-</section>
+<div class="scan-loading-backdrop" role="dialog" aria-modal="true" aria-live="polite" aria-busy="true">
+	<section class="scan-loading-modal">
+		<div class="scan-loading-icon" aria-hidden="true"><span></span></div>
+		<h1>{phaseTitle}</h1>
+		<div class="scan-loading-track" aria-hidden="true"><span style={`width: ${progress}`}></span></div>
+		<div class="scan-loading-steps" aria-label="Tiến trình quét CV">
+			{#each phases as item, index}
+				<span class:current={index === phaseIndex} class:complete={index < phaseIndex}>{item.label}</span>
+			{/each}
+		</div>
+	</section>
+</div>

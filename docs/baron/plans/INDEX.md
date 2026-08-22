@@ -15,3 +15,4 @@
 - [client-experience-home-cms-and-cv-history](docs/baron/plans/2026-08-20/2026-08-20-client-experience-home-cms-and-cv-history.md) - status: `in_progress` - risk: `medium`
 - [database-recovery-and-api-readiness](docs/baron/plans/2026-08-20/2026-08-20-database-recovery-and-api-readiness.md) - status: `in_progress` - risk: `medium`
 - [upload-workflow-reliability](docs/baron/plans/2026-08-20/2026-08-20-upload-workflow-reliability.md) - status: `interrupted` - risk: `high`
+- [CV scan summary loading and match calibration](docs/baron/plans/2026-08-22/2026-08-22-cv-scan-summary-loading-and-match-calibration.md) - status: `interrupted` - risk: `medium`

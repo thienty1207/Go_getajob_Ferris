@@ -18,3 +18,4 @@
 - [client-experience-home-cms-and-cv-history](docs/baron/harness/intents/2026-08-20/client-experience-home-cms-and-cv-history-intent-fffbdb23db59cb15.md) - risk: `medium` - confirmation: `confirmed`
 - [database-recovery-and-api-readiness](docs/baron/harness/intents/2026-08-20/database-recovery-and-api-readiness-intent-2d9cbf9aabb8b879.md) - risk: `medium` - confirmation: `confirmed`
 - [upload-workflow-reliability](docs/baron/harness/intents/2026-08-20/upload-workflow-reliability-intent-9a0ab368712f6d23.md) - risk: `high` - confirmation: `confirmed`
+- [CV scan summary and active-job matching](docs/baron/harness/intents/2026-08-22/cv-scan-summary-and-active-job-matching-intent-11e2baca00b32822.md) - risk: `medium` - confirmation: `confirmed`

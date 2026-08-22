@@ -26,7 +26,7 @@ func TestDeepSeekParserFallsBackAndRedactsUnneededPII(t *testing.T) {
 			return
 		}
 		writer.Header().Set("Content-Type", "application/json")
-		_, _ = writer.Write([]byte(`{"choices":[{"message":{"content":"{\"roles\":[\"Backend Engineer\"],\"skills\":[\"Go\"],\"years_of_experience\":4,\"seniority\":\"MID\",\"domains\":[\"software\"],\"education\":[],\"certifications\":[]}"}}]}`))
+		_, _ = writer.Write([]byte(`{"choices":[{"message":{"content":"{\"roles\":[\"Backend Engineer\"],\"skills\":[\"Go\"],\"years_of_experience\":4,\"seniority\":\"MID\",\"domains\":[\"software\"],\"education\":[],\"certifications\":[],\"summary\":{\"headline\":\"Backend Engineer\",\"overview\":\"Builds backend services.\",\"target_roles\":[\"Backend Engineer\"],\"strengths\":[\"Go\"],\"gaps\":[\"Add cloud exposure\"]}}"}}]}`))
 	}))
 	defer server.Close()
 
@@ -78,7 +78,7 @@ func TestDeepSeekParserRedactsPIIMatrixBeforeProviderRequest(t *testing.T) {
 			t.Fatalf("sanitizer removed job-relevant text: %q", payload.Messages[1].Content)
 		}
 		writer.Header().Set("Content-Type", "application/json")
-		_, _ = writer.Write([]byte(`{"choices":[{"message":{"content":"{\"roles\":[\"Backend Engineer\"],\"skills\":[\"Go\"],\"years_of_experience\":4,\"seniority\":\"MID\",\"domains\":[\"software\"],\"education\":[],\"certifications\":[]}"}}]}`))
+		_, _ = writer.Write([]byte(`{"choices":[{"message":{"content":"{\"roles\":[\"Backend Engineer\"],\"skills\":[\"Go\"],\"years_of_experience\":4,\"seniority\":\"MID\",\"domains\":[\"software\"],\"education\":[],\"certifications\":[],\"summary\":{\"headline\":\"Backend Engineer\",\"overview\":\"Builds backend services.\",\"target_roles\":[\"Backend Engineer\"],\"strengths\":[\"Go\"],\"gaps\":[\"Add cloud exposure\"]}}"}}]}`))
 	}))
 	defer server.Close()
 
@@ -118,7 +118,7 @@ func TestValidateStructuredProfileRejectsUnknownOrUnsafeOutput(t *testing.T) {
 }
 
 func TestDeepSeekParserRejectsTrailingJSONValue(t *testing.T) {
-	const validProfile = `{"roles":["Backend Engineer"],"skills":["Go"],"years_of_experience":4,"seniority":"MID","domains":["software"],"education":[],"certifications":[]}`
+	const validProfile = `{"roles":["Backend Engineer"],"skills":["Go"],"years_of_experience":4,"seniority":"MID","domains":["software"],"education":[],"certifications":[],"summary":{"headline":"Backend Engineer","overview":"Builds backend services.","target_roles":["Backend Engineer"],"strengths":["Go"],"gaps":["Add cloud exposure"]}}`
 
 	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
 		writer.Header().Set("Content-Type", "application/json")
@@ -145,7 +145,7 @@ func TestDeepSeekParserRejectsUnknownProfileField(t *testing.T) {
 		writer.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(writer).Encode(map[string]any{
 			"choices": []any{map[string]any{
-				"message": map[string]any{"content": `{"roles":[],"skills":[],"years_of_experience":0,"seniority":"JUNIOR","domains":[],"education":[],"certifications":[],"raw_cv":"must not persist"}`},
+				"message": map[string]any{"content": `{"roles":[],"skills":[],"years_of_experience":0,"seniority":"JUNIOR","domains":[],"education":[],"certifications":[],"summary":{"headline":"IT Candidate","overview":"Support professional.","target_roles":["IT Support"],"strengths":["Troubleshooting"],"gaps":["Add certification"]},"raw_cv":"must not persist"}`},
 			}},
 		})
 	}))
@@ -158,5 +158,25 @@ func TestDeepSeekParserRejectsUnknownProfileField(t *testing.T) {
 
 	if _, err := parser.parseWithModel(context.Background(), "deepseek-v4-flash", "Backend Engineer - Go"); err == nil {
 		t.Fatal("parseWithModel() error = nil for an unknown structured-profile field")
+	}
+}
+
+func TestDeepSeekParserRejectsMalformedSummary(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
+		writer.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(writer).Encode(map[string]any{
+			"choices": []any{map[string]any{
+				"message": map[string]any{"content": `{"roles":["IT Officer"],"skills":[],"years_of_experience":2,"seniority":"MID","domains":[],"education":[],"certifications":[],"summary":{"headline":"","overview":"","target_roles":[],"strengths":[],"gaps":[]}}`},
+			}},
+		})
+	}))
+	defer server.Close()
+
+	parser, err := NewDeepSeekParser(DeepSeekConfig{APIKey: "test-key", BaseURL: server.URL, HTTPClient: server.Client()})
+	if err != nil {
+		t.Fatalf("NewDeepSeekParser() error = %v", err)
+	}
+	if _, err := parser.parseWithModel(context.Background(), "deepseek-v4-flash", "IT Officer"); err == nil {
+		t.Fatal("parseWithModel() error = nil for an empty summary")
 	}
 }

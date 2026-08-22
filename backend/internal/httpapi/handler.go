@@ -130,7 +130,7 @@ func (h *Handler) GetScan(c *gin.Context) {
 	}
 	switch {
 	case scan.Status.IsProcessing():
-		c.JSON(http.StatusOK, processingResponse{ScanID: scan.ID.String(), Status: "processing"})
+		c.JSON(http.StatusOK, processingResponse{ScanID: scan.ID.String(), Status: "processing", Phase: scanPhase(scan.Status)})
 	case scan.Status == model.StatusFailed:
 		c.JSON(http.StatusOK, failedResponse{
 			ScanID:  scan.ID.String(),
@@ -142,7 +142,7 @@ func (h *Handler) GetScan(c *gin.Context) {
 		for _, match := range scan.Matches {
 			matches = append(matches, mapMatch(match))
 		}
-		c.JSON(http.StatusOK, completedResponse{ScanID: scan.ID.String(), Status: "completed", Matches: matches})
+		c.JSON(http.StatusOK, completedResponse{ScanID: scan.ID.String(), Status: "completed", CVSummary: scan.CVSummary, Matches: matches})
 	default:
 		writeError(c, http.StatusInternalServerError, "internal_error", "Service tạm thời không khả dụng.")
 	}
@@ -170,6 +170,7 @@ type acceptedResponse struct {
 type processingResponse struct {
 	ScanID string `json:"scan_id"`
 	Status string `json:"status"`
+	Phase  string `json:"phase"`
 }
 
 type failedResponse struct {
@@ -179,9 +180,23 @@ type failedResponse struct {
 }
 
 type completedResponse struct {
-	ScanID  string          `json:"scan_id"`
-	Status  string          `json:"status"`
-	Matches []matchResponse `json:"matches"`
+	ScanID    string           `json:"scan_id"`
+	Status    string           `json:"status"`
+	CVSummary *model.CVSummary `json:"cv_summary,omitempty"`
+	Matches   []matchResponse  `json:"matches"`
+}
+
+func scanPhase(status model.ScanStatus) string {
+	switch status {
+	case model.StatusReceived:
+		return "received"
+	case model.StatusParsing:
+		return "parsing"
+	case model.StatusMatching:
+		return "matching"
+	default:
+		return "processing"
+	}
 }
 
 type matchResponse struct {

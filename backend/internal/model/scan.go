@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -44,6 +46,7 @@ type Scan struct {
 	Latitude   *float64
 	Longitude  *float64
 	RadiusKm   float64
+	CVSummary  *CVSummary
 	Matches    []JobMatch
 }
 
@@ -84,6 +87,62 @@ type CertificationRecord struct {
 	ExpiresYear     *int   `json:"expires_year,omitempty"`
 }
 
+// CVSummary is the small, structured explanation shown above scan matches.
+// It deliberately contains no raw CV text or direct identity fields.
+type CVSummary struct {
+	Headline    string   `json:"headline"`
+	Overview    string   `json:"overview"`
+	TargetRoles []string `json:"target_roles"`
+	Strengths   []string `json:"strengths"`
+	Gaps        []string `json:"gaps"`
+}
+
+// Validate keeps provider-generated summary content bounded before it reaches
+// PostgreSQL or a browser response. The limits also keep the result page
+// readable for a non-technical user.
+func (summary CVSummary) Validate() error {
+	if err := validateSummaryText(summary.Headline, "headline", 160); err != nil {
+		return err
+	}
+	if err := validateSummaryText(summary.Overview, "overview", 640); err != nil {
+		return err
+	}
+	if err := validateSummaryList(summary.TargetRoles, "target_roles", 5, 120); err != nil {
+		return err
+	}
+	if err := validateSummaryList(summary.Strengths, "strengths", 5, 240); err != nil {
+		return err
+	}
+	if err := validateSummaryList(summary.Gaps, "gaps", 4, 240); err != nil {
+		return err
+	}
+	return nil
+}
+
+func validateSummaryText(value, field string, maxLength int) error {
+	trimmed := strings.TrimSpace(value)
+	if trimmed == "" {
+		return fmt.Errorf("summary %s is required", field)
+	}
+	if len(trimmed) > maxLength {
+		return fmt.Errorf("summary %s exceeds limit", field)
+	}
+	return nil
+}
+
+func validateSummaryList(values []string, field string, maxItems, maxLength int) error {
+	if len(values) == 0 || len(values) > maxItems {
+		return fmt.Errorf("summary %s has invalid item count", field)
+	}
+	for _, value := range values {
+		trimmed := strings.TrimSpace(value)
+		if trimmed == "" || len(trimmed) > maxLength {
+			return fmt.Errorf("summary %s contains an invalid item", field)
+		}
+	}
+	return nil
+}
+
 type StructuredProfile struct {
 	Roles             []string              `json:"roles"`
 	Skills            []string              `json:"skills"`
@@ -92,6 +151,7 @@ type StructuredProfile struct {
 	Domains           []string              `json:"domains"`
 	Education         []EducationRecord     `json:"education"`
 	Certifications    []CertificationRecord `json:"certifications"`
+	Summary           *CVSummary            `json:"summary,omitempty"`
 }
 
 // ClientCVHistoryItem is the durable, owner-scoped view of one submitted CV.

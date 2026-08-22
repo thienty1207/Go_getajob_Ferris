@@ -58,11 +58,15 @@ database/migrations/000010_location_assignment_source.up.sql
 database/migrations/000011_client_auth.up.sql
 database/migrations/000012_client_cv_history.up.sql
 database/migrations/000013_home_sections.up.sql
+database/migrations/000014_home_asset_cleanup.up.sql
+database/migrations/000015_cv_summary.up.sql
 ```
 The matching down migrations are only for controlled rollback:
 
 ```text
 database/migrations/000013_home_sections.down.sql
+database/migrations/000014_home_asset_cleanup.down.sql
+database/migrations/000015_cv_summary.down.sql
 database/migrations/000012_client_cv_history.down.sql
 database/migrations/000011_client_auth.down.sql
 database/migrations/000010_location_assignment_source.down.sql
@@ -103,6 +107,8 @@ psql --set ON_ERROR_STOP=1 --file database/migrations/000010_location_assignment
 psql --set ON_ERROR_STOP=1 --file database/migrations/000011_client_auth.up.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000012_client_cv_history.up.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000013_home_sections.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000014_home_asset_cleanup.up.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000015_cv_summary.up.sql
 
 # Only for local admin-screen verification; this is not crawler output.
 psql --set ON_ERROR_STOP=1 --file database/fixtures/development-job.sql
@@ -128,6 +134,8 @@ For a remote database, use the deployment platform's secret store for `PGHOST`, 
 Only run these after a backup and an explicit rollback decision:
 
 ```powershell
+psql --set ON_ERROR_STOP=1 --file database/migrations/000015_cv_summary.down.sql
+psql --set ON_ERROR_STOP=1 --file database/migrations/000014_home_asset_cleanup.down.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000013_home_sections.down.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000012_client_cv_history.down.sql
 psql --set ON_ERROR_STOP=1 --file database/migrations/000011_client_auth.down.sql

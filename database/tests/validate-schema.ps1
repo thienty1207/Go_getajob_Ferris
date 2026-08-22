@@ -29,6 +29,8 @@ $homeSectionsUpPath = Join-Path $migrationDirectory '000013_home_sections.up.sql
 $homeSectionsDownPath = Join-Path $migrationDirectory '000013_home_sections.down.sql'
 $homeAssetCleanupUpPath = Join-Path $migrationDirectory '000014_home_asset_cleanup.up.sql'
 $homeAssetCleanupDownPath = Join-Path $migrationDirectory '000014_home_asset_cleanup.down.sql'
+$cvSummaryUpPath = Join-Path $migrationDirectory '000015_cv_summary.up.sql'
+$cvSummaryDownPath = Join-Path $migrationDirectory '000015_cv_summary.down.sql'
 $fixturePath = Join-Path $PSScriptRoot '..\fixtures\development-job.sql'
 $failures = [System.Collections.Generic.List[string]]::new()
 
@@ -90,6 +92,8 @@ Assert-Condition -Condition (Test-Path -LiteralPath $homeSectionsUpPath) -Messag
 Assert-Condition -Condition (Test-Path -LiteralPath $homeSectionsDownPath) -Message "Missing Home-sections down migration: $homeSectionsDownPath"
 Assert-Condition -Condition (Test-Path -LiteralPath $homeAssetCleanupUpPath) -Message "Missing Home-asset-cleanup up migration: $homeAssetCleanupUpPath"
 Assert-Condition -Condition (Test-Path -LiteralPath $homeAssetCleanupDownPath) -Message "Missing Home-asset-cleanup down migration: $homeAssetCleanupDownPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $cvSummaryUpPath) -Message "Missing CV-summary up migration: $cvSummaryUpPath"
+Assert-Condition -Condition (Test-Path -LiteralPath $cvSummaryDownPath) -Message "Missing CV-summary down migration: $cvSummaryDownPath"
 
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Output $_ }
@@ -124,6 +128,8 @@ $homeSectionsUp = if (Test-Path -LiteralPath $homeSectionsUpPath) { Get-Content 
 $homeSectionsDown = if (Test-Path -LiteralPath $homeSectionsDownPath) { Get-Content -LiteralPath $homeSectionsDownPath -Raw } else { '' }
 $homeAssetCleanupUp = if (Test-Path -LiteralPath $homeAssetCleanupUpPath) { Get-Content -LiteralPath $homeAssetCleanupUpPath -Raw } else { '' }
 $homeAssetCleanupDown = if (Test-Path -LiteralPath $homeAssetCleanupDownPath) { Get-Content -LiteralPath $homeAssetCleanupDownPath -Raw } else { '' }
+$cvSummaryUp = if (Test-Path -LiteralPath $cvSummaryUpPath) { Get-Content -LiteralPath $cvSummaryUpPath -Raw } else { '' }
+$cvSummaryDown = if (Test-Path -LiteralPath $cvSummaryDownPath) { Get-Content -LiteralPath $cvSummaryDownPath -Raw } else { '' }
 $fixture = Get-Content -LiteralPath $fixturePath -Raw
 
 Assert-Contains -Text $up -Pattern '(?im)^BEGIN;\s*$' -Message 'Up migration must start a transaction.'
@@ -245,6 +251,13 @@ Assert-NotContains -Text $homeAssetCleanupUp -Pattern '(?im)^\s*(INSERT|COPY)\s+
 Assert-Contains -Text $homeAssetCleanupDown -Pattern '(?im)^BEGIN;\s*$' -Message 'Home asset cleanup down migration must start a transaction.'
 Assert-Contains -Text $homeAssetCleanupDown -Pattern '(?im)^COMMIT;\s*$' -Message 'Home asset cleanup down migration must commit a transaction.'
 Assert-Contains -Text $homeAssetCleanupDown -Pattern '(?im)DROP\s+TABLE\s+IF\s+EXISTS\s+public\.home_asset_cleanup_queue;' -Message 'Home asset cleanup down migration must remove only its queue.'
+Assert-Contains -Text $cvSummaryUp -Pattern '(?im)^BEGIN;\s*$' -Message 'CV-summary up migration must start a transaction.'
+Assert-Contains -Text $cvSummaryUp -Pattern '(?im)^COMMIT;\s*$' -Message 'CV-summary up migration must commit a transaction.'
+Assert-Contains -Text $cvSummaryUp -Pattern '(?im)ALTER\s+TABLE\s+public\.structured_profiles\s+ADD\s+COLUMN\s+summary\s+jsonb' -Message 'Structured profiles need the bounded CV summary column.'
+Assert-Contains -Text $cvSummaryUp -Pattern '(?is)structured_profiles_summary_shape_check.*jsonb_typeof\(summary->''headline''\).*jsonb_typeof\(summary->''gaps''\)' -Message 'CV summary shape must be constrained in PostgreSQL.'
+Assert-Contains -Text $cvSummaryDown -Pattern '(?im)^BEGIN;\s*$' -Message 'CV-summary down migration must start a transaction.'
+Assert-Contains -Text $cvSummaryDown -Pattern '(?im)^COMMIT;\s*$' -Message 'CV-summary down migration must commit a transaction.'
+Assert-Contains -Text $cvSummaryDown -Pattern '(?im)DROP\s+COLUMN\s+IF\s+EXISTS\s+summary;' -Message 'CV-summary down migration must remove only the summary column.'
 Assert-Contains -Text $jobLinkUp -Pattern '(?im)^BEGIN;\s*$' -Message 'Job Link up migration must start a transaction.'
 Assert-Contains -Text $jobLinkUp -Pattern '(?im)^COMMIT;\s*$' -Message 'Job Link up migration must commit its transaction.'
 Assert-Contains -Text $jobLinkDown -Pattern '(?im)^BEGIN;\s*$' -Message 'Job Link down migration must start a transaction.'

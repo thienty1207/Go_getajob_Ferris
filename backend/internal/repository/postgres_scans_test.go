@@ -43,7 +43,7 @@ func TestScanRepositoryReturnsNotFound(t *testing.T) {
 
 func TestPublicMatchQueryUsesApprovedActiveView(t *testing.T) {
 	query := strings.ToLower(completedMatchesQuery)
-	if !strings.Contains(query, "active_job_cache") {
+	if !strings.Contains(query, "active_job_cache") || !strings.Contains(query, "jobs.status = 'active'") {
 		t.Fatal("completed match query must read through active_job_cache")
 	}
 	if strings.Contains(query, "from public.job_cache") || strings.Contains(query, "join public.job_cache") {
@@ -56,7 +56,7 @@ func TestPublicMatchQueryUsesApprovedActiveView(t *testing.T) {
 
 func TestMatchCandidateQueryUsesCanonicalLocationOnly(t *testing.T) {
 	query := strings.ToLower(listMatchCandidatesQuery)
-	for _, required := range []string{"active_job_cache", "location_id", "jobs.location_id = scan_context.location_id"} {
+	for _, required := range []string{"active_job_cache", "location_id", "jobs.location_id = scan_context.location_id", "jobs.status = 'active'"} {
 		if !strings.Contains(query, required) {
 			t.Fatalf("candidate query missing %q: %s", required, listMatchCandidatesQuery)
 		}

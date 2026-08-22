@@ -1,19 +1,19 @@
 # Baron Continuity Resume
 
-- Last updated: 2026-08-22T18:48:40+07:00
-- Adapter: `reasonix`
-- Latest checkpoint: Final delivery state: commits e16d521 and 2bfb7e2 are pushed to origin/main; live Home/CV gates and direct verification pass; Reasonix handoff updated. Baron high-risk plan remains intentionally interrupted because proof worker receipt path is unavailable.
+- Last updated: 2026-08-22T20:06:40+07:00
+- Adapter: `codex`
+- Latest checkpoint: checkpoint hook observed.
 - Latest automation event: `Checkpoint`
-- Current task: `upload-workflow-reliability`
+- Current task: `CV scan summary loading and match calibration`
 - Plan status: `interrupted`
 - Harness story: `unknown`
 - Harness risk: `unknown`
 - Proof status: recorded `20260820192136578` - trusted execution receipt receipt-333648290cda passed for frontend-production-build via bun
 - Trace status: scored `standard/standard` passed `yes`
 - Recovery outcome: `blocked`
-- Recovery next action: Use completed direct execution evidence and mandatory independent agent reviews; retry trusted receipt recording only if Baron proof worker clears.
-- Changed files: docs/baron/continuity/CURRENT.md, docs/baron/continuity/INDEX.md, docs/reasonix/CURRENT.md
-- Next action: Implementation is complete and pushed as e16d521; direct automated and live evidence passes. Baron high-risk completion is intentionally interrupted because its proof ledger has only the frontend receipt and the proof worker previously hung, so no fake receipt is recorded. Resume only after a working proof provider can record backend/crawler/live gates.
+- Recovery next action: Preserve direct verification evidence; inspect reviewer findings, commit only source/docs/migration changes, and report Baron proof-provider limitation without fabricating a receipt.
+- Changed files: backend/README.md, backend/internal/httpapi/handler.go, backend/internal/model/scan.go, backend/internal/processor/deepseek.go, backend/internal/processor/deepseek_test.go, backend/internal/processor/matcher.go, backend/internal/processor/matcher_test.go, backend/internal/repository/postgres_scans.go, backend/internal/repository/postgres_scans_test.go, backend/tests/live-cv-workflow.ps1, database/README.md, database/tests/validate-schema.ps1
+- Next action: interrupted
 
 ## Resume Rules
 

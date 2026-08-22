@@ -48,10 +48,12 @@ WHERE id = $1
   )`
 
 const getScanQuery = `
-SELECT id, status, error_code, location_id, location_text, latitude::double precision, longitude::double precision
-FROM public.scans
-WHERE id = $1
-  AND ($2::uuid IS NULL OR client_user_id = $2)`
+SELECT scans.id, scans.status, scans.error_code, scans.location_id, scans.location_text,
+       scans.latitude::double precision, scans.longitude::double precision, profiles.summary
+FROM public.scans AS scans
+LEFT JOIN public.structured_profiles AS profiles ON profiles.id = scans.profile_id
+WHERE scans.id = $1
+  AND ($2::uuid IS NULL OR scans.client_user_id = $2)`
 
 // Public matches come from active_job_cache, which hides closed jobs and
 // unapproved sources from client responses.
@@ -72,6 +74,7 @@ SELECT
 FROM public.scan_matches AS matches
 JOIN public.active_job_cache AS jobs ON jobs.id = matches.job_id
 WHERE matches.scan_id = $1
+  AND jobs.status = 'ACTIVE'
 ORDER BY matches.match_percent DESC, matches.distance_km NULLS LAST, matches.id
 LIMIT 100`
 
@@ -102,13 +105,14 @@ SELECT
 FROM public.active_job_cache AS jobs
 CROSS JOIN scan_context
 WHERE jobs.location_id = scan_context.location_id
+  AND jobs.status = 'ACTIVE'
 ORDER BY jobs.id`
 
 const completeScanProfileQuery = `
 INSERT INTO public.structured_profiles (
-    roles, skills, years_of_experience, seniority, domains, education, certifications, schema_version, parser_model
+    roles, skills, years_of_experience, seniority, domains, education, certifications, summary, schema_version, parser_model
 )
-VALUES ($1, $2, $3, $4, $5, $6::jsonb, $7::jsonb, 'v1', $8)
+VALUES ($1, $2, $3, $4, $5, $6::jsonb, $7::jsonb, $8::jsonb, 'v1', $9)
 RETURNING id`
 
 const completeScanStatusQuery = `
@@ -229,6 +233,7 @@ func (r *PostgresScanRepository) GetScanForClient(ctx context.Context, id uuid.U
 		locationID pgtype.UUID
 		latitude   pgtype.Float8
 		longitude  pgtype.Float8
+		summaryRaw []byte
 	)
 	var ownerArg any
 	if clientUserID != uuid.Nil {
@@ -249,6 +254,7 @@ func (r *PostgresScanRepository) GetScanForClient(ctx context.Context, id uuid.U
 		&scan.Location,
 		&latitude,
 		&longitude,
+		&summaryRaw,
 	)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return model.Scan{}, ErrScanNotFound
@@ -274,6 +280,16 @@ func (r *PostgresScanRepository) GetScanForClient(ctx context.Context, id uuid.U
 	}
 	if errorCode.Valid {
 		scan.ErrorCode = errorCode.String
+	}
+	if len(summaryRaw) > 0 {
+		var summary model.CVSummary
+		if err := json.Unmarshal(summaryRaw, &summary); err != nil {
+			return model.Scan{}, err
+		}
+		if err := summary.Validate(); err != nil {
+			return model.Scan{}, err
+		}
+		scan.CVSummary = &summary
 	}
 
 	if scan.Status != model.StatusCompleted {
@@ -377,7 +393,15 @@ func (r *PostgresScanRepository) CompleteScan(ctx context.Context, scanID uuid.U
 	}
 	defer tx.Rollback(ctx)
 	var profileID uuid.UUID
-	if err := tx.QueryRow(ctx, completeScanProfileQuery, profile.Roles, profile.Skills, profile.YearsOfExperience, profile.Seniority, profile.Domains, string(education), string(certifications), parserModel).Scan(&profileID); err != nil {
+	var summary any
+	if profile.Summary != nil {
+		encodedSummary, marshalErr := json.Marshal(profile.Summary)
+		if marshalErr != nil {
+			return marshalErr
+		}
+		summary = string(encodedSummary)
+	}
+	if err := tx.QueryRow(ctx, completeScanProfileQuery, profile.Roles, profile.Skills, profile.YearsOfExperience, profile.Seniority, profile.Domains, string(education), string(certifications), summary, parserModel).Scan(&profileID); err != nil {
 		return err
 	}
 	status, err := tx.Exec(ctx, completeScanStatusQuery, scanID, profileID)

@@ -3,6 +3,7 @@ import { resolveApiUrl } from '../../shared/api/api-url';
 import { requestJson, type Fetcher } from '../../shared/api/http-client';
 import type {
 	ClientScanInput,
+	ClientCVSummary,
 	ClientLocation,
 	ScanAccepted,
 	ScanCompleted,
@@ -29,6 +30,13 @@ const MAX_PROMOTIONS = 3;
 const MAX_PROMOTION_ALT_LENGTH = 180;
 const MAX_PROMOTION_COPY_LENGTH = 320;
 const MAX_CONTENT_HASH_LENGTH = 128;
+const MAX_SUMMARY_HEADLINE_LENGTH = 160;
+const MAX_SUMMARY_OVERVIEW_LENGTH = 640;
+const MAX_SUMMARY_ITEM_LENGTH = 240;
+const MAX_SUMMARY_ROLE_LENGTH = 120;
+const MAX_SUMMARY_ROLES = 5;
+const MAX_SUMMARY_STRENGTHS = 5;
+const MAX_SUMMARY_GAPS = 4;
 
 export async function startScan(input: ClientScanInput, csrfToken: string, fetcher: Fetcher = fetch): Promise<ScanAccepted> {
 	if (!csrfToken.trim()) {
@@ -113,7 +121,11 @@ function parseStatus(value: unknown): ScanStatusResponse {
 	const scanId = stringField(record.scan_id, MAX_SCAN_ID_LENGTH);
 
 	if (record.status === 'processing') {
-		return { scanId, status: 'processing' } satisfies ScanProcessing;
+		const phase = record.phase;
+		if (phase !== 'received' && phase !== 'parsing' && phase !== 'matching') {
+			throw new ApiError('Matching service trả về giai đoạn scan không hợp lệ.', 502, 'invalid_scan_response');
+		}
+		return { scanId, status: 'processing', phase } satisfies ScanProcessing;
 	}
 
 	if (record.status === 'failed') {
@@ -131,11 +143,30 @@ function parseStatus(value: unknown): ScanStatusResponse {
 		return {
 			scanId,
 			status: 'completed',
+			...(record.cv_summary === undefined || record.cv_summary === null ? {} : { cvSummary: parseCVSummary(record.cv_summary) }),
 			matches: record.matches.map(parseJobMatch)
 		} satisfies ScanCompleted;
 	}
 
 	throw new ApiError('Matching service trả về trạng thái scan không hợp lệ.', 502, 'invalid_scan_response');
+}
+
+function parseCVSummary(value: unknown): ClientCVSummary {
+	const record = asRecord(value);
+	return {
+		headline: stringField(record.headline, MAX_SUMMARY_HEADLINE_LENGTH),
+		overview: stringField(record.overview, MAX_SUMMARY_OVERVIEW_LENGTH),
+		targetRoles: stringList(record.target_roles, MAX_SUMMARY_ROLES, MAX_SUMMARY_ROLE_LENGTH),
+		strengths: stringList(record.strengths, MAX_SUMMARY_STRENGTHS, MAX_SUMMARY_ITEM_LENGTH),
+		gaps: stringList(record.gaps, MAX_SUMMARY_GAPS, MAX_SUMMARY_ITEM_LENGTH)
+	};
+}
+
+function stringList(value: unknown, maxItems: number, maxLength: number): string[] {
+	if (!Array.isArray(value) || value.length === 0 || value.length > maxItems) {
+		throw new ApiError('Matching service trả về CV summary không hợp lệ.', 502, 'invalid_scan_response');
+	}
+	return value.map((item) => stringField(item, maxLength));
 }
 
 function parseJobMatch(value: unknown): JobMatch {

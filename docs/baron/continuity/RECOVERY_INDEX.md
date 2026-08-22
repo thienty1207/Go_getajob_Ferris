@@ -12,3 +12,4 @@
 - 2026-08-20T19:52:29+07:00 - [recovery-cb857b2e48a9927c](docs/baron/continuity/recovery/2026-08-20/recovery-cb857b2e48a9927c.md) - outcome: `blocked`
 - 2026-08-20T21:44:19+07:00 - [recovery-812418b2c9fbde1c](docs/baron/continuity/recovery/2026-08-20/recovery-812418b2c9fbde1c.md) - outcome: `failed`
 - 2026-08-20T22:08:17+07:00 - [recovery-89336a3fb49a4d50](docs/baron/continuity/recovery/2026-08-20/recovery-89336a3fb49a4d50.md) - outcome: `blocked`
+- 2026-08-22T20:00:19+07:00 - [recovery-288449ab272b248e](docs/baron/continuity/recovery/2026-08-22/recovery-288449ab272b248e.md) - outcome: `blocked`

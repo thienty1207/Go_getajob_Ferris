@@ -43,7 +43,8 @@ func ScoreCandidate(profile model.StructuredProfile, candidate model.JobCandidat
 func weightedOverlap(profileValues, candidateValues []string, weight float64) float64 {
 	values := uniqueNormalized(candidateValues)
 	if len(values) == 0 {
-		return weight
+		// A missing source field is unknown evidence, not a successful match.
+		return 0
 	}
 	profileSet := normalizedSet(profileValues)
 	matched := 0
@@ -56,6 +57,14 @@ func weightedOverlap(profileValues, candidateValues []string, weight float64) fl
 }
 
 func roleRelevance(profileRoles []string, candidateRole, candidateTitle string) float64 {
+	if profileFamily := detectRoleFamily(strings.Join(profileRoles, " ")); profileFamily != "" {
+		if candidateFamily := detectRoleFamily(candidateRole + " " + candidateTitle); candidateFamily != "" {
+			if profileFamily == candidateFamily {
+				return 25
+			}
+			return 0
+		}
+	}
 	roleText := normalizedSet(strings.Fields(locationkey.Normalize(candidateRole + " " + candidateTitle)))
 	if len(roleText) == 0 {
 		return 0
@@ -85,15 +94,15 @@ func roleRelevance(profileRoles []string, candidateRole, candidateTitle string) 
 
 func experiencePoints(years float64, minimum *float64) float64 {
 	if minimum == nil || *minimum <= 0 {
-		return 15
+		return 0
 	}
 	return 15 * math.Min(years/(*minimum), 1)
 }
 
 func seniorityPoints(profileSeniority, candidateSeniority string) float64 {
 	job := strings.ToUpper(strings.TrimSpace(candidateSeniority))
-	if job == "" || job == "UNSPECIFIED" {
-		return 15
+	if job == "" || job == "UNSPECIFIED" || strings.TrimSpace(profileSeniority) == "" || strings.EqualFold(strings.TrimSpace(profileSeniority), "UNSPECIFIED") {
+		return 0
 	}
 	if strings.ToUpper(strings.TrimSpace(profileSeniority)) == job {
 		return 15
@@ -104,7 +113,7 @@ func seniorityPoints(profileSeniority, candidateSeniority string) float64 {
 func preferredDomainPoints(profile model.StructuredProfile, candidate model.JobCandidate) float64 {
 	targets := uniqueNormalized(append(append([]string{}, candidate.PreferredSkills...), candidate.Domains...))
 	if len(targets) == 0 {
-		return 10
+		return 0
 	}
 	profileValues := append(append([]string{}, profile.Skills...), profile.Domains...)
 	profileSet := normalizedSet(profileValues)
@@ -115,6 +124,43 @@ func preferredDomainPoints(profile model.StructuredProfile, candidate model.JobC
 		}
 	}
 	return 10 * float64(matched) / float64(len(targets))
+}
+
+type roleFamilyRule struct {
+	name  string
+	terms []string
+}
+
+// The family aliases are deliberately source-agnostic. They create a stable
+// deterministic separation between adjacent but different career tracks, such
+// as IT support and software development, without asking an AI model to score.
+var roleFamilyRules = []roleFamilyRule{
+	{name: "support", terms: []string{"helpdesk", "help desk", "service desk", "technical support", "it support", "desktop support", "user support", "it officer", "information technology officer", "ho tro ky thuat", "chuyen vien ho tro"}},
+	{name: "network", terms: []string{"network", "mang may tinh", "telecom", "infrastructure"}},
+	{name: "security", terms: []string{"cyber security", "cybersecurity", "information security", "security engineer", "soc analyst"}},
+	{name: "devops", terms: []string{"devops", "site reliability", "sre", "cloud engineer", "platform engineer"}},
+	{name: "data", terms: []string{"data analyst", "data engineer", "data scientist", "machine learning", "business intelligence", "analytics"}},
+	{name: "quality", terms: []string{"qa", "quality assurance", "quality control", "software tester", "test engineer"}},
+	{name: "design", terms: []string{"ui designer", "ux designer", "product designer", "graphic designer", "designer"}},
+	{name: "software", terms: []string{"software", "developer", "programmer", "backend", "back end", "frontend", "front end", "full stack", "web developer", "mobile developer", "software engineer"}},
+	{name: "sales", terms: []string{"sales", "business development", "account executive", "ban hang"}},
+	{name: "marketing", terms: []string{"marketing", "content", "seo", "social media", "digital marketing"}},
+	{name: "finance", terms: []string{"accounting", "accountant", "finance", "financial", "ke toan"}},
+	{name: "people", terms: []string{"human resources", "hr", "recruiter", "talent acquisition", "nhan su"}},
+	{name: "operations", terms: []string{"operations", "project manager", "product manager", "business analyst", "officer"}},
+}
+
+func detectRoleFamily(value string) string {
+	normalized := " " + locationkey.Normalize(value) + " "
+	for _, rule := range roleFamilyRules {
+		for _, term := range rule.terms {
+			needle := " " + locationkey.Normalize(term) + " "
+			if strings.Contains(normalized, needle) {
+				return rule.name
+			}
+		}
+	}
+	return ""
 }
 
 func normalizedSet(values []string) map[string]struct{} {

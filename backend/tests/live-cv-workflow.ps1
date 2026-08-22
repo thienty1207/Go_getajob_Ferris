@@ -1,3 +1,7 @@
+param(
+    [string]$CVPath
+)
+
 $ErrorActionPreference = 'Stop'
 
 # This gate exercises the real local API, PostgreSQL, and configured DeepSeek
@@ -37,7 +41,9 @@ $sessionID = [guid]::NewGuid().ToString()
 $rawSession = 'session_' + [guid]::NewGuid().ToString('N')
 $rawCSRF = 'csrf_' + [guid]::NewGuid().ToString('N')
 $email = 'codex-cv-e2e-' + [guid]::NewGuid().ToString('N') + '@example.test'
-$tempCV = Join-Path ([IO.Path]::GetTempPath()) ('codex-cv-e2e-' + [guid]::NewGuid().ToString('N') + '.txt')
+$tempCV = $null
+$tempCVOwned = $false
+$cvInput = $null
 $createdUser = $false
 $scanID = $null
 
@@ -90,16 +96,27 @@ VALUES
     [void](Invoke-DatabaseScalar -Sql $seedSQL)
     $createdUser = $true
 
-    $cvText = @(
-        'Backend Software Engineer'
-        'Summary: Five years building production web services and data pipelines.'
-        'Skills: Go, PostgreSQL, REST APIs, Docker, Git, SQL, unit testing.'
-        'Experience: 5 years as Backend Developer and Software Engineer.'
-        'Seniority: Senior.'
-        'Domains: software engineering, cloud services.'
-        'Education: Bachelor of Computer Science.'
-    ) -join [Environment]::NewLine
-    [IO.File]::WriteAllText($tempCV, $cvText, [Text.UTF8Encoding]::new($false))
+    if ($CVPath) {
+        $cvInput = Get-Item -LiteralPath $CVPath
+        if (-not $cvInput -or $cvInput.PSIsContainer) {
+            throw 'The supplied CV path is not a file.'
+        }
+    }
+    else {
+        $tempCV = Join-Path ([IO.Path]::GetTempPath()) ('codex-cv-e2e-' + [guid]::NewGuid().ToString('N') + '.txt')
+        $cvText = @(
+            'Backend Software Engineer'
+            'Summary: Five years building production web services and data pipelines.'
+            'Skills: Go, PostgreSQL, REST APIs, Docker, Git, SQL, unit testing.'
+            'Experience: 5 years as Backend Developer and Software Engineer.'
+            'Seniority: Senior.'
+            'Domains: software engineering, cloud services.'
+            'Education: Bachelor of Computer Science.'
+        ) -join [Environment]::NewLine
+        [IO.File]::WriteAllText($tempCV, $cvText, [Text.UTF8Encoding]::new($false))
+        $tempCVOwned = $true
+        $cvInput = Get-Item -LiteralPath $tempCV
+    }
 
     $webSession = [Microsoft.PowerShell.Commands.WebRequestSession]::new()
     $sessionCookie = [System.Net.Cookie]::new('ferris_client_session', $rawSession, '/', '127.0.0.1')
@@ -111,7 +128,7 @@ VALUES
             UseBasicParsing = $true
             Uri             = 'http://127.0.0.1:8080/api/v1/client/scans'
             Method          = 'Post'
-            Form            = @{ cv = Get-Item -LiteralPath $tempCV; location_id = $locationID }
+            Form            = @{ cv = $cvInput; location_id = $locationID }
             WebSession      = $webSession
             TimeoutSec      = 20
         }
@@ -127,7 +144,7 @@ VALUES
     $uploadRequest = @{
         Uri        = 'http://127.0.0.1:8080/api/v1/client/scans'
         Method     = 'Post'
-        Form       = @{ cv = Get-Item -LiteralPath $tempCV; location_id = $locationID }
+        Form       = @{ cv = $cvInput; location_id = $locationID }
         Headers    = @{ 'X-CSRF-Token' = $rawCSRF }
         WebSession = $webSession
         TimeoutSec = 30
@@ -139,6 +156,7 @@ VALUES
     }
 
     $final = $null
+    $phasesSeen = [System.Collections.Generic.HashSet[string]]::new()
     for ($attempt = 0; $attempt -lt 180; $attempt++) {
         Start-Sleep -Milliseconds 500
         $scanRequest = @{
@@ -152,6 +170,9 @@ VALUES
             $final = $current
             break
         }
+        if ($current.phase) {
+            [void]$phasesSeen.Add([string]$current.phase)
+        }
     }
     if ($null -eq $final) {
         throw 'CV scan did not finish within 90 seconds.'
@@ -159,8 +180,28 @@ VALUES
     if ($final.status -ne 'completed') {
         throw "CV scan finished as '$($final.status)' with code '$($final.error_code)'."
     }
-    if (@($final.jobs).Count -lt 1) {
+    if ($null -eq $final.cv_summary -or -not $final.cv_summary.headline -or -not $final.cv_summary.overview) {
+        throw 'Completed scan did not return a bounded CV summary.'
+    }
+    if (@($final.matches).Count -lt 1) {
         throw 'Location-scoped matching returned no job for a location that has active jobs.'
+    }
+
+    $closedMatchCount = Invoke-DatabaseScalar -Sql @"
+SELECT count(*)
+FROM public.scan_matches matches
+JOIN public.job_cache jobs ON jobs.id = matches.job_id
+WHERE matches.scan_id = '$scanID'
+  AND jobs.status <> 'ACTIVE';
+"@
+    if ($closedMatchCount -ne '0') {
+        throw "Completed scan persisted $closedMatchCount non-active job match(es)."
+    }
+
+    $softwareMatches = @($final.matches | Where-Object { $_.title -match '(?i)software|developer|backend|back-end|frontend|front-end|full.?stack|programmer' })
+    $overScoredUnrelated = @($softwareMatches | Where-Object { [double]$_.match_percent -gt 60 })
+    if ($overScoredUnrelated.Count -gt 0) {
+        throw "Unrelated software-role match exceeded the calibration guard: $($overScoredUnrelated[0].match_percent)%."
     }
 
     $historyRequest = @{
@@ -225,14 +266,18 @@ SELECT
         MissingCSRF             = 'PASS (403)'
         AuthenticatedUpload     = 'PASS (202)'
         DeepSeekParse           = 'PASS'
-        LocationScopedMatch     = "PASS ($(@($final.jobs).Count) jobs)"
+        LocationScopedMatch     = "PASS ($(@($final.matches).Count) active jobs)"
+        ActiveOnlyResults       = 'PASS (0 non-active matches)'
+        CVSummary               = 'PASS'
+        LoadingPhases           = "PASS ($([string]::Join(', ', ($phasesSeen | Sort-Object))))"
+        RoleCalibration         = "PASS ($(@($softwareMatches).Count) unrelated software jobs checked)"
         StructuredHistory       = 'PASS'
         DeleteAndProfileCleanup = 'PASS'
         RawCVRetention          = 'PASS (0 files)'
     } | Format-List
 }
 finally {
-    if (Test-Path -LiteralPath $tempCV) {
+    if ($tempCVOwned -and $tempCV -and (Test-Path -LiteralPath $tempCV)) {
         Remove-Item -LiteralPath $tempCV -Force
     }
     if ($createdUser) {
