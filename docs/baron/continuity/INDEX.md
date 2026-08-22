@@ -1197,3 +1197,5 @@
 - 2026-08-22T18:40:03+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - prompt hook observed.
 - 2026-08-22T18:44:42+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
 - 2026-08-22T18:45:45+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Implementation and direct verification complete: live Home image upload/Cloudinary/cleanup and authenticated CV upload/DeepSeek/location/history/delete gates pass; migration rehearsal, full tests, schema and secret scan pass. Next: commit and push main, then verify remote.
+- 2026-08-22T18:46:17+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - checkpoint hook observed.
+- 2026-08-22T18:47:22+07:00 - [CURRENT](docs/baron/continuity/CURRENT.md) - Commit e16d521 pushed to origin/main after direct automated and live upload/CV verification; remote SHA verified. No reviewer receipts fabricated because delegated agents hit usage limits.

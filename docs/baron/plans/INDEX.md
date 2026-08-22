@@ -14,4 +14,4 @@
 - [location-aware-crawler-and-matching](docs/baron/plans/2026-08-17/2026-08-17-location-aware-crawler-and-matching.md) - status: `interrupted` - risk: `medium`
 - [client-experience-home-cms-and-cv-history](docs/baron/plans/2026-08-20/2026-08-20-client-experience-home-cms-and-cv-history.md) - status: `in_progress` - risk: `medium`
 - [database-recovery-and-api-readiness](docs/baron/plans/2026-08-20/2026-08-20-database-recovery-and-api-readiness.md) - status: `in_progress` - risk: `medium`
-- [upload-workflow-reliability](docs/baron/plans/2026-08-20/2026-08-20-upload-workflow-reliability.md) - status: `in_progress` - risk: `high`
+- [upload-workflow-reliability](docs/baron/plans/2026-08-20/2026-08-20-upload-workflow-reliability.md) - status: `interrupted` - risk: `high`

@@ -1,8 +1,8 @@
 # Baron Continuity Resume
 
-- Last updated: 2026-08-22T18:45:45+07:00
+- Last updated: 2026-08-22T18:47:22+07:00
 - Adapter: `reasonix`
-- Latest checkpoint: Implementation and direct verification complete: live Home image upload/Cloudinary/cleanup and authenticated CV upload/DeepSeek/location/history/delete gates pass; migration rehearsal, full tests, schema and secret scan pass. Next: commit and push main, then verify remote.
+- Latest checkpoint: Commit e16d521 pushed to origin/main after direct automated and live upload/CV verification; remote SHA verified. No reviewer receipts fabricated because delegated agents hit usage limits.
 - Latest automation event: `Checkpoint`
 - Current task: `upload-workflow-reliability`
 - Plan status: `in_progress`
@@ -12,7 +12,7 @@
 - Trace status: scored `standard/standard` passed `yes`
 - Recovery outcome: `blocked`
 - Recovery next action: Use completed direct execution evidence and mandatory independent agent reviews; retry trusted receipt recording only if Baron proof worker clears.
-- Changed files: .baron/project.toml, .gitignore, .reasonix/commands/baron-context.md, .reasonix/commands/baron-status.md, .reasonix/settings.json, REASONIX.md, backend/.env.example, backend/cmd/api/main.go, backend/go.mod, backend/go.sum, backend/internal/cloudinary/uploader.go, backend/internal/cloudinary/uploader_integration_test.go
+- Changed files: docs/baron/continuity/CURRENT.md, docs/baron/continuity/INDEX.md
 - Next action: Focused Home asset lifecycle slice: root cause established; begin TDD for validation-before-upload, unique Cloudinary ownership, transactional durable cleanup enqueue, and bounded retryable cleanup.
 
 ## Resume Rules
